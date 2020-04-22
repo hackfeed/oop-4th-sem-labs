@@ -1,2 +1,2 @@
 # oop-4th-sem-labs
-Object Oriented Programming Labworks of 3rd sem BMSTU, IU7
+Object Oriented Programming Labworks of 4th sem BMSTU, IU7
