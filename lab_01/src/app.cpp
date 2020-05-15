@@ -60,7 +60,6 @@ myApplication::myApplication(const char *const filename)
     }
 }
 
-// command - move, scale, rotate, code - right, left, up, etc. (look app_codes.h)
 void myApplication::on_button_clicked(const char command, const char code)
 {
     static fpr_t figure_projection = init_projection();
@@ -75,7 +74,6 @@ void myApplication::on_button_clicked(const char command, const char code)
     event_t click_event = init_event(command);
     event_t update_event = init_event(UPDATE_PROJECTION);
     event_t draw_event = init_event(DRAW);
-    //event_t error_event = init_event(QUIT, NO_CODE);
 
     event_data_t data = init_data();
 
@@ -105,7 +103,9 @@ void myApplication::on_button_clicked(const char command, const char code)
         }
 
         if (code == SCALE_PLUS)
+        {
             trans_data = init_transform(value, value, value);
+        }
         else if (code == SCALE_MINUS)
         {
             double rev_value = 1 / value;
@@ -128,14 +128,12 @@ void myApplication::on_button_clicked(const char command, const char code)
     {
         printf("Can't process clicked button.");
         return;
-        //task_manager(error_event, data);
     }
 
     if ((rc = task_manager(update_event, data)))
     {
         printf("Can't update the projection.");
         return;
-        //task_manager(error_event, data);
     }
 
     Cairo::RefPtr<Cairo::Context> cr = drawing_area->get_window()->create_cairo_context();
@@ -150,7 +148,6 @@ void myApplication::on_button_clicked(const char command, const char code)
     if ((rc = task_manager(draw_event, data)))
     {
         printf("Can't draw the projection.");
-        //task_manager(error_event, data);
     }
 }
 
@@ -173,23 +170,3 @@ err_t myApplication::read_entry(double &value, const Gtk::Entry &entry)
     }
     return OK;
 }
-
-// call this callback with drawing_area->queue_draw()
-// connect: drawing_area->signal_draw().connect(sigc::mem_fun(*this, &myApplication::on_draw));
-//bool myApplication::on_draw(Cairo::RefPtr<Cairo::Context> const& cr)
-//{
-//const figure_t figure = get_figure();
-//cr->set_source_rgb(1., .5, .0);
-//cr->set_line_width(2);
-
-//for (unsigned int i = 0; i < figure.links.size; i++)
-//{
-//cr->move_to(figure.points.arr[figure.links.arr[i].l1].x,
-//figure.points.arr[figure.links.arr[i].l1].y);
-//cr->line_to(figure.points.arr[figure.links.arr[i].l2].x,
-//figure.points.arr[figure.links.arr[i].l2].y);
-//}
-
-//cr->stroke();
-//return true;
-//}

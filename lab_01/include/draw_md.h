@@ -1,5 +1,5 @@
-#ifndef _DRAW_MODULE_
-#define _DRAW_MODULE_
+#ifndef _DRAW_MD_
+#define _DRAW_MD_
 
 #include <gtkmm-3.0/gtkmm.h>
 #include "points.h"

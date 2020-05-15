@@ -3,10 +3,10 @@
 #include "constants.h"
 #include "task_manager.h"
 #include "figure.h"
-#include "application.h"
-#include "app_codes.h"
+#include "app.h"
+#include "codes.h"
 #include "io_figure.h"
-#include "event_data.h"
+#include "event.h"
 
 #include <gtkmm-3.0/gtkmm.h>
 #include <cstdio>

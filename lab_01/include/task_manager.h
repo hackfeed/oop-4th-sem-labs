@@ -3,11 +3,11 @@
 
 #include "codes.h"
 #include "constants.h"
-#include "io_modele.h"
-#include "model.h"
+#include "io_figure.h"
+#include "figure.h"
 #include "cmds.h"
-#include "draw_function.h"
-#include "event_data.h"
+#include "draw_fn.h"
+#include "event.h"
 
 struct event
 {

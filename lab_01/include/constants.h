@@ -1,7 +1,8 @@
 #ifndef _CONSTANTS_H_
 #define _CONSTANTS_H_
 
-#define READ 1
+#define READED 1
+
 typedef enum
 {
     OK = 0,

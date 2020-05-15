@@ -1,18 +1,19 @@
 #ifndef _APP_H_
 #define _APP_H_
 
-#include "model.h"
+#include "figure.h"
 #include "constants.h"
 #include "codes.h"
-#include "io_model.h"
+#include "io_figure.h"
 #include "task_manager.h"
-#include "event_data.h"
+#include "event.h"
 
 #include <iostream>
 #include <gtkmm-3.0/gtkmm.h>
 #include <cmath>
 
-// Button groups' sizes.
+#define RGB_NUM 3
+
 enum
 {
     MOVE_SIZE = 6,
@@ -20,7 +21,6 @@ enum
     ROTATE_SIZE = 6,
     ENTRY_SIZE = 3
 };
-#define RGB_NUM 3 // number of elements in rgb list (always 3)
 
 const double DEFAULT_SCREEN_RGB[RGB_NUM] = {0.1, 0.2, 0.3};
 const double DEFAULT_LINE_RGB[RGB_NUM] = {0.9, 0.8, 0.7};

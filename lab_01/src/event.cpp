@@ -1,4 +1,4 @@
-#include "event_data.h"
+#include "event.h"
 
 event_data_t init_data()
 {
@@ -54,7 +54,9 @@ trans_data_t init_trans_data(const transform_t *const data)
 {
     trans_data_t trans_data = {};
     if (data)
+    {
         trans_data.trans_coeffs = *data;
+    }
 
     return trans_data;
 }
