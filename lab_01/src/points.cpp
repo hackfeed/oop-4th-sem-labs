@@ -15,5 +15,6 @@ ppoint_t init_proj_point(const double x, const double y)
     ppoint_t point;
     point.x = x;
     point.y = y;
+
     return point;
 }

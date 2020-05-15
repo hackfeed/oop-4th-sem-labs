@@ -35,7 +35,6 @@ err_t get_projection(prj_data_t &data, const figure_t &main_figure)
     {
         rc = read_projection(tmp_projection.points, main_figure.points);
     }
-
     if (!rc)
     {
         destroy_projection(figure_projection);
