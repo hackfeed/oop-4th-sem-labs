@@ -6,7 +6,7 @@
 #include "codes.h"
 #include "io_figure.h"
 #include "task_manager.h"
-#include "event.h"
+#include "eventd.h"
 
 #include <iostream>
 #include <gtkmm-3.0/gtkmm.h>

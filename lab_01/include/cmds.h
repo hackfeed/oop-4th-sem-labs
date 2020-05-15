@@ -7,7 +7,7 @@
 #include "projection_fn.h"
 #include "draw_fn.h"
 #include "io_figure.h"
-#include "event.h"
+#include "eventd.h"
 
 err_t move_command(figure_t &main_figure, const trans_data_t &value);
 err_t rotate_command(figure_t &main_figure, const trans_data_t &value);

@@ -2,7 +2,7 @@
 #define _DRAW_FN_H_
 
 #include <gtkmm-3.0/gtkmm.h>
-#include "event.h"
+#include "eventd.h"
 #include "figure.h"
 #include "constants.h"
 #include "draw_md.h"

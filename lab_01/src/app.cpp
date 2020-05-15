@@ -15,8 +15,8 @@ myApplication::myApplication(const char *const filename)
     builder->get_widget("main_window", main_window);
     main_window->set_title("Лабораторная №1.");
     Gdk::RGBA color, color2;
-    color.set_rgba(0.95, 0.95, 0.95);
-    color2.set_rgba(0., 0.15, 0.3);
+    color.set_rgba(0.1, 0.2, 0.3);
+    color2.set_rgba(1.0, 1.0, 1.0);
     main_window->override_background_color(color);
 
     builder->get_widget("drawing_area", drawing_area);

@@ -7,7 +7,7 @@
 #include "figure.h"
 #include "cmds.h"
 #include "draw_fn.h"
-#include "event.h"
+#include "eventd.h"
 
 struct event
 {

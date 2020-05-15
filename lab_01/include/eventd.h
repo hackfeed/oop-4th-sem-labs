@@ -1,5 +1,5 @@
-#ifndef _EVENT_H_
-#define _EVENT_H_
+#ifndef _EVENTD_H_
+#define _EVENTD_H_
 
 #include "figure.h"
 #include "transform_point.h"
