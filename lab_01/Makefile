@@ -1,17 +1,24 @@
-CC = g++ -Iinclude/
-BINARIES = $(patsubst src/%.cpp,bin/%.o, $(wildcard src/*.cpp))
-GTK_FLAGS = `pkg-config --libs --cflags gtkmm-3.0`
-COMPILE_FLAGS = -Wall -Werror
+CC = g++
+CPATH = include/
+CFLAGS = -Wall -Werror
+GTKFLAGS = `pkg-config --libs --cflags gtkmm-3.0`
 
-.PHONY: all test clean
-all: app.exe
+SRC = src/*.cpp
 
-app.exe: $(BINARIES)
-	$(CC) $^ -o $@ $(GTK_FLAGS) 
+OBJ = $(patsubst src/%.cpp,bin/%.o, $(wildcard $(SRC)))
+
+app.exe: $(OBJ)
+	$(CC) $^ -o $@ $(GTKFLAGS) 
 
 bin/%.o: src/%.cpp
 	mkdir -p bin
-	$(CC) -c -o $@ $(GTK_FLAGS) $(COMPILE_FLAGS) $^
+	$(CC) -c -o $@ $(GTKFLAGS) $(CFLAGS) $^ -I$(CPATH)
+
+run_app:
+	./app.exe
+
+run_app_valgrind:
+	valgrind --leak-check=yes --track-origins=yes ./app.exe
 
 clean:
-	rm -rf bin/ app.exe
+	rm -rf bin/ *.exe vgcore*
