@@ -3,63 +3,63 @@
 
 #include "listnode.h"
 
-template <typename typeData>
+template <typename T>
 class ListIterBase
 {
 public:
     ListIterBase();
-    ListIterBase(const ListIterBase<typeData> &listIter);
-    ListIterBase(const std::shared_ptr<ListNode<typeData>> node);
-    virtual ~ListIterBase();
+    ListIterBase(const ListIterBase<T> &listIter);
+    ListIterBase(const std::shared_ptr<ListNode<T>> node);
+    virtual ~ListIterBase() = default;
 
-    ListIterBase<typeData> &operator=(const ListIterBase<typeData> &listIter);
+    ListIterBase<T> &operator=(const ListIterBase<T> &listIter);
 
-    ListIterBase<typeData> &next();
-    ListIterBase<typeData> &operator++();
-    ListIterBase<typeData> operator++(int);
+    ListIterBase<T> &next();
+    ListIterBase<T> &operator++();
+    ListIterBase<T> operator++(int);
 
     bool checkRange() const;
 
-    bool operator==(const ListIterBase<typeData> &listIter) const;
-    bool operator!=(const ListIterBase<typeData> &listIter) const;
+    bool operator==(const ListIterBase<T> &listIter) const;
+    bool operator!=(const ListIterBase<T> &listIter) const;
 
 protected:
-    std::weak_ptr<ListNode<typeData>> ptrCur;
+    std::weak_ptr<ListNode<T>> ptrCur;
 };
 
-template <typename typeData>
-class ListIter : public ListIterBase<typeData>
+template <typename T>
+class ListIter : public ListIterBase<T>
 {
 public:
     ListIter();
-    ListIter(const ListIter<typeData> &listIter);
-    ListIter(const std::shared_ptr<ListNode<typeData>> node);
+    ListIter(const ListIter<T> &listIter);
+    ListIter(const std::shared_ptr<ListNode<T>> node);
 
-    ListIter<typeData> &operator=(const ListIter<typeData> &listIter);
+    ListIter<T> &operator=(const ListIter<T> &listIter);
 
-    typeData &getCur();
-    const typeData &getCur() const;
+    T &getCur();
+    const T &getCur() const;
 
-    typeData &operator*();
-    const typeData &operator*() const;
+    T &operator*();
+    const T &operator*() const;
 
-    typeData *operator->();
-    const typeData *operator->() const;
+    T *operator->();
+    const T *operator->() const;
 };
 
-template <typename typeData>
-class ConstListIter : public ListIterBase<typeData>
+template <typename T>
+class ConstListIter : public ListIterBase<T>
 {
 public:
     ConstListIter();
-    ConstListIter(const ConstListIter<typeData> &listIter);
-    ConstListIter(const std::shared_ptr<ListNode<typeData>> node);
+    ConstListIter(const ConstListIter<T> &listIter);
+    ConstListIter(const std::shared_ptr<ListNode<T>> node);
 
-    ConstListIter<typeData> &operator=(const ConstListIter<typeData> &listIter);
+    ConstListIter<T> &operator=(const ConstListIter<T> &listIter);
 
-    const typeData &getCur() const;
-    const typeData &operator*() const;
-    const typeData *operator->() const;
+    const T &getCur() const;
+    const T &operator*() const;
+    const T *operator->() const;
 };
 
 #endif

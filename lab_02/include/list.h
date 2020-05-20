@@ -20,53 +20,53 @@ protected:
     size_t sizeList;
 };
 
-template <typename typeData>
+template <typename T>
 class List : public BaseList
 {
 public:
     List();
     List(const size_t countNodes, ...);
-    explicit List(const List<typeData> &someList);
-    List(List<typeData> &&someList);
-    List(const typeData &data, const size_t countData = 1);
-    List(const std::initializer_list<typeData> &someList);
-    virtual ~List();
+    explicit List(const List<T> &someList);
+    List(List<T> &&someList);
+    List(const T &data, const size_t countData = 1);
+    List(const std::initializer_list<T> &someList);
+    virtual ~List() = default;
 
-    List<typeData> &operator=(const List<typeData> &someList);
-    List<typeData> &operator=(List<typeData> &&someList);
+    List<T> &operator=(const List<T> &someList);
+    List<T> &operator=(List<T> &&someList);
 
-    List<typeData> &append(const typeData &data);
-    List<typeData> &operator+=(const typeData &data);
-    List<typeData> operator+(const typeData &data) const;
+    List<T> &append(const T &data);
+    List<T> &operator+=(const T &data);
+    List<T> operator+(const T &data) const;
 
-    List<typeData> &insert(const typeData &data, const ListIter<typeData> &iter);
-    friend List<typeData> operator+(const typeData &data, const List<typeData> &list);
+    List<T> &insert(const T &data, const ListIter<T> &iter);
+    List<T> operator+(const T &data, const List<T> &list);
 
-    List<typeData> &extend(const List &ListToAdd);
-    List<typeData> &operator+=(const List<typeData> &someList);
-    List<typeData> operator+(const List<typeData> &somelist) const;
+    List<T> &extend(const List &ListToAdd);
+    List<T> &operator+=(const List<T> &someList);
+    List<T> operator+(const List<T> &somelist) const;
 
-    const typeData pop();
+    const T pop();
 
-    const typeData remove(const ListIter<typeData> &iter);
+    const T remove(const ListIter<T> &iter);
 
-    List<typeData> &clear();
+    List<T> &clear();
 
-    bool operator==(const List<typeData> &someList) const;
-    bool operator!=(const List<typeData> &someList) const;
+    bool operator==(const List<T> &someList) const;
+    bool operator!=(const List<T> &someList) const;
 
-    ListIter<typeData> begin();
-    ListIter<typeData> end();
-    ConstListIter<typeData> begin() const;
-    ConstListIter<typeData> end() const;
+    ListIter<T> begin();
+    ListIter<T> end();
+    ConstListIter<T> begin() const;
+    ConstListIter<T> end() const;
 
 private:
-    std::shared_ptr<ListNode<typeData>> head;
-    std::shared_ptr<ListNode<typeData>> tail;
+    std::shared_ptr<ListNode<T>> head;
+    std::shared_ptr<ListNode<T>> tail;
 
-    std::shared_ptr<ListNode<typeData>> initNode(const typeData &data, std::shared_ptr<ListNode<typeData>> ptrNode = nullptr);
-    void addList(const List<typeData> &ListToAdd);
-    bool isNodesEqual(const List<typeData> &someList) const;
+    std::shared_ptr<ListNode<T>> initNode(const T &data, std::shared_ptr<ListNode<T>> ptrNode = nullptr);
+    void addList(const List<T> &ListToAdd);
+    bool isNodesEqual(const List<T> &someList) const;
     bool isEmpty() const;
 
 protected:

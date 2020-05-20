@@ -3,23 +3,20 @@
 
 #include "listiterator.h"
 
-template <typename typeData>
-ListIterBase<typeData>::ListIterBase()
+template <typename T>
+ListIterBase<T>::ListIterBase()
 {
     this->ptrCur.lock() = nullptr;
 }
 
-template <typename typeData>
-ListIterBase<typeData>::ListIterBase(const ListIterBase<typeData> &listIter) : ptrCur(listIter.ptrCur) {}
+template <typename T>
+ListIterBase<T>::ListIterBase(const ListIterBase<T> &listIter) : ptrCur(listIter.ptrCur) {}
 
-template <typename typeData>
-ListIterBase<typeData>::ListIterBase(const std::shared_ptr<ListNode<typeData>> node) : ptrCur(node) {}
+template <typename T>
+ListIterBase<T>::ListIterBase(const std::shared_ptr<ListNode<T>> node) : ptrCur(node) {}
 
-template <typename typeData>
-ListIterBase<typeData>::~ListIterBase() {}
-
-template <typename typeData>
-ListIterBase<typeData> &ListIterBase<typeData>::operator=(const ListIterBase<typeData> &listIter)
+template <typename T>
+ListIterBase<T> &ListIterBase<T>::operator=(const ListIterBase<T> &listIter)
 {
     if (this != &listIter)
         this->ptrCur = listIter.ptrCur;
@@ -27,66 +24,66 @@ ListIterBase<typeData> &ListIterBase<typeData>::operator=(const ListIterBase<typ
     return *this;
 }
 
-template <typename typeData>
-ListIterBase<typeData> &ListIterBase<typeData>::next()
+template <typename T>
+ListIterBase<T> &ListIterBase<T>::next()
 {
     this->ptrCur = this->ptrCur.lock()->getNext();
     return *this;
 }
 
-template <typename typeData>
-ListIterBase<typeData> &ListIterBase<typeData>::operator++()
+template <typename T>
+ListIterBase<T> &ListIterBase<T>::operator++()
 {
     this->next();
     return *this;
 }
 
-template <typename typeData>
-ListIterBase<typeData> ListIterBase<typeData>::operator++(int)
+template <typename T>
+ListIterBase<T> ListIterBase<T>::operator++(int)
 {
-    ListIterBase<typeData> tmp(*this);
+    ListIterBase<T> tmp(*this);
     this->operator++();
     return tmp;
 }
 
-template <typename typeData>
-bool ListIterBase<typeData>::checkRange() const
+template <typename T>
+bool ListIterBase<T>::checkRange() const
 {
     return (this->ptrCur.lock() == nullptr) ? false : true;
 }
 
-template <typename typeData>
-bool ListIterBase<typeData>::operator==(const ListIterBase<typeData> &listIter) const
+template <typename T>
+bool ListIterBase<T>::operator==(const ListIterBase<T> &listIter) const
 {
     return this->ptrCur.lock() == listIter.ptrCur.lock();
 }
 
-template <typename typeData>
-bool ListIterBase<typeData>::operator!=(const ListIterBase<typeData> &listIter) const
+template <typename T>
+bool ListIterBase<T>::operator!=(const ListIterBase<T> &listIter) const
 {
     return this->ptrCur.lock() != listIter.ptrCur.lock();
 }
 
-template <typename typeData>
-ListIter<typeData>::ListIter()
+template <typename T>
+ListIter<T>::ListIter()
 {
     this->ptrCur.lock() = nullptr;
 }
 
-template <typename typeData>
-ListIter<typeData>::ListIter(const ListIter<typeData> &listIter)
+template <typename T>
+ListIter<T>::ListIter(const ListIter<T> &listIter)
 {
     this->ptrCur = listIter.ptrCur;
 }
 
-template <typename typeData>
-ListIter<typeData>::ListIter(const std::shared_ptr<ListNode<typeData>> node)
+template <typename T>
+ListIter<T>::ListIter(const std::shared_ptr<ListNode<T>> node)
 {
     this->ptrCur = node;
 }
 
-template <typename typeData>
-ListIter<typeData> &ListIter<typeData>::operator=(const ListIter<typeData> &listIter)
+template <typename T>
+ListIter<T> &ListIter<T>::operator=(const ListIter<T> &listIter)
 {
     if (this != &listIter)
         this->ptrCur = listIter.ptrCur;
@@ -94,62 +91,62 @@ ListIter<typeData> &ListIter<typeData>::operator=(const ListIter<typeData> &list
     return *this;
 }
 
-template <typename typeData>
-typeData &ListIter<typeData>::getCur()
+template <typename T>
+T &ListIter<T>::getCur()
 {
     return this->ptrCur.lock()->getPtrData();
 }
 
-template <typename typeData>
-const typeData &ListIter<typeData>::getCur() const
+template <typename T>
+const T &ListIter<T>::getCur() const
 {
     return this->ptrCur.lock()->getPtrData();
 }
 
-template <typename typeData>
-typeData &ListIter<typeData>::operator*()
+template <typename T>
+T &ListIter<T>::operator*()
 {
     return this->ptrCur.lock()->getPtrData();
 }
 
-template <typename typeData>
-const typeData &ListIter<typeData>::operator*() const
+template <typename T>
+const T &ListIter<T>::operator*() const
 {
     return this->ptrCur.lock()->getPtrData();
 }
 
-template <typename typeData>
-typeData *ListIter<typeData>::operator->()
+template <typename T>
+T *ListIter<T>::operator->()
 {
     return &this->ptrCur.lock()->getPtrData();
 }
 
-template <typename typeData>
-const typeData *ListIter<typeData>::operator->() const
+template <typename T>
+const T *ListIter<T>::operator->() const
 {
     return &this->ptrCur.lock()->getPtrData();
 }
 
-template <typename typeData>
-ConstListIter<typeData>::ConstListIter()
+template <typename T>
+ConstListIter<T>::ConstListIter()
 {
     this->ptrCur.lock() = nullptr;
 }
 
-template <typename typeData>
-ConstListIter<typeData>::ConstListIter(const ConstListIter<typeData> &listIter)
+template <typename T>
+ConstListIter<T>::ConstListIter(const ConstListIter<T> &listIter)
 {
     this->ptrCur = listIter.ptrCur;
 }
 
-template <typename typeData>
-ConstListIter<typeData>::ConstListIter(const std::shared_ptr<ListNode<typeData>> node)
+template <typename T>
+ConstListIter<T>::ConstListIter(const std::shared_ptr<ListNode<T>> node)
 {
     this->ptrCur = node;
 }
 
-template <typename typeData>
-ConstListIter<typeData> &ConstListIter<typeData>::operator=(const ConstListIter<typeData> &listIter)
+template <typename T>
+ConstListIter<T> &ConstListIter<T>::operator=(const ConstListIter<T> &listIter)
 {
     if (this != &listIter)
         this->ptrCur = listIter.ptrCur;
@@ -157,20 +154,20 @@ ConstListIter<typeData> &ConstListIter<typeData>::operator=(const ConstListIter<
     return *this;
 }
 
-template <typename typeData>
-const typeData &ConstListIter<typeData>::getCur() const
+template <typename T>
+const T &ConstListIter<T>::getCur() const
 {
     return this->ptrCur.lock()->getPtrData();
 }
 
-template <typename typeData>
-const typeData &ConstListIter<typeData>::operator*() const
+template <typename T>
+const T &ConstListIter<T>::operator*() const
 {
     return this->ptrCur.lock()->getPtrData();
 }
 
-template <typename typeData>
-const typeData *ConstListIter<typeData>::operator->() const
+template <typename T>
+const T *ConstListIter<T>::operator->() const
 {
     return &this->ptrCur.lock()->getPtrData();
 }
