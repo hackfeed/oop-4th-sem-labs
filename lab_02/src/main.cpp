@@ -1,109 +1,172 @@
 #include "main.hpp"
 
-int main()
+void test_constructors()
 {
-    cout << "Тестировние списка одностороннего доступа" << endl;
+    cout << "Constructors" << endl;
 
     try
     {
-        cout << "\n\nКонстуркторы" << endl;
-
         List<int> list0;
         List<int> list1(0, 10);
         List<int> list2(list1);
         List<double> list3(3, 0.1, 0.2, 0.4);
 
-        cout << "\n * Констурктор по умолчанию" << endl;
+        cout << "<Default constructor>" << endl;
         cout << list0 << endl;
 
-        cout << "\n * Констуркторы с параметрами" << endl;
+        cout << "<Constructor with parameters>" << endl;
         cout << list1 << endl;
         cout << list2 << endl;
         cout << list3 << endl;
 
-        cout << "\n * Констурктор копирования" << endl;
+        cout << "<Copying constructor>" << endl;
         list0 = list1;
         cout << list0 << endl;
-
-        cout << "\n\nДобавления элементов" << endl;
-
-        List<int> list4;
-        List<int> list5;
-        List<int> list6;
-
-        cout << "\n * append(data)" << endl;
-        cout << list4 << endl;
-        list4.append(11);
-        cout << list4 << endl;
-        list4.append(12);
-        cout << list4 << endl;
-
-        cout << "\n * insert(data, iter)" << endl;
-        cout << list5 << endl;
-        ListIter<int> iter0(list5.begin());
-        list5.insert(11, iter0);
-        cout << list5 << endl;
-        ListIter<int> iter1(list5.begin());
-        list5.insert(12, iter1);
-        cout << list5 << endl;
-        ListIter<int> iter2(list5.end());
-        list5.insert(13, iter2);
-        cout << list5 << endl;
-        list5.insert(14, iter2);
-        cout << list5 << endl;
-
-        cout << "\n * extend(list)" << endl;
-        cout << list6 << endl;
-        list6.extend(list6);
-        cout << list6 << endl;
-        list6.extend(list4);
-        cout << list6 << endl;
-        list6.extend(list6);
-        cout << list6 << endl;
-
-        list6.extend(list5);
-        List<int> list7(list6);
-
-        cout << "\n\nУдаление элементов" << endl;
-
-        cout << "\n * remove(iter)" << endl;
-        ListIter<int> iter3(list7.begin());
-        cout << list7 << endl;
-        list7.remove(iter3);
-        cout << list7 << endl;
-        ListIter<int> iter4(list7.begin());
-        iter4++;
-        ++iter4;
-        list7.remove(iter4);
-        cout << list7 << endl;
-
-        cout << "\n * pop()" << endl;
-        list7.pop();
-        cout << list7 << endl;
-        list7.pop();
-        cout << list7 << endl;
-        list7.pop();
-        cout << list7 << endl;
-
-        cout << "\n * clear()" << endl;
-
-        cout << "\n\nДругие методы" << endl;
-        cout << list6.size() << endl;
-        cout << list7.size() << endl;
-        if (list6 != list7)
-            cout << "list6 not equal list7" << endl;
-        list7 += list6;
-        cout << list7 << endl;
-        list7 += 15;
-        cout << list7 << endl;
-
-        list7.clear();
-        list7.pop();
     }
     catch (ErrorBase &error)
     {
         cout << error.what() << endl;
     }
+}
+
+void test_addition()
+{
+    cout << "Elements addition" << endl;
+
+    try
+    {
+        List<int> list0;
+        List<int> list1;
+        List<int> list2;
+
+        cout << "<append(data)>" << endl;
+        cout << list0 << endl;
+
+        list0.append(11);
+        cout << list0 << endl;
+
+        list0.append(12);
+        cout << list0 << endl;
+
+        cout << "<insert(data, iter)>" << endl;
+        cout << list1 << endl;
+
+        ListIter<int> iter0(list1.begin());
+        list1.insert(11, iter0);
+        cout << list1 << endl;
+
+        ListIter<int> iter1(list1.begin());
+        list1.insert(12, iter1);
+        cout << list1 << endl;
+
+        ListIter<int> iter2(list1.end());
+        list1.insert(13, iter2);
+        cout << list1 << endl;
+        list1.insert(14, iter2);
+        cout << list1 << endl;
+
+        cout << "<extend(list)>" << endl;
+        cout << list2 << endl;
+
+        list2.extend(list2);
+        cout << list2 << endl;
+
+        list2.extend(list0);
+        cout << list2 << endl;
+
+        list2.extend(list2);
+        cout << list2 << endl;
+
+        list2.extend(list1);
+        cout << list2 << endl;
+    }
+    catch (ErrorBase &error)
+    {
+        cout << error.what() << endl;
+    }
+}
+
+void test_removal()
+{
+    cout << "Elements removal" << endl;
+
+    try
+    {
+        List<int> list0(5, 1, 2, 3, 4, 5);
+
+        cout << "<remove(iter)>" << endl;
+        ListIter<int> iter0(list0.begin());
+        cout << list0 << endl;
+
+        list0.remove(iter0);
+        cout << list0 << endl;
+
+        ListIter<int> iter1(list0.begin());
+        iter1++;
+        ++iter1;
+        list0.remove(iter1);
+        cout << list0 << endl;
+
+        cout << "<pop()>" << endl;
+        cout << list0 << endl;
+
+        list0.pop();
+        cout << list0 << endl;
+
+        list0.pop();
+        cout << list0 << endl;
+
+        list0.pop();
+        cout << list0 << endl;
+
+        cout << "<clear()>" << endl;
+        cout << list0 << endl;
+
+        list0.clear();
+        cout << list0 << endl;
+    }
+    catch (ErrorBase &error)
+    {
+        cout << error.what() << endl;
+    }
+}
+
+void test_other()
+{
+    cout << "Other" << endl;
+
+    try
+    {
+        List<int> list0(3, 1, 2, 3);
+        List<int> list1(2, 1, 2);
+
+        cout << "<size()>" << endl;
+        cout << list0.size() << endl;
+        cout << list1.size() << endl;
+
+        cout << "<operators>" << endl;
+        if (list0 != list1)
+        {
+            cout << "list2 not equal list7" << endl;
+        }
+        list0 += list1;
+        cout << list0 << endl;
+        list0 += 15;
+        cout << list0 << endl;
+    }
+    catch (ErrorBase &error)
+    {
+        cout << error.what() << endl;
+    }
+}
+
+int main()
+{
+    cout << "Linear list testing" << endl;
+    test_constructors();
+    test_addition();
+    test_removal();
+    test_other();
 
     return 0;
 }

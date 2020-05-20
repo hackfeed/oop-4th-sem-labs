@@ -5,23 +5,12 @@
 #include <stdarg.h>
 
 #include "errors.h"
+#include "listbase.h"
 #include "listnode.h"
 #include "listiterator.h"
 
-class BaseList
-{
-public:
-    BaseList();
-    virtual ~BaseList();
-
-    size_t size() const;
-
-protected:
-    size_t sizeList;
-};
-
 template <typename T>
-class List : public BaseList
+class List : public ListBase
 {
 public:
     List();
@@ -40,7 +29,6 @@ public:
     List<T> operator+(const T &data) const;
 
     List<T> &insert(const T &data, const ListIter<T> &iter);
-    List<T> operator+(const T &data, const List<T> &list);
 
     List<T> &extend(const List &ListToAdd);
     List<T> &operator+=(const List<T> &someList);

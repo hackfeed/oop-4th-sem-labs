@@ -5,18 +5,6 @@
 
 #include "list.h"
 
-BaseList::BaseList() : sizeList(0) {}
-
-BaseList::~BaseList()
-{
-    this->sizeList = 0;
-}
-
-size_t BaseList::size() const
-{
-    return sizeList;
-}
-
 template <typename T>
 List<T>::List() : head(nullptr), tail(nullptr) {}
 
@@ -59,17 +47,23 @@ template <typename T>
 List<T>::List(const T &data, const size_t countData) : head(nullptr), tail(nullptr)
 {
     if (countData == 0)
+    {
         return;
+    }
 
-    for (size_t i = 1; i < countData; ++i)
+    for (size_t i = 0; i < countData; ++i)
+    {
         this->append(data);
+    }
 }
 
 template <typename T>
 List<T>::List(const std::initializer_list<T> &someList) : head(nullptr), tail(nullptr)
 {
     for (const auto &data : someList)
+    {
         append(data);
+    }
 }
 
 template <typename T>
@@ -108,9 +102,13 @@ List<T> &List<T>::append(const T &data)
     std::shared_ptr<ListNode<T>> newNode = initNode(data);
 
     if (this->isEmpty())
+    {
         this->head = newNode;
+    }
     else
+    {
         this->tail->setNext(newNode);
+    }
     this->tail = newNode;
 
     return *this;
@@ -158,14 +156,20 @@ List<T> &List<T>::insert(const T &data, const ListIter<T> &iter)
         ;
 
     if (curNode == nullptr)
+    {
         throw RangeError(": method - insert()");
+    }
 
     std::shared_ptr<ListNode<T>> newNode = initNode(data, curNode);
 
     if (curNode == this->head)
+    {
         this->head = newNode;
+    }
     else
+    {
         tmp->setNext(newNode);
+    }
 
     return *this;
 }
@@ -174,7 +178,9 @@ template <typename T>
 List<T> &List<T>::extend(const List &ListToAdd)
 {
     if (ListToAdd.isEmpty())
+    {
         return *this;
+    }
 
     if (this == &ListToAdd)
     {
@@ -194,7 +200,9 @@ template <typename T>
 const T List<T>::remove(const ListIter<T> &iter)
 {
     if (this->isEmpty())
+    {
         throw EmptyError(": method - remove()");
+    }
 
     std::shared_ptr<ListNode<T>> curNode = this->head;
     std::shared_ptr<ListNode<T>> tmp = nullptr;
@@ -204,17 +212,25 @@ const T List<T>::remove(const ListIter<T> &iter)
         ;
 
     if (curNode == nullptr)
+    {
         throw RangeError(": method - remove()");
+    }
 
     T retData = iter.getCur();
 
     if (curNode->getNext() == nullptr)
+    {
         this->tail = tmp;
+    }
 
     if (curNode == this->head)
+    {
         this->head = this->head->getNext();
+    }
     else
+    {
         tmp->setNext(curNode->getNext());
+    }
     this->sizeList -= 1;
 
     return retData;
@@ -224,7 +240,9 @@ template <typename T>
 const T List<T>::pop()
 {
     if (this->isEmpty())
+    {
         throw EmptyError(": method - pop()");
+    }
 
     ListIter<T> iter = this->end();
     return remove(iter);
@@ -365,7 +383,9 @@ std::ostream &operator<<(std::ostream &stream, List<T> &list)
     {
         stream << ":";
         for (; iter.checkRange(); iter.next())
+        {
             stream << " " << iter.getCur();
+        }
     }
 
     return stream;

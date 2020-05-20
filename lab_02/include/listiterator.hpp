@@ -19,7 +19,9 @@ template <typename T>
 ListIterBase<T> &ListIterBase<T>::operator=(const ListIterBase<T> &listIter)
 {
     if (this != &listIter)
+    {
         this->ptrCur = listIter.ptrCur;
+    }
 
     return *this;
 }
@@ -86,7 +88,9 @@ template <typename T>
 ListIter<T> &ListIter<T>::operator=(const ListIter<T> &listIter)
 {
     if (this != &listIter)
+    {
         this->ptrCur = listIter.ptrCur;
+    }
 
     return *this;
 }
@@ -149,7 +153,9 @@ template <typename T>
 ConstListIter<T> &ConstListIter<T>::operator=(const ConstListIter<T> &listIter)
 {
     if (this != &listIter)
+    {
         this->ptrCur = listIter.ptrCur;
+    }
 
     return *this;
 }
