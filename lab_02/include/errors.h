@@ -3,14 +3,22 @@
 
 #include <exception>
 
-// когда, в каком методе, какая ошибка, Данные, котороые привели к ошибке
-
 class ListErrorBase : public std::exception
 {
 public:
-    ListErrorBase();
-    explicit ListErrorBase(const char *message) : message(message) {}
-    explicit ListErrorBase(const std::string &message) : message(message) {}
+    explicit ListErrorBase(
+        const std::string &filename,
+        const std::string &classname,
+        const int line,
+        const char *time,
+        const std::string &info)
+    {
+        message = "In " + filename +
+                  "\nInside " + classname + " class" +
+                  "\nAt line " + std::to_string(line) +
+                  "\nAt time " + time +
+                  "\nOccured error: " + info;
+    }
 
     virtual const char *what() const noexcept override
     {
@@ -23,34 +31,46 @@ protected:
 
 class ListMemoryError : public ListErrorBase
 {
-private:
-    static constexpr const char *ErrorMsg = "Allocation error";
-
 public:
-    explicit ListMemoryError() : ListErrorBase(ErrorMsg) {}
-    explicit ListMemoryError(const std::string &message) : ListErrorBase(ErrorMsg + message) {}
+    ListMemoryError(
+        const std::string &filename,
+        const std::string &classname,
+        const int line,
+        const char *time,
+        const std::string &info = "Memory allocation error") : ListErrorBase(filename, classname, line, time, info) {}
 };
 
-class EmptyError : public ErrorBase
+class ListEmptyError : public ListErrorBase
 {
-private:
-    static constexpr const char *ErrorMsg = "List is empty";
-
 public:
-    explicit EmptyError() : ErrorBase(ErrorMsg) {}
-    explicit EmptyError(const std::string &message) : ErrorBase(ErrorMsg + message) {}
+    ListEmptyError(
+        const std::string &filename,
+        const std::string &classname,
+        const int line,
+        const char *time,
+        const std::string &info = "List is empty") : ListErrorBase(filename, classname, line, time, info) {}
 };
 
-class RangeError : public ErrorBase
+class ListRangeError : public ListErrorBase
 {
-private:
-    static constexpr const char *ErrorMsg = "Index out of range";
-
 public:
-    explicit RangeError() : ErrorBase(ErrorMsg) {}
-    explicit RangeError(const std::string &message) : ErrorBase(ErrorMsg + message) {}
+    ListRangeError(
+        const std::string &filename,
+        const std::string &classname,
+        const int line,
+        const char *time,
+        const std::string &info = "Index out of range") : ListErrorBase(filename, classname, line, time, info) {}
 };
 
-// Ошибки итератора
+class ListIteratorError : public ListErrorBase
+{
+public:
+    ListIteratorError(
+        const std::string &filename,
+        const std::string &classname,
+        const int line,
+        const char *time,
+        const std::string &info = "Invalid iterator") : ListErrorBase(filename, classname, line, time, info) {}
+};
 
 #endif
