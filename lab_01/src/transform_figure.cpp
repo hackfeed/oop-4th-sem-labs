@@ -2,22 +2,18 @@
 
 err_t move_figure(parr_t &points, const transform_t &dp)
 {
-    err_t rc = OK;
     if (!points.arr || points.size <= 0)
     {
-        rc = DATA_ERROR;
+        return DATA_ERROR;
     }
 
-    if (!rc)
+    for (unsigned int i = 0; i < points.size; i++)
     {
-        for (unsigned int i = 0; i < points.size; i++)
-        {
-            move_point(points.arr[i], dp);
-        }
-        move_point(points.cp, dp);
+        move_point(points.arr[i], dp);
     }
+    move_point(points.cp, dp);
 
-    return rc;
+    return OK;
 }
 
 err_t scale_figure(parr_t &points, const transform_t &sp)
@@ -57,21 +53,17 @@ err_t scale_figure(parr_t &points, const transform_t &sp)
 
 err_t rotate_figure(parr_t &points, const transform_t &ap)
 {
-    err_t rc = OK;
     if (!points.arr || points.size <= 0)
     {
-        rc = DATA_ERROR;
+        return DATA_ERROR;
     }
 
-    if (!rc)
+    point_t &center = points.cp;
+
+    for (unsigned int i = 0; i < points.size; i++)
     {
-        point_t &center = points.cp;
-
-        for (unsigned int i = 0; i < points.size; i++)
-        {
-            rotate_point(points.arr[i], ap, center);
-        }
+        rotate_point(points.arr[i], ap, center);
     }
 
-    return rc;
+    return OK;
 }

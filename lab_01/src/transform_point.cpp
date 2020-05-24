@@ -10,20 +10,42 @@ void move_point(point_t &point, const transform_t &dp)
 
 err_t scale_point(point_t &point, const double sf, const point_t &cp)
 {
-    err_t rc = OK;
     if (fabs(sf) < DBL_EPSILON)
     {
-        rc = DATA_ERROR;
+        return DATA_ERROR;
     }
 
-    if (!rc)
-    {
-        point.x = ((point.x - cp.x) * sf) + cp.x;
-        point.y = ((point.y - cp.y) * sf) + cp.y;
-        point.z = ((point.z - cp.z) * sf) + cp.z;
-    }
+    point.x = ((point.x - cp.x) * sf) + cp.x;
+    point.y = ((point.y - cp.y) * sf) + cp.y;
+    point.z = ((point.z - cp.z) * sf) + cp.z;
 
-    return rc;
+    return OK;
+}
+
+static void x_rotate(point_t &tmp, point_t &point, const transform_t &ap, const point_t &cp)
+{
+    tmp.x = point.x;
+    tmp.y = ((point.y - cp.y) * cos(ap.x) - (point.z - cp.z) * sin(ap.x)) + cp.y;
+    tmp.z = ((point.y - cp.y) * sin(ap.x) + (point.z - cp.z) * cos(ap.x)) + cp.z;
+}
+
+static void y_rotate(point_t &tmp, point_t &point, const transform_t &ap, const point_t &cp)
+{
+    tmp.y = point.y;
+    tmp.x = ((point.x - cp.x) * cos(ap.y) + (point.z - cp.z) * sin(ap.y)) + cp.x;
+    tmp.z = (-(point.x - cp.x) * sin(ap.y) + (point.z - cp.z) * cos(ap.y)) + cp.z;
+}
+
+static void z_rotate(point_t &tmp, point_t &point, const transform_t &ap, const point_t &cp)
+{
+    tmp.z = point.z;
+    tmp.x = ((point.x - cp.x) * cos(ap.z) - (point.y - cp.y) * sin(ap.z)) + cp.x;
+    tmp.y = ((point.x - cp.x) * sin(ap.z) + (point.y - cp.y) * cos(ap.z)) + cp.y;
+}
+
+static void assign_point(point_t &point, point_t &point_to_assign)
+{
+    point = point_to_assign;
 }
 
 void rotate_point(point_t &point, const transform_t &ap, const point_t &cp)
@@ -32,24 +54,18 @@ void rotate_point(point_t &point, const transform_t &ap, const point_t &cp)
 
     if (fabs(ap.x) > DBL_EPSILON)
     {
-        tmp.x = point.x;
-        tmp.y = ((point.y - cp.y) * cos(ap.x) - (point.z - cp.z) * sin(ap.x)) + cp.y;
-        tmp.z = ((point.y - cp.y) * sin(ap.x) + (point.z - cp.z) * cos(ap.x)) + cp.z;
+        x_rotate(tmp, point, ap, cp);
     }
     if (fabs(ap.y) > DBL_EPSILON)
     {
-        tmp.y = point.y;
-        tmp.x = ((point.x - cp.x) * cos(ap.y) + (point.z - cp.z) * sin(ap.y)) + cp.x;
-        tmp.z = (-(point.x - cp.x) * sin(ap.y) + (point.z - cp.z) * cos(ap.y)) + cp.z;
+        y_rotate(tmp, point, ap, cp);
     }
     if (fabs(ap.z) > DBL_EPSILON)
     {
-        tmp.z = point.z;
-        tmp.x = ((point.x - cp.x) * cos(ap.z) - (point.y - cp.y) * sin(ap.z)) + cp.x;
-        tmp.y = ((point.x - cp.x) * sin(ap.z) + (point.y - cp.y) * cos(ap.z)) + cp.y;
+        z_rotate(tmp, point, ap, cp);
     }
 
-    point = tmp;
+    assign_point(point, tmp);
 }
 
 transform_t init_transform(const double x, const double y, const double z)

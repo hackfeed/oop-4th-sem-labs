@@ -14,32 +14,39 @@ class List : public ListBase
 {
 public:
     List();
-    List(const size_t countNodes, ...);
+    explicit List(size_t countNodes, ...);
     explicit List(const List<T> &someList);
     List(List<T> &&someList);
     List(const T &data, const size_t countData = 1);
-    List(const std::initializer_list<T> &someList);
+    List(std::initializer_list<T> someList);
+    // добавить конструктор из массива
+    // добавить конструктор принимающий итератор
     virtual ~List() = default;
 
     List<T> &operator=(const List<T> &someList);
     List<T> &operator=(List<T> &&someList);
+    List<T> &operator=(std::initializer_list<T> someList);
 
     List<T> &append(const T &data);
     List<T> &operator+=(const T &data);
+    // добавить метод на +
     List<T> operator+(const T &data) const;
 
     List<T> &insert(const T &data, const ListIter<T> &iter);
 
     List<T> &extend(const List &ListToAdd);
     List<T> &operator+=(const List<T> &someList);
+    // добавить метод на +
     List<T> operator+(const List<T> &somelist) const;
 
     const T pop();
 
     const T remove(const ListIter<T> &iter);
+    // remove итератор, количество элементов
 
     List<T> &clear();
 
+    // методы на == !=
     bool operator==(const List<T> &someList) const;
     bool operator!=(const List<T> &someList) const;
 
@@ -47,6 +54,7 @@ public:
     ListIter<T> end();
     ConstListIter<T> begin() const;
     ConstListIter<T> end() const;
+    // c_begin c_end
 
 private:
     std::shared_ptr<ListNode<T>> head;

@@ -5,7 +5,9 @@ static err_t allocate_link(larr_t &links_array)
     link_t *tmp = (link_t *)realloc(links_array.arr,
                                     sizeof(link_t) * (links_array.size + 1));
     if (!tmp)
+    {
         return ALLOCATION_ERROR;
+    }
     links_array.arr = tmp;
 
     return OK;

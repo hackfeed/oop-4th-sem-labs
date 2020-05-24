@@ -2,7 +2,7 @@
 #define _LISTITERATOR_H_
 
 #include "listnode.h"
-
+// std::iterator
 template <typename T>
 class ListIterBase
 {
@@ -45,6 +45,10 @@ public:
 
     T *operator->();
     const T *operator->() const;
+
+    // bool
+
+    // getNext
 };
 
 template <typename T>

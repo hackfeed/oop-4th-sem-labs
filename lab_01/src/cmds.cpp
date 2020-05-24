@@ -20,17 +20,16 @@ err_t scale_command(figure_t &main_figure, const trans_data_t &data)
 
 err_t get_projection(prj_data_t &data, const figure_t &main_figure)
 {
-    err_t rc = OK;
     if (!data.projection)
-        rc = DATA_ERROR;
+    {
+        return DATA_ERROR;
+    }
 
     fpr_t &figure_projection = *data.projection;
     fpr_t tmp_projection = init_projection();
 
-    if (!rc)
-    {
-        rc = match_figure_project(tmp_projection, main_figure);
-    }
+    err_t rc = match_figure_project(tmp_projection, main_figure);
+
     if (!rc)
     {
         rc = read_projection(tmp_projection.points, main_figure.points);
@@ -53,39 +52,22 @@ void destroy_all(figure_t &main_figure, prj_data_t &data)
     fpr_t *projection = data.projection;
     destroy_figure(main_figure);
     if (projection)
+    {
         destroy_projection(*projection);
+    }
 }
 
 err_t read_from_file(figure_t &figure, load_data_t &data)
 {
-    const char *filename = data.filename;
-    err_t rc = OK;
-
-    if (!filename)
-    {
-        rc = FILE_ERROR;
-    }
-
-    if (!rc)
-    {
-        rc = read_from_file(figure, filename);
-    }
-
-    return rc;
+    return read_from_file(figure, data.filename);
 }
 
-err_t draw_figure(draw_data_t &draw_data, const prj_data_t &prj_data)
+err_t draw_figure(draw_data_t &draw_data, prj_data_t &prj_data, const figure_t &main_figure)
 {
-    err_t rc = OK;
-    if (!prj_data.projection)
+    if (get_projection(prj_data, main_figure))
     {
-        rc = DATA_ERROR;
+        return DATA_ERROR;
     }
 
-    if (!rc)
-    {
-        rc = draw_figure(draw_data, *prj_data.projection);
-    }
-
-    return rc;
+    return draw_figure(draw_data, *prj_data.projection);
 }

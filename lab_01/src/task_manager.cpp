@@ -19,11 +19,8 @@ err_t task_manager(const event_t &event, event_data_t &data)
     case ROTATE:
         rc = rotate_command(main_figure, data.trans_data);
         break;
-    case UPDATE_PROJECTION:
-        rc = get_projection(data.prj_data, main_figure);
-        break;
     case DRAW:
-        rc = draw_figure(data.draw_data, data.prj_data);
+        rc = draw_figure(data.draw_data, data.prj_data, main_figure);
         break;
     case QUIT:
         destroy_all(main_figure, data.prj_data);

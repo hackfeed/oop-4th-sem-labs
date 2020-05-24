@@ -3,11 +3,13 @@
 
 #include <iostream>
 
+// Сделать абстрактным
+
 class ListBase
 {
 public:
     ListBase();
-    virtual ~ListBase();
+    virtual ~ListBase() = 0;
 
     size_t size() const;
 

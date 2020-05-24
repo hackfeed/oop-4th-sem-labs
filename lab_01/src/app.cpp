@@ -72,7 +72,6 @@ void myApplication::on_button_clicked(const char command, const char code)
     }
 
     event_t click_event = init_event(command);
-    event_t update_event = init_event(UPDATE_PROJECTION);
     event_t draw_event = init_event(DRAW);
 
     event_data_t data = init_data();
@@ -127,12 +126,6 @@ void myApplication::on_button_clicked(const char command, const char code)
     if (rc)
     {
         printf("Can't process clicked button.");
-        return;
-    }
-
-    if ((rc = task_manager(update_event, data)))
-    {
-        printf("Can't update the projection.");
         return;
     }
 

@@ -122,12 +122,14 @@ const T &ListIter<T>::operator*() const
 template <typename T>
 T *ListIter<T>::operator->()
 {
+    // бандитизм
     return &this->ptrCur.lock()->getPtrData();
 }
 
 template <typename T>
 const T *ListIter<T>::operator->() const
 {
+    // бандитизм
     return &this->ptrCur.lock()->getPtrData();
 }
 

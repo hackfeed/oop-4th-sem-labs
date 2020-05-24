@@ -15,6 +15,6 @@ err_t scale_command(figure_t &main_figure, const trans_data_t &value);
 err_t get_projection(prj_data_t &data, const figure_t &main_figure);
 void destroy_all(figure_t &main_figure, prj_data_t &data);
 err_t read_from_file(figure_t &figure, load_data_t &data);
-err_t draw_figure(draw_data_t &draw_data, const prj_data_t &prj_data);
+err_t draw_figure(draw_data_t &draw_data, prj_data_t &prj_data, const figure_t &main_figure);
 
 #endif

@@ -3,12 +3,14 @@
 
 #include <exception>
 
-class ErrorBase : public std::exception
+// когда, в каком методе, какая ошибка, Данные, котороые привели к ошибке
+
+class ListErrorBase : public std::exception
 {
 public:
-    ErrorBase();
-    explicit ErrorBase(const char *message) : message(message) {}
-    explicit ErrorBase(const std::string &message) : message(message) {}
+    ListErrorBase();
+    explicit ListErrorBase(const char *message) : message(message) {}
+    explicit ListErrorBase(const std::string &message) : message(message) {}
 
     virtual const char *what() const noexcept override
     {
@@ -19,14 +21,14 @@ protected:
     std::string message;
 };
 
-class MemoryError : public ErrorBase
+class ListMemoryError : public ListErrorBase
 {
 private:
     static constexpr const char *ErrorMsg = "Allocation error";
 
 public:
-    explicit MemoryError() : ErrorBase(ErrorMsg) {}
-    explicit MemoryError(const std::string &message) : ErrorBase(ErrorMsg + message) {}
+    explicit ListMemoryError() : ListErrorBase(ErrorMsg) {}
+    explicit ListMemoryError(const std::string &message) : ListErrorBase(ErrorMsg + message) {}
 };
 
 class EmptyError : public ErrorBase
@@ -48,5 +50,7 @@ public:
     explicit RangeError() : ErrorBase(ErrorMsg) {}
     explicit RangeError(const std::string &message) : ErrorBase(ErrorMsg + message) {}
 };
+
+// Ошибки итератора
 
 #endif
