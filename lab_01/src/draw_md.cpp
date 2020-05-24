@@ -1,8 +1,8 @@
 #include "draw_md.h"
 
-void draw_line(Cairo::RefPtr<Cairo::Context> &cr, const ppoint_t from, const ppoint_t to)
+void draw_line(drawer_t &drawer, const ppoint_t from, const ppoint_t to)
 {
-    cr->move_to(from.x, from.y);
-    cr->line_to(to.x, to.y);
-    cr->stroke();
+    drawer.drw->move_to(from.x, from.y);
+    drawer.drw->line_to(to.x, to.y);
+    drawer.drw->stroke();
 }

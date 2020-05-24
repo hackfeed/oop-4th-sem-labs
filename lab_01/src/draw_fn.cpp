@@ -1,4 +1,5 @@
 #include "draw_fn.h"
+#include "draw_md.h"
 
 err_t draw_figure(draw_data_t &data, const fpr_t &projection)
 {
@@ -11,10 +12,11 @@ err_t draw_figure(draw_data_t &data, const fpr_t &projection)
     }
 
     ppoint_t *points_array = points.arr;
+    drawer_t drawer = {.drw = *data.canvas};
     for (unsigned int i = 0; i < links.size; i++)
     {
         link_t cur_link = links.arr[i];
-        draw_line(*data.canvas, points_array[cur_link.l1], points_array[cur_link.l2]);
+        draw_line(drawer, points_array[cur_link.l1], points_array[cur_link.l2]);
     }
 
     return OK;

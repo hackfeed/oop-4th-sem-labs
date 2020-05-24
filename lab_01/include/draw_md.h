@@ -4,6 +4,12 @@
 #include <gtkmm-3.0/gtkmm.h>
 #include "points.h"
 
-void draw_line(Cairo::RefPtr<Cairo::Context> &cr, const ppoint_t from, const ppoint_t to);
+struct drawer
+{
+    Cairo::RefPtr<Cairo::Context> &drw;
+};
+using drawer_t = drawer;
+
+void draw_line(drawer_t &drawer, const ppoint_t from, const ppoint_t to);
 
 #endif
