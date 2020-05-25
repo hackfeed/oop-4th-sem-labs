@@ -1,6 +1,8 @@
 #ifndef _LISTITERATOR_HPP_
 #define _LISTITERATOR_HPP_
 
+#include <ctime>
+
 #include "listiterator.h"
 
 template <typename T>
@@ -108,6 +110,28 @@ const T &ListIter<T>::getCur() const
 }
 
 template <typename T>
+T &ListIter<T>::getNext()
+{
+    if (this->ptrCur.lock() == this->end() || this->ptrCur.next().lock() == this->end())
+    {
+        time_t t_time = time(NULL);
+        throw ListIteratorError(__FILE__, typeid(*this).name(), __LINE__, ctime(&t_time));
+    }
+    return this->ptrCur.next().lock()->getPtrData();
+}
+
+template <typename T>
+const T &ListIter<T>::getNext() const
+{
+    if (this->ptrCur.lock() == this->c_end() || this->ptrCur.next().lock() == this->c_end())
+    {
+        time_t t_time = time(NULL);
+        throw ListIteratorError(__FILE__, typeid(*this).name(), __LINE__, ctime(&t_time));
+    }
+    return this->ptrCur.next().lock()->getPtrData();
+}
+
+template <typename T>
 T &ListIter<T>::operator*()
 {
     return this->ptrCur.lock()->getPtrData();
@@ -129,6 +153,18 @@ template <typename T>
 const T *ListIter<T>::operator->() const
 {
     return &this->ptrCur.lock()->getPtrData();
+}
+
+template <typename T>
+ListIter<T>::operator bool()
+{
+    return &this->ptrCur.expired();
+}
+
+template <typename T>
+ListIter<T>::operator bool() const
+{
+    return &this->ptrCur.expired();
 }
 
 template <typename T>
@@ -167,6 +203,17 @@ const T &ConstListIter<T>::getCur() const
 }
 
 template <typename T>
+const T &ConstListIter<T>::getNext() const
+{
+    if (this->ptrCur.lock() == this->c_end() || this->ptrCur.next().lock() == this->c_end())
+    {
+        time_t t_time = time(NULL);
+        throw ListIteratorError(__FILE__, typeid(*this).name(), __LINE__, ctime(&t_time));
+    }
+    return this->ptrCur.next().lock()->getPtrData();
+}
+
+template <typename T>
 const T &ConstListIter<T>::operator*() const
 {
     return this->ptrCur.lock()->getPtrData();
@@ -176,6 +223,12 @@ template <typename T>
 const T *ConstListIter<T>::operator->() const
 {
     return &this->ptrCur.lock()->getPtrData();
+}
+
+template <typename T>
+ConstListIter<T>::operator bool() const
+{
+    return &this->ptrCur.expired();
 }
 
 #endif

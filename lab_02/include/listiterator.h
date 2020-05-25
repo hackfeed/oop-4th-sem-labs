@@ -1,8 +1,6 @@
 #ifndef _LISTITERATOR_H_
 #define _LISTITERATOR_H_
 
-#include <iterator>
-
 #include "listnode.h"
 
 template <typename T>
@@ -42,15 +40,17 @@ public:
     T &getCur();
     const T &getCur() const;
 
+    T &getNext();
+    const T &getNext() const;
+
     T &operator*();
     const T &operator*() const;
 
     T *operator->();
     const T *operator->() const;
 
-    // bool
-
-    // getNext
+    operator bool();
+    operator bool() const;
 };
 
 template <typename T>
@@ -64,8 +64,10 @@ public:
     ConstListIter<T> &operator=(const ConstListIter<T> &listIter);
 
     const T &getCur() const;
+    const T &getNext() const;
     const T &operator*() const;
     const T *operator->() const;
+    operator bool() const;
 };
 
 #endif
