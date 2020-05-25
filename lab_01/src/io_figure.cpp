@@ -72,7 +72,7 @@ static err_t read_from_file(figure_t &main_figure, FILE *const f)
         ;
     }
 
-    else if ((rc = get_links(links, f, points.size - 1))) // разделить get_links и verify_links
+    else if ((rc = handle_links(links, f, points.size - 1)))
     {
         destroy_points(points);
     }

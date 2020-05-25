@@ -7,7 +7,7 @@
 #include <cstdlib>
 #include <cstdio>
 
-err_t get_links(larr_t &links_array, FILE *const f, const unsigned int max_index);
+err_t handle_links(larr_t &links_array, FILE *const f, const unsigned int max_index);
 void destroy_links(larr_t &links);
 
 #endif
