@@ -164,8 +164,6 @@ void test_other()
         cout << list0 << endl;
         list0 += 15;
         cout << list0 << endl;
-        list0.add(15);
-        cout << list0 << endl;
     }
     catch (ListErrorBase &error)
     {

@@ -87,6 +87,24 @@ List<T> &List<T>::operator=(List &&someList)
 }
 
 template <typename T>
+List<T> &List<T>::operator=(std::initializer_list<T> someList)
+{
+    if (this != &&someList)
+    {
+        this->clear();
+        this->sizeList = someList->size;
+        this->head = someList->begin;
+        this->tail = someList->end;
+
+        someList->size = 0;
+        someList->begin = nullptr;
+        someList->end = nullptr;
+    }
+
+    return *this;
+}
+
+template <typename T>
 List<T> &List<T>::append(const T &data)
 {
     std::shared_ptr<ListNode<T>> newNode = initNode(data);
@@ -120,11 +138,9 @@ List<T> &List<T>::add(const T &data) const
 }
 
 template <typename T>
-List<T> &operator+(const T &data, const List<T> &list)
+List<T> List<T>::operator+(const T &data) const
 {
-    List<T> newList(list);
-    newList.insert(data);
-    return newList;
+    return *this->add(data);
 }
 
 template <typename T>
@@ -188,6 +204,40 @@ List<T> &List<T>::extend(const List &ListToAdd)
 }
 
 template <typename T>
+List<T> &List<T>::operator+=(const List<T> &someList)
+{
+    this->extend(someList);
+    return *this;
+}
+
+template <typename T>
+List<T> &List<T>::addlist(const List<T> &someList) const
+{
+    List<T> newList(*this);
+    newList.extend(someList);
+    return newList;
+}
+
+template <typename T>
+List<T> List<T>::operator+(const List<T> &someList) const
+{
+    return *this->addlist(someList);
+}
+
+template <typename T>
+const T List<T>::pop()
+{
+    time_t t_time = time(NULL);
+    if (this->isEmpty())
+    {
+        throw ListEmptyError(__FILE__, typeid(*this).name(), __LINE__, ctime(&t_time));
+    }
+
+    ListIter<T> iter = this->end();
+    return remove(iter);
+}
+
+template <typename T>
 const T List<T>::remove(const ListIter<T> &iter)
 {
     time_t t_time = time(NULL);
@@ -229,19 +279,6 @@ const T List<T>::remove(const ListIter<T> &iter)
 }
 
 template <typename T>
-const T List<T>::pop()
-{
-    time_t t_time = time(NULL);
-    if (this->isEmpty())
-    {
-        throw ListEmptyError(__FILE__, typeid(*this).name(), __LINE__, ctime(&t_time));
-    }
-
-    ListIter<T> iter = this->end();
-    return remove(iter);
-}
-
-template <typename T>
 List<T> &List<T>::clear()
 {
     this->head = nullptr;
@@ -249,29 +286,6 @@ List<T> &List<T>::clear()
     this->sizeList = 0;
 
     return *this;
-}
-
-template <typename T>
-List<T> &List<T>::operator+=(const List<T> &someList)
-{
-    this->extend(someList);
-    return *this;
-}
-
-template <typename T>
-List<T> &List<T>::addlist(const List<T> &someList) const
-{
-    List<T> newList(this);
-    newList.extend(someList);
-    return newList;
-}
-
-template <typename T>
-List<T> &operator+(const List<T> &list, const List<T> &someList)
-{
-    List<T> newList(list);
-    newList.extend(someList);
-    return newList;
 }
 
 template <typename T>
@@ -311,18 +325,6 @@ ListIter<T> List<T>::end()
 }
 
 template <typename T>
-ConstListIter<T> List<T>::c_begin() const
-{
-    return ConstListIter<T>(head);
-}
-
-template <typename T>
-ConstListIter<T> List<T>::c_end() const
-{
-    return ConstListIter<T>(tail);
-}
-
-template <typename T>
 ConstListIter<T> List<T>::begin() const
 {
     return c_begin();
@@ -332,6 +334,18 @@ template <typename T>
 ConstListIter<T> List<T>::end() const
 {
     return c_end();
+}
+
+template <typename T>
+ConstListIter<T> List<T>::c_begin() const
+{
+    return ConstListIter<T>(head);
+}
+
+template <typename T>
+ConstListIter<T> List<T>::c_end() const
+{
+    return ConstListIter<T>(tail);
 }
 
 template <typename T>
