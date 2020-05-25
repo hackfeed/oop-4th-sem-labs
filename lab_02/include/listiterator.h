@@ -4,7 +4,7 @@
 #include "listnode.h"
 
 template <typename T>
-class ListIterBase
+class ListIterBase : public std::iterator<std::input_iterator_tag, T>
 {
 public:
     ListIterBase();
@@ -49,7 +49,6 @@ public:
     T *operator->();
     const T *operator->() const;
 
-    operator bool();
     operator bool() const;
 };
 

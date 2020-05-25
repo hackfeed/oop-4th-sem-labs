@@ -31,6 +31,11 @@ ListIterBase<T> &ListIterBase<T>::operator=(const ListIterBase<T> &listIter)
 template <typename T>
 ListIterBase<T> &ListIterBase<T>::next()
 {
+    if (this->ptrCur.expired())
+    {
+        time_t t_time = time(NULL);
+        throw ListIteratorError(__FILE__, typeid(*this).name(), __LINE__, ctime(&t_time));
+    }
     this->ptrCur = this->ptrCur.lock()->getNext();
     return *this;
 }
@@ -100,19 +105,29 @@ ListIter<T> &ListIter<T>::operator=(const ListIter<T> &listIter)
 template <typename T>
 T &ListIter<T>::getCur()
 {
+    if (this->ptrCur.expired())
+    {
+        time_t t_time = time(NULL);
+        throw ListIteratorError(__FILE__, typeid(*this).name(), __LINE__, ctime(&t_time));
+    }
     return this->ptrCur.lock()->getPtrData();
 }
 
 template <typename T>
 const T &ListIter<T>::getCur() const
 {
+    if (this->ptrCur.expired())
+    {
+        time_t t_time = time(NULL);
+        throw ListIteratorError(__FILE__, typeid(*this).name(), __LINE__, ctime(&t_time));
+    }
     return this->ptrCur.lock()->getPtrData();
 }
 
 template <typename T>
 T &ListIter<T>::getNext()
 {
-    if (this->ptrCur.lock() == this->end() || this->ptrCur.next().lock() == this->end())
+    if (this->ptrCur.expired() || this->ptrCur.lock() == this->end() || this->ptrCur.next().lock() == this->end())
     {
         time_t t_time = time(NULL);
         throw ListIteratorError(__FILE__, typeid(*this).name(), __LINE__, ctime(&t_time));
@@ -123,7 +138,7 @@ T &ListIter<T>::getNext()
 template <typename T>
 const T &ListIter<T>::getNext() const
 {
-    if (this->ptrCur.lock() == this->c_end() || this->ptrCur.next().lock() == this->c_end())
+    if (this->ptrCur.expired() || this->ptrCur.lock() == this->c_end() || this->ptrCur.next().lock() == this->c_end())
     {
         time_t t_time = time(NULL);
         throw ListIteratorError(__FILE__, typeid(*this).name(), __LINE__, ctime(&t_time));
@@ -134,31 +149,45 @@ const T &ListIter<T>::getNext() const
 template <typename T>
 T &ListIter<T>::operator*()
 {
+    if (this->ptrCur.expired())
+    {
+        time_t t_time = time(NULL);
+        throw ListIteratorError(__FILE__, typeid(*this).name(), __LINE__, ctime(&t_time));
+    }
     return this->ptrCur.lock()->getPtrData();
 }
 
 template <typename T>
 const T &ListIter<T>::operator*() const
 {
+    if (this->ptrCur.expired())
+    {
+        time_t t_time = time(NULL);
+        throw ListIteratorError(__FILE__, typeid(*this).name(), __LINE__, ctime(&t_time));
+    }
     return this->ptrCur.lock()->getPtrData();
 }
 
 template <typename T>
 T *ListIter<T>::operator->()
 {
+    if (this->ptrCur.expired())
+    {
+        time_t t_time = time(NULL);
+        throw ListIteratorError(__FILE__, typeid(*this).name(), __LINE__, ctime(&t_time));
+    }
     return &this->ptrCur.lock()->getPtrData();
 }
 
 template <typename T>
 const T *ListIter<T>::operator->() const
 {
+    if (this->ptrCur.expired())
+    {
+        time_t t_time = time(NULL);
+        throw ListIteratorError(__FILE__, typeid(*this).name(), __LINE__, ctime(&t_time));
+    }
     return &this->ptrCur.lock()->getPtrData();
-}
-
-template <typename T>
-ListIter<T>::operator bool()
-{
-    return &this->ptrCur.expired();
 }
 
 template <typename T>
@@ -199,13 +228,18 @@ ConstListIter<T> &ConstListIter<T>::operator=(const ConstListIter<T> &listIter)
 template <typename T>
 const T &ConstListIter<T>::getCur() const
 {
+    if (this->ptrCur.expired())
+    {
+        time_t t_time = time(NULL);
+        throw ListIteratorError(__FILE__, typeid(*this).name(), __LINE__, ctime(&t_time));
+    }
     return this->ptrCur.lock()->getPtrData();
 }
 
 template <typename T>
 const T &ConstListIter<T>::getNext() const
 {
-    if (this->ptrCur.lock() == this->c_end() || this->ptrCur.next().lock() == this->c_end())
+    if (this->ptrCur.expired() || this->ptrCur.lock() == this->c_end() || this->ptrCur.next().lock() == this->c_end())
     {
         time_t t_time = time(NULL);
         throw ListIteratorError(__FILE__, typeid(*this).name(), __LINE__, ctime(&t_time));
@@ -216,12 +250,22 @@ const T &ConstListIter<T>::getNext() const
 template <typename T>
 const T &ConstListIter<T>::operator*() const
 {
+    if (this->ptrCur.expired())
+    {
+        time_t t_time = time(NULL);
+        throw ListIteratorError(__FILE__, typeid(*this).name(), __LINE__, ctime(&t_time));
+    }
     return this->ptrCur.lock()->getPtrData();
 }
 
 template <typename T>
 const T *ConstListIter<T>::operator->() const
 {
+    if (this->ptrCur.expired())
+    {
+        time_t t_time = time(NULL);
+        throw ListIteratorError(__FILE__, typeid(*this).name(), __LINE__, ctime(&t_time));
+    }
     return &this->ptrCur.lock()->getPtrData();
 }
 
