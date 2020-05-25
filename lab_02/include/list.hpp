@@ -2,28 +2,13 @@
 #define _LIST_HPP_
 
 #include <memory>
+#include <ctime>
+#include <iterator>
 
 #include "list.h"
 
 template <typename T>
 List<T>::List() : head(nullptr), tail(nullptr) {}
-
-template <typename T>
-List<T>::List(const size_t countNodes, ...) : head(nullptr), tail(nullptr)
-{
-    va_list vlist;
-    va_start(vlist, countNodes);
-
-    T tmp;
-
-    for (size_t i = 0; i < countNodes; ++i)
-    {
-        tmp = va_arg(vlist, T);
-        this->append(tmp);
-    }
-
-    va_end(vlist);
-}
 
 template <typename T>
 List<T>::List(const List<T> &someList) : head(nullptr), tail(nullptr)
@@ -44,25 +29,30 @@ List<T>::List(List<T> &&someList)
 }
 
 template <typename T>
-List<T>::List(const T &data, const size_t countData) : head(nullptr), tail(nullptr)
-{
-    if (countData == 0)
-    {
-        return;
-    }
-
-    for (size_t i = 0; i < countData; ++i)
-    {
-        this->append(data);
-    }
-}
-
-template <typename T>
-List<T>::List(const std::initializer_list<T> &someList) : head(nullptr), tail(nullptr)
+List<T>::List(std::initializer_list<T> someList) : head(nullptr), tail(nullptr)
 {
     for (const auto &data : someList)
     {
         append(data);
+    }
+}
+
+template <typename T>
+List<T>::List(const T *arr, const int size)
+{
+    for (int i = 0; i < size; i++)
+    {
+        this->append(arr[i]);
+    }
+}
+
+template <typename T>
+template <typename T_>
+List<T>::List(T_ begin, T_ end)
+{
+    for (auto it = begin; end != it; ++it)
+    {
+        this->append(*it);
     }
 }
 
@@ -122,9 +112,9 @@ List<T> &List<T>::operator+=(const T &data)
 }
 
 template <typename T>
-List<T> &operator+(const List<T> &list, const T &data)
+List<T> &List<T>::add(const T &data) const
 {
-    List<T> newList(list);
+    List<T> newList(*this);
     newList.append(data);
     return newList;
 }
@@ -140,6 +130,7 @@ List<T> &operator+(const T &data, const List<T> &list)
 template <typename T>
 List<T> &List<T>::insert(const T &data, const ListIter<T> &iter)
 {
+    time_t t_time = time(NULL);
     std::shared_ptr<ListNode<T>> curNode = this->head;
     std::shared_ptr<ListNode<T>> tmp = nullptr;
     ListIter<T> cur = this->begin();
@@ -157,7 +148,7 @@ List<T> &List<T>::insert(const T &data, const ListIter<T> &iter)
 
     if (curNode == nullptr)
     {
-        throw RangeError(": method - insert()");
+        throw ListRangeError(__FILE__, typeid(*this).name(), __LINE__, ctime(&t_time));
     }
 
     std::shared_ptr<ListNode<T>> newNode = initNode(data, curNode);
@@ -199,9 +190,10 @@ List<T> &List<T>::extend(const List &ListToAdd)
 template <typename T>
 const T List<T>::remove(const ListIter<T> &iter)
 {
+    time_t t_time = time(NULL);
     if (this->isEmpty())
     {
-        throw EmptyError(": method - remove()");
+        throw ListEmptyError(__FILE__, typeid(*this).name(), __LINE__, ctime(&t_time));
     }
 
     std::shared_ptr<ListNode<T>> curNode = this->head;
@@ -213,7 +205,7 @@ const T List<T>::remove(const ListIter<T> &iter)
 
     if (curNode == nullptr)
     {
-        throw RangeError(": method - remove()");
+        throw ListRangeError(__FILE__, typeid(*this).name(), __LINE__, ctime(&t_time));
     }
 
     T retData = iter.getCur();
@@ -239,9 +231,10 @@ const T List<T>::remove(const ListIter<T> &iter)
 template <typename T>
 const T List<T>::pop()
 {
+    time_t t_time = time(NULL);
     if (this->isEmpty())
     {
-        throw EmptyError(": method - pop()");
+        throw ListEmptyError(__FILE__, typeid(*this).name(), __LINE__, ctime(&t_time));
     }
 
     ListIter<T> iter = this->end();
@@ -259,16 +252,44 @@ List<T> &List<T>::clear()
 }
 
 template <typename T>
-List<T> &List<T>::operator+=(const List &someList)
+List<T> &List<T>::operator+=(const List<T> &someList)
 {
     this->extend(someList);
     return *this;
 }
 
 template <typename T>
+List<T> &List<T>::addlist(const List<T> &someList) const
+{
+    List<T> newList(this);
+    newList.extend(someList);
+    return newList;
+}
+
+template <typename T>
+List<T> &operator+(const List<T> &list, const List<T> &someList)
+{
+    List<T> newList(list);
+    newList.extend(someList);
+    return newList;
+}
+
+template <typename T>
+bool List<T>::isEqual(const List<T> &someList) const
+{
+    return isNodesEqual(someList);
+}
+
+template <typename T>
 bool List<T>::operator==(const List &someList) const
 {
     return isNodesEqual(someList);
+}
+
+template <typename T>
+bool List<T>::isNotEqual(const List<T> &someList) const
+{
+    return !isNodesEqual(someList);
 }
 
 template <typename T>
@@ -290,25 +311,38 @@ ListIter<T> List<T>::end()
 }
 
 template <typename T>
-ConstListIter<T> List<T>::begin() const
+ConstListIter<T> List<T>::c_begin() const
 {
     return ConstListIter<T>(head);
 }
 
 template <typename T>
-ConstListIter<T> List<T>::end() const
+ConstListIter<T> List<T>::c_end() const
 {
     return ConstListIter<T>(tail);
 }
 
 template <typename T>
+ConstListIter<T> List<T>::begin() const
+{
+    return c_begin();
+}
+
+template <typename T>
+ConstListIter<T> List<T>::end() const
+{
+    return c_end();
+}
+
+template <typename T>
 std::shared_ptr<ListNode<T>> List<T>::initNode(const T &data, std::shared_ptr<ListNode<T>> ptrNode)
 {
+    time_t t_time = time(NULL);
     std::shared_ptr<ListNode<T>> newNode;
     newNode = std::make_shared<ListNode<T>>();
     if (!newNode)
     {
-        throw MemoryError(": method - initNode()");
+        throw ListMemoryError(__FILE__, typeid(*this).name(), __LINE__, ctime(&t_time));
     }
     newNode->setData(data);
     newNode->setNext(ptrNode);

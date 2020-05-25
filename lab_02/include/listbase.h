@@ -3,8 +3,6 @@
 
 #include <iostream>
 
-// Сделать абстрактным
-
 class ListBase
 {
 public:

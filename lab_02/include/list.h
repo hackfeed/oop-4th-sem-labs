@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <stdarg.h>
+#include <iterator>
 
 #include "errors.h"
 #include "listbase.h"
@@ -14,13 +15,12 @@ class List : public ListBase
 {
 public:
     List();
-    explicit List(size_t countNodes, ...);
     explicit List(const List<T> &someList);
     List(List<T> &&someList);
-    List(const T &data, const size_t countData = 1);
     List(std::initializer_list<T> someList);
-    // добавить конструктор из массива
-    // добавить конструктор принимающий итератор
+    List(const T *arr, const int size);
+    template <typename T_>
+    List(T_ begin, T_ end);
     virtual ~List() = default;
 
     List<T> &operator=(const List<T> &someList);
@@ -29,32 +29,33 @@ public:
 
     List<T> &append(const T &data);
     List<T> &operator+=(const T &data);
-    // добавить метод на +
+    List<T> &add(const T &data) const;
     List<T> operator+(const T &data) const;
 
     List<T> &insert(const T &data, const ListIter<T> &iter);
 
-    List<T> &extend(const List &ListToAdd);
+    List<T> &extend(const List<T> &ListToAdd);
     List<T> &operator+=(const List<T> &someList);
-    // добавить метод на +
+    List<T> &addlist(const List<T> &someList) const;
     List<T> operator+(const List<T> &somelist) const;
 
     const T pop();
 
     const T remove(const ListIter<T> &iter);
-    // remove итератор, количество элементов
 
     List<T> &clear();
 
-    // методы на == !=
+    bool isEqual(const List<T> &someList) const;
     bool operator==(const List<T> &someList) const;
+    bool isNotEqual(const List<T> &someList) const;
     bool operator!=(const List<T> &someList) const;
 
     ListIter<T> begin();
     ListIter<T> end();
     ConstListIter<T> begin() const;
     ConstListIter<T> end() const;
-    // c_begin c_end
+    ConstListIter<T> c_begin() const;
+    ConstListIter<T> c_end() const;
 
 private:
     std::shared_ptr<ListNode<T>> head;
@@ -64,8 +65,6 @@ private:
     void addList(const List<T> &ListToAdd);
     bool isNodesEqual(const List<T> &someList) const;
     bool isEmpty() const;
-
-protected:
 };
 
 #endif

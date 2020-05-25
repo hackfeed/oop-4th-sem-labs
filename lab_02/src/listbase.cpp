@@ -3,8 +3,6 @@
 
 #include "listbase.h"
 
-// cpp
-
 ListBase::ListBase() : sizeList(0) {}
 
 ListBase::~ListBase() = default;

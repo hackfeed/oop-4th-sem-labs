@@ -1,4 +1,5 @@
 #include "main.hpp"
+#include <vector>
 
 void test_constructors()
 {
@@ -7,9 +8,15 @@ void test_constructors()
     try
     {
         List<int> list0;
-        List<int> list1(0, 10);
+        List<int> list1({2, 10, 11});
         List<int> list2(list1);
-        List<double> list3(3, 0.1, 0.2, 0.4);
+        List<double> list3({3, 0.1, 0.2, 0.4});
+        std::vector<int> vect{10, 20, 30};
+        List<int> list4(vect.begin(), vect.end());
+        cout << list4 << endl;
+        int arr[] = {1, 2, 3, 4, 5};
+        List<int> list5(arr, 5);
+        cout << list5 << endl;
 
         cout << "<Default constructor>" << endl;
         cout << list0 << endl;
@@ -23,7 +30,7 @@ void test_constructors()
         list0 = list1;
         cout << list0 << endl;
     }
-    catch (ErrorBase &error)
+    catch (ListErrorBase &error)
     {
         cout << error.what() << endl;
     }
@@ -80,7 +87,7 @@ void test_addition()
         list2.extend(list1);
         cout << list2 << endl;
     }
-    catch (ErrorBase &error)
+    catch (ListErrorBase &error)
     {
         cout << error.what() << endl;
     }
@@ -92,7 +99,7 @@ void test_removal()
 
     try
     {
-        List<int> list0(5, 1, 2, 3, 4, 5);
+        List<int> list0({5, 1, 2, 3, 4, 5});
 
         cout << "<remove(iter)>" << endl;
         ListIter<int> iter0(list0.begin());
@@ -125,7 +132,7 @@ void test_removal()
         list0.clear();
         cout << list0 << endl;
     }
-    catch (ErrorBase &error)
+    catch (ListErrorBase &error)
     {
         cout << error.what() << endl;
     }
@@ -137,8 +144,8 @@ void test_other()
 
     try
     {
-        List<int> list0(3, 1, 2, 3);
-        List<int> list1(2, 1, 2);
+        List<int> list0({3, 1, 2, 3});
+        List<int> list1({2, 1, 2});
 
         cout << "<size()>" << endl;
         cout << list0.size() << endl;
@@ -149,12 +156,18 @@ void test_other()
         {
             cout << "list2 not equal list7" << endl;
         }
+        if (list0.isNotEqual(list1))
+        {
+            cout << "list2 not equal list7" << endl;
+        }
         list0 += list1;
         cout << list0 << endl;
         list0 += 15;
         cout << list0 << endl;
+        list0.add(15);
+        cout << list0 << endl;
     }
-    catch (ErrorBase &error)
+    catch (ListErrorBase &error)
     {
         cout << error.what() << endl;
     }
