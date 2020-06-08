@@ -33,3 +33,7 @@
 
 # Make
 .qmake.stash
+
+# Build files
+bin/
+build/
