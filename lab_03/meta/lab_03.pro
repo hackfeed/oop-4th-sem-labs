@@ -1,5 +1,5 @@
 TEMPLATE = app
-TARGET = lab_04.exe
+TARGET = lab_03.exe
 INCLUDEPATH += ./include
 
 DEFINES += QT_DEPRECATED_WARNINGS
