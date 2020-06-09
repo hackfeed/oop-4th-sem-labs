@@ -28,7 +28,7 @@ public slots:
 
 private:
     int cur_floor_;
-    int cur_target_ = -1;
+    int cur_target_ = START_STATE;
     QVector<bool> is_target_;
     ControllerState cur_state_;
     Direction cur_direction_;
