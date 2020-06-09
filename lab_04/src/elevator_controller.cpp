@@ -20,7 +20,8 @@ void ElevatorController::SetNewTarget(int floor)
         cur_target_ = floor;
     }
 
-    if ((cur_direction_ == kUp && floor > cur_target_) || (cur_direction_ == kDown && floor < cur_target_))
+    if ((cur_direction_ == kUp && floor > cur_target_) ||
+        (cur_direction_ == kDown && floor < cur_target_))
     {
         cur_target_ = floor;
     }
