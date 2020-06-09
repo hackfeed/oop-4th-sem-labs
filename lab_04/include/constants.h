@@ -1,18 +1,19 @@
-#ifndef COMMON_H
-#define COMMON_H
+#ifndef CONSTANTS_H
+#define CONSTANTS_H
 
 #include <QTextEdit>
 #include <QTimer>
 
-enum direction {
-    DOWN = -1,
-    STAY,
-    UP
+enum Direction
+{
+    kDown = -1,
+    kWait,
+    kUp
 };
 
-#define CROSSING_FLOOR 1500
+#define TRAVERSING_FLOOR 1500
 #define DOORS_TIME 2000
 #define WAITING_TIME 2000
-#define NUM_FLOORS 10
+#define FLOORS_AMOUNT 10
 
-#endif  // COMMON_H
+#endif

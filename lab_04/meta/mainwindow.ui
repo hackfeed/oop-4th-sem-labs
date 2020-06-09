@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Elevator</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QGroupBox" name="groupBox_2">
@@ -29,7 +29,7 @@
      </font>
     </property>
     <property name="title">
-     <string>Кнопки в лифте</string>
+     <string>Elevator buttons</string>
     </property>
     <widget class="QPushButton" name="button_cabin_2">
      <property name="geometry">
@@ -177,7 +177,7 @@
      </font>
     </property>
     <property name="title">
-     <string>Кнопки на этажах</string>
+     <string>Floor buttons</string>
     </property>
     <widget class="QPushButton" name="button_floor_1">
      <property name="geometry">

@@ -1,136 +1,137 @@
-#include "mainwindow.h"
-#include "ui_mainwindow.h"
 #include "qdebug.h"
 
+#include "mainwindow.h"
+#include "ui_mainwindow.h"
+
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
-                                          ui(new Ui::MainWindow)
+                                          ui_(new Ui::MainWindow)
 {
-    qDebug() << "Лифт находится на этаже 1, двери закрыты.\n"
-                "Лифт находится в режиме ожидания.";
-    ui->setupUi(this);
+    qDebug() << "Elevator is located at the floor #1, doors are closed.\n"
+                "Elevator is being in waiting state.";
+    ui_->setupUi(this);
 }
 
 MainWindow::~MainWindow()
 {
-    delete ui;
+    delete ui_;
 }
 
-void MainWindow::on_button_cabin_1_clicked()
+void MainWindow::OnButtonCabin1Clicked()
 {
-    qDebug() << "В лифте нажали кнопку 1.";
-    lift.click(1);
+    qDebug() << "Button 1 was pressed in elevator";
+    elevator_.Click(1);
 }
 
-void MainWindow::on_button_cabin_2_clicked()
+void MainWindow::OnButtonCabin2Clicked()
 {
-    qDebug() << "В лифте нажали кнопку 2.";
-    lift.click(2);
+    qDebug() << "Button 2 was pressed in elevator";
+    elevator_.Click(2);
 }
 
-void MainWindow::on_button_cabin_3_clicked()
+void MainWindow::OnButtonCabin3Clicked()
 {
-    qDebug() << "В лифте нажали кнопку 3.";
-    lift.click(3);
+    qDebug() << "Button 3 was pressed in elevator";
+    elevator_.Click(3);
 }
 
-void MainWindow::on_button_cabin_4_clicked()
+void MainWindow::OnButtonCabin4Clicked()
 {
-    qDebug() << "В лифте нажали кнопку 4.";
-    lift.click(4);
+    qDebug() << "Button 4 was pressed in elevator";
+    elevator_.Click(4);
 }
 
-void MainWindow::on_button_cabin_5_clicked()
+void MainWindow::OnButtonCabin5Clicked()
 {
-    qDebug() << "В лифте нажали кнопку 5.";
-    lift.click(5);
+    qDebug() << "Button 5 was pressed in elevator";
+    elevator_.Click(5);
 }
 
-void MainWindow::on_button_cabin_6_clicked()
+void MainWindow::OnButtonCabin6Clicked()
 {
-    qDebug() << "В лифте нажали кнопку 6.";
-    lift.click(6);
+    qDebug() << "Button 6 was pressed in elevator";
+    elevator_.Click(6);
 }
 
-void MainWindow::on_button_cabin_7_clicked()
+void MainWindow::OnButtonCabin7Clicked()
 {
-    qDebug() << "В лифте нажали кнопку 7.";
-    lift.click(7);
+    qDebug() << "Button 7 was pressed in elevator";
+    elevator_.Click(7);
 }
 
-void MainWindow::on_button_cabin_8_clicked()
+void MainWindow::OnButtonCabin8Clicked()
 {
-    qDebug() << "В лифте нажали кнопку 8.";
-    lift.click(8);
+    qDebug() << "Button 8 was pressed in elevator";
+    elevator_.Click(8);
 }
 
-void MainWindow::on_button_cabin_9_clicked()
+void MainWindow::OnButtonCabin9Clicked()
 {
-    qDebug() << "В лифте нажали кнопку 9.";
-    lift.click(9);
+    qDebug() << "Button 9 was pressed in elevator";
+    elevator_.Click(9);
 }
 
-void MainWindow::on_button_cabin_10_clicked()
+void MainWindow::OnButtonCabin10Clicked()
 {
-    qDebug() << "В лифте нажали кнопку 10.";
-    lift.click(10);
+    qDebug() << "Button 10 was pressed in elevator";
+    elevator_.Click(10);
 }
 
-void MainWindow::on_button_floor_1_clicked()
+void MainWindow::OnButtonFloor1Clicked()
 {
-    qDebug() << "Вызов лифта на 1 этаже.";
-    lift.click(1);
+    qDebug() << "Elevator was called at the floor #1";
+    elevator_.Click(1);
 }
 
-void MainWindow::on_button_floor_2_clicked()
+void MainWindow::OnButtonFloor2Clicked()
 {
-    qDebug() << "Вызов лифта на 2 этаже.";
-    lift.click(2);
+    qDebug() << "Elevator was called at the floor #2";
+    elevator_.Click(2);
 }
 
-void MainWindow::on_button_floor_3_clicked()
+void MainWindow::OnButtonFloor3Clicked()
 {
-    qDebug() << "Вызов лифта на 3 этаже.";
-    lift.click(3);
+    qDebug() << "Elevator was called at the floor #3";
+    elevator_.Click(3);
 }
 
-void MainWindow::on_button_floor_4_clicked()
+void MainWindow::OnButtonFloor4Clicked()
 {
-    qDebug() << "Вызов лифта на 4 этаже.";
-    lift.click(4);
+    qDebug() << "Elevator was called at the floor #4";
+    elevator_.Click(4);
 }
 
-void MainWindow::on_button_floor_5_clicked()
+void MainWindow::OnButtonFloor5Clicked()
 {
-    qDebug() << "Вызов лифта на 5 этаже.";
-    lift.click(5);
+    qDebug() << "Elevator was called at the floor #5";
+    elevator_.Click(5);
 }
 
-void MainWindow::on_button_floor_6_clicked()
+void MainWindow::OnButtonFloor6Clicked()
 {
-    qDebug() << "Вызов лифта на 6 этаже.";
-    lift.click(6);
+    qDebug() << "Elevator was called at the floor #6";
+    elevator_.Click(6);
 }
 
-void MainWindow::on_button_floor_7_clicked()
+void MainWindow::OnButtonFloor7Clicked()
 {
-    qDebug() << "Вызов лифта на 7 этаже.";
-    lift.click(7);
+    qDebug() << "Elevator was called at the floor #7";
+    elevator_.Click(7);
 }
 
-void MainWindow::on_button_floor_8_clicked()
+void MainWindow::OnButtonFloor8Clicked()
 {
-    qDebug() << "Вызов лифта на 8 этаже.";
-    lift.click(8);
+    qDebug() << "Elevator was called at the floor #8";
+    elevator_.Click(8);
 }
 
-void MainWindow::on_button_floor_9_clicked()
+void MainWindow::OnButtonFloor9Clicked()
 {
-    qDebug() << "Вызов лифта на 9 этаже.";
-    lift.click(9);
+    qDebug() << "Elevator was called at the floor #9";
+    elevator_.Click(9);
 }
 
-void MainWindow::on_button_floor_10_clicked()
+void MainWindow::OnButtonFloor10Clicked()
 {
-    qDebug() << "Вызов лифта на 10 этаже.";
-    lift.click(10);
+    qDebug() << "Elevator was called at the floor #10";
+    elevator_.Click(10);
 }
