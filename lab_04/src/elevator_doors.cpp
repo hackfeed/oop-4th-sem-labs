@@ -5,14 +5,14 @@
 ElevatorDoors::ElevatorDoors(QObject *parent) : QObject(parent),
                                                 cur_state_(kClosed)
 {
+    doors_open_timer_.setSingleShot(true);
+    QObject::connect(&doors_open_timer_, SIGNAL(timeout()), this, SLOT(Open()));
+
+    doors_close_timer_.setSingleShot(true);
+    QObject::connect(&doors_close_timer_, SIGNAL(timeout()), this, SLOT(Close()));
+
     doors_wait_timer_.setInterval(ELEVATOR_WAITING_TIME);
     doors_wait_timer_.setSingleShot(true);
-
-    doors_open_timer_.setSingleShot(true);
-    doors_close_timer_.setSingleShot(true);
-
-    QObject::connect(&doors_open_timer_, SIGNAL(timeout()), this, SLOT(Open()));
-    QObject::connect(&doors_close_timer_, SIGNAL(timeout()), this, SLOT(Close()));
     QObject::connect(this, SIGNAL(OpenedDoors()), &doors_wait_timer_, SLOT(start()));
     QObject::connect(&doors_wait_timer_, SIGNAL(timeout()), this, SLOT(StartClosing()));
 }

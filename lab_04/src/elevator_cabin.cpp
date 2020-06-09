@@ -11,12 +11,13 @@ ElevatorCabin::ElevatorCabin(QObject *parent) : QObject(parent),
                                                 cur_state_(kStop),
                                                 cur_direction_(kStay)
 {
-    traversing_floor_timer_.setSingleShot(true);
-
     QObject::connect(this, SIGNAL(CabinCalled()), &doors_, SLOT(StartClosing()));
     QObject::connect(this, SIGNAL(CabinReachedTarget(int)), this, SLOT(CabinStop()));
     QObject::connect(this, SIGNAL(CabinStopped(int)), &doors_, SLOT(StartOpenning()));
+
     QObject::connect(&doors_, SIGNAL(ClosedDoors()), this, SLOT(CabinMove()));
+
+    traversing_floor_timer_.setSingleShot(true);
     QObject::connect(&traversing_floor_timer_, SIGNAL(timeout()), this, SLOT(CabinMove()));
 }
 
