@@ -37,3 +37,6 @@
 # Build files
 bin/
 build/
+
+# Qt files
+ui_mainwindow.h
