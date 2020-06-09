@@ -5,7 +5,7 @@
 
 ElevatorController::ElevatorController(QObject *parent) : QObject(parent),
                                                           cur_floor_(1),
-                                                          cur_target_(-1),
+                                                          cur_target_(START_STATE),
                                                           is_target_(FLOORS_AMOUNT, false),
                                                           cur_state_(kFree),
                                                           cur_direction_(kStay) {}
@@ -15,7 +15,7 @@ void ElevatorController::SetNewTarget(int floor)
     cur_state_ = kBusy;
     is_target_[floor - 1] = true;
 
-    if (cur_target_ == -1)
+    if (cur_target_ == START_STATE)
     {
         cur_target_ = floor;
     }
@@ -26,7 +26,16 @@ void ElevatorController::SetNewTarget(int floor)
     }
 
     NextTarget(floor);
-    cur_direction_ = (cur_floor_ > cur_target_) ? kDown : kUp;
+
+    if (cur_floor_ > cur_target_)
+    {
+        cur_direction_ = kDown;
+    }
+    else
+    {
+        cur_direction_ = kUp;
+    }
+
     emit SetTarget(floor);
 }
 
@@ -39,13 +48,21 @@ void ElevatorController::ReachedFloor(int floor)
 
         if (cur_floor_ == cur_target_)
         {
-            cur_target_ = -1;
+            cur_target_ = START_STATE;
             FindNewTarget();
         }
 
         if (NextTarget(floor))
         {
-            cur_direction_ = (cur_floor_ > cur_target_) ? kDown : kUp;
+            if (cur_floor_ > cur_target_)
+            {
+                cur_direction_ = kDown;
+            }
+            else
+            {
+                cur_direction_ = kUp;
+            }
+
             emit SetTarget(floor);
         }
         else

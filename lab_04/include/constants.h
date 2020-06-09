@@ -11,9 +11,10 @@ enum Direction
     kUp
 };
 
-#define TRAVERSING_FLOOR 1500
-#define DOORS_TIME 2000
-#define WAITING_TIME 2000
+#define FLOOR_TRAVERSING_TIME 1500
+#define DOORS_ACTIVITY_TIME 2000
+#define ELEVATOR_WAITING_TIME 2000
 #define FLOORS_AMOUNT 10
+#define START_STATE -1
 
 #endif
