@@ -905,10 +905,12 @@ build/elevator_cabin.o: src/elevator_cabin.cpp include/elevator_cabin.h \
 		include/elevator_doors.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/elevator_cabin.o src/elevator_cabin.cpp
 
-build/elevator_controller.o: src/elevator_controller.cpp 
+build/elevator_controller.o: src/elevator_controller.cpp include/elevator_controller.h \
+		include/constants.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/elevator_controller.o src/elevator_controller.cpp
 
-build/elevator_doors.o: src/elevator_doors.cpp 
+build/elevator_doors.o: src/elevator_doors.cpp include/elevator_doors.h \
+		include/constants.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/elevator_doors.o src/elevator_doors.cpp
 
 build/main.o: src/main.cpp include/mainwindow.h \
