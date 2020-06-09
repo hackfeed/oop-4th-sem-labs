@@ -14,10 +14,10 @@ ElevatorDoors::ElevatorDoors(QObject *parent) : QObject(parent),
     doors_wait_timer_.setInterval(ELEVATOR_WAITING_TIME);
     doors_wait_timer_.setSingleShot(true);
     QObject::connect(this, SIGNAL(OpenedDoors()), &doors_wait_timer_, SLOT(start()));
-    QObject::connect(&doors_wait_timer_, SIGNAL(timeout()), this, SLOT(StartClosing()));
+    QObject::connect(&doors_wait_timer_, SIGNAL(timeout()), this, SLOT(Closing()));
 }
 
-void ElevatorDoors::StartOpenning()
+void ElevatorDoors::Openning()
 {
     if (cur_state_ == kClosed)
     {
@@ -26,18 +26,13 @@ void ElevatorDoors::StartOpenning()
         qDebug() << "Doors are openning";
         doors_open_timer_.start(DOORS_ACTIVITY_TIME);
     }
-    if (cur_state_ == kClosing)
+    else if (cur_state_ == kOpened)
     {
-        cur_state_ = kOpenning;
-
-        qDebug() << "Doors are openning";
-        int t = doors_close_timer_.remainingTime();
-        doors_close_timer_.stop();
-        doors_open_timer_.start(DOORS_ACTIVITY_TIME - t);
+        emit OpenedDoors();
     }
 }
 
-void ElevatorDoors::StartClosing()
+void ElevatorDoors::Closing()
 {
     if (cur_state_ == kOpened)
     {

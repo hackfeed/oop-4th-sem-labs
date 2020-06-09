@@ -11,9 +11,9 @@ ElevatorCabin::ElevatorCabin(QObject *parent) : QObject(parent),
                                                 cur_state_(kStop),
                                                 cur_direction_(kStay)
 {
-    QObject::connect(this, SIGNAL(CabinCalled()), &doors_, SLOT(StartClosing()));
+    QObject::connect(this, SIGNAL(CabinCalled()), &doors_, SLOT(Closing()));
     QObject::connect(this, SIGNAL(CabinReachedTarget(int)), this, SLOT(CabinStop()));
-    QObject::connect(this, SIGNAL(CabinStopped(int)), &doors_, SLOT(StartOpenning()));
+    QObject::connect(this, SIGNAL(CabinStopped(int)), &doors_, SLOT(Openning()));
 
     QObject::connect(&doors_, SIGNAL(ClosedDoors()), this, SLOT(CabinMove()));
 
