@@ -20,7 +20,7 @@ public:
     void SetNewTarget(int floor);
 
 signals:
-    void SetTarget(int floor, Direction dir);
+    void SetTarget(int floor);
 
 public slots:
     void ReachedFloor(int floor);

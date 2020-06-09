@@ -46,7 +46,7 @@ void ElevatorCabin::CabinMove()
         }
         else
         {
-            emit CabinTraversingFloor(cur_floor_, cur_direction_);
+            emit CabinTraversingFloor(cur_floor_);
             traversing_floor_timer_.start(TRAVERSING_FLOOR);
         }
     }
@@ -62,7 +62,7 @@ void ElevatorCabin::CabinStop()
     }
 }
 
-void ElevatorCabin::CabinCall(int floor, Direction dir)
+void ElevatorCabin::CabinCall(int floor)
 {
     if (cur_state_ == kStop)
     {
@@ -70,7 +70,19 @@ void ElevatorCabin::CabinCall(int floor, Direction dir)
         cur_state_ = kWait;
         target_ = floor;
 
-        cur_direction_ = dir;
+        if (target_ > cur_floor_)
+        {
+            cur_direction_ = kUp;
+        }
+        else if (target_ < cur_floor_)
+        {
+            cur_direction_ = kDown;
+        }
+        else
+        {
+            cur_direction_ = kStay;
+        }
+
         emit CabinCalled();
     }
 }

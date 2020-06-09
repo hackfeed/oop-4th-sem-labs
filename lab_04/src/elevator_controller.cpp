@@ -27,7 +27,7 @@ void ElevatorController::SetNewTarget(int floor)
 
     NextTarget(floor);
     cur_direction_ = (cur_floor_ > cur_target_) ? kDown : kUp;
-    emit SetTarget(floor, cur_direction_);
+    emit SetTarget(floor);
 }
 
 void ElevatorController::ReachedFloor(int floor)
@@ -46,7 +46,7 @@ void ElevatorController::ReachedFloor(int floor)
         if (NextTarget(floor))
         {
             cur_direction_ = (cur_floor_ > cur_target_) ? kDown : kUp;
-            emit SetTarget(floor, cur_direction_);
+            emit SetTarget(floor);
         }
         else
         {

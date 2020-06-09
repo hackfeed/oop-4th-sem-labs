@@ -22,14 +22,14 @@ public:
 
 signals:
     void CabinCalled();
-    void CabinTraversingFloor(int floor, Direction d);
+    void CabinTraversingFloor(int floor);
     void CabinReachedTarget(int floor);
     void CabinStopped(int floor);
 
 public slots:
     void CabinMove();
     void CabinStop();
-    void CabinCall(int floor, Direction dir);
+    void CabinCall(int floor);
 
 private:
     int cur_floor_;
