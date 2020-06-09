@@ -7,7 +7,7 @@
 enum Direction
 {
     kDown = -1,
-    kWait,
+    kStay,
     kUp
 };
 

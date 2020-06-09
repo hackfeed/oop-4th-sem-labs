@@ -131,8 +131,8 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-        MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
-        groupBox_2->setTitle(QCoreApplication::translate("MainWindow", "\320\232\320\275\320\276\320\277\320\272\320\270 \320\262 \320\273\320\270\321\204\321\202\320\265", nullptr));
+        MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "Elevator", nullptr));
+        groupBox_2->setTitle(QCoreApplication::translate("MainWindow", "Elevator buttons", nullptr));
         button_cabin_2->setText(QCoreApplication::translate("MainWindow", "2", nullptr));
         button_cabin_1->setText(QCoreApplication::translate("MainWindow", "1", nullptr));
         button_cabin_5->setText(QCoreApplication::translate("MainWindow", "5", nullptr));
@@ -143,7 +143,7 @@ public:
         button_cabin_4->setText(QCoreApplication::translate("MainWindow", "4", nullptr));
         button_cabin_8->setText(QCoreApplication::translate("MainWindow", "8", nullptr));
         button_cabin_7->setText(QCoreApplication::translate("MainWindow", "7", nullptr));
-        groupBox_3->setTitle(QCoreApplication::translate("MainWindow", "\320\232\320\275\320\276\320\277\320\272\320\270 \320\275\320\260 \321\215\321\202\320\260\320\266\320\260\321\205", nullptr));
+        groupBox_3->setTitle(QCoreApplication::translate("MainWindow", "Floor buttons", nullptr));
         button_floor_1->setText(QCoreApplication::translate("MainWindow", "1", nullptr));
         button_floor_3->setText(QCoreApplication::translate("MainWindow", "3", nullptr));
         button_floor_2->setText(QCoreApplication::translate("MainWindow", "2", nullptr));

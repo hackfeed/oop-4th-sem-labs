@@ -52,26 +52,26 @@ OBJECTS_DIR   = build/
 
 ####### Files
 
-SOURCES       = src/cabin.cpp \
-		src/controlpanel.cpp \
-		src/doors.cpp \
-		src/lift.cpp \
+SOURCES       = src/elevator.cpp \
+		src/elevator_cabin.cpp \
+		src/elevator_controller.cpp \
+		src/elevator_doors.cpp \
 		src/main.cpp \
-		src/mainwindow.cpp build/moc_cabin.cpp \
-		build/moc_controlpanel.cpp \
-		build/moc_doors.cpp \
-		build/moc_lift.cpp \
+		src/mainwindow.cpp build/moc_elevator.cpp \
+		build/moc_elevator_cabin.cpp \
+		build/moc_elevator_controller.cpp \
+		build/moc_elevator_doors.cpp \
 		build/moc_mainwindow.cpp
-OBJECTS       = build/cabin.o \
-		build/controlpanel.o \
-		build/doors.o \
-		build/lift.o \
+OBJECTS       = build/elevator.o \
+		build/elevator_cabin.o \
+		build/elevator_controller.o \
+		build/elevator_doors.o \
 		build/main.o \
 		build/mainwindow.o \
-		build/moc_cabin.o \
-		build/moc_controlpanel.o \
-		build/moc_doors.o \
-		build/moc_lift.o \
+		build/moc_elevator.o \
+		build/moc_elevator_cabin.o \
+		build/moc_elevator_controller.o \
+		build/moc_elevator_doors.o \
 		build/moc_mainwindow.o
 DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/common/unix.conf \
@@ -280,6 +280,7 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/features/qt_config.prf \
 		/usr/lib/qt/mkspecs/linux-g++/qmake.conf \
 		/usr/lib/qt/mkspecs/features/spec_post.prf \
+		meta/.qmake.stash \
 		/usr/lib/qt/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/qt/mkspecs/features/toolchain.prf \
 		/usr/lib/qt/mkspecs/features/default_pre.prf \
@@ -299,15 +300,15 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/features/exceptions.prf \
 		/usr/lib/qt/mkspecs/features/yacc.prf \
 		/usr/lib/qt/mkspecs/features/lex.prf \
-		meta/meta/lab_04.pro include/cabin.h \
-		include/constants.h \
-		include/controlpanel.h \
-		include/doors.h \
-		include/lift.h \
-		include/mainwindow.h src/cabin.cpp \
-		src/controlpanel.cpp \
-		src/doors.cpp \
-		src/lift.cpp \
+		meta/meta/lab_04.pro include/constants.h \
+		include/elevator.h \
+		include/elevator_cabin.h \
+		include/elevator_controller.h \
+		include/elevator_doors.h \
+		include/mainwindow.h src/elevator.cpp \
+		src/elevator_cabin.cpp \
+		src/elevator_controller.cpp \
+		src/elevator_doors.cpp \
 		src/main.cpp \
 		src/mainwindow.cpp
 QMAKE_TARGET  = lab_04.exe
@@ -529,6 +530,7 @@ Makefile: meta/lab_04.pro /usr/lib/qt/mkspecs/linux-g++/qmake.conf /usr/lib/qt/m
 		/usr/lib/qt/mkspecs/features/qt_config.prf \
 		/usr/lib/qt/mkspecs/linux-g++/qmake.conf \
 		/usr/lib/qt/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/usr/lib/qt/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/qt/mkspecs/features/toolchain.prf \
 		/usr/lib/qt/mkspecs/features/default_pre.prf \
@@ -757,6 +759,7 @@ Makefile: meta/lab_04.pro /usr/lib/qt/mkspecs/linux-g++/qmake.conf /usr/lib/qt/m
 /usr/lib/qt/mkspecs/features/qt_config.prf:
 /usr/lib/qt/mkspecs/linux-g++/qmake.conf:
 /usr/lib/qt/mkspecs/features/spec_post.prf:
+.qmake.stash:
 /usr/lib/qt/mkspecs/features/exclusive_builds.prf:
 /usr/lib/qt/mkspecs/features/toolchain.prf:
 /usr/lib/qt/mkspecs/features/default_pre.prf:
@@ -792,8 +795,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/qt/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents include/cabin.h include/constants.h include/controlpanel.h include/doors.h include/lift.h include/mainwindow.h $(DISTDIR)/
-	$(COPY_FILE) --parents src/cabin.cpp src/controlpanel.cpp src/doors.cpp src/lift.cpp src/main.cpp src/mainwindow.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents include/constants.h include/elevator.h include/elevator_cabin.h include/elevator_controller.h include/elevator_doors.h include/mainwindow.h $(DISTDIR)/
+	$(COPY_FILE) --parents src/elevator.cpp src/elevator_cabin.cpp src/elevator_controller.cpp src/elevator_doors.cpp src/main.cpp src/mainwindow.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ./meta/mainwindow.ui $(DISTDIR)/
 
 
@@ -826,44 +829,44 @@ compiler_moc_predefs_clean:
 build/moc_predefs.h: /usr/lib/qt/mkspecs/features/data/dummy.cpp
 	g++ -pipe -O2 -Wall -Wextra -dM -E -o build/moc_predefs.h /usr/lib/qt/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: build/moc_cabin.cpp build/moc_controlpanel.cpp build/moc_doors.cpp build/moc_lift.cpp build/moc_mainwindow.cpp
+compiler_moc_header_make_all: build/moc_elevator.cpp build/moc_elevator_cabin.cpp build/moc_elevator_controller.cpp build/moc_elevator_doors.cpp build/moc_mainwindow.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) build/moc_cabin.cpp build/moc_controlpanel.cpp build/moc_doors.cpp build/moc_lift.cpp build/moc_mainwindow.cpp
-build/moc_cabin.cpp: include/cabin.h \
+	-$(DEL_FILE) build/moc_elevator.cpp build/moc_elevator_cabin.cpp build/moc_elevator_controller.cpp build/moc_elevator_doors.cpp build/moc_mainwindow.cpp
+build/moc_elevator.cpp: include/elevator.h \
 		include/constants.h \
-		include/controlpanel.h \
-		include/doors.h \
+		include/elevator_cabin.h \
+		include/elevator_controller.h \
+		include/elevator_doors.h \
 		build/moc_predefs.h \
 		/usr/bin/moc
-	/usr/bin/moc $(DEFINES) --include /home/hackfeed/bmstu/oop-4th-sem-labs/lab_04/build/moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/hackfeed/bmstu/oop-4th-sem-labs/lab_04/meta -I/home/hackfeed/bmstu/oop-4th-sem-labs/lab_04/meta/include -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/10.1.0 -I/usr/include/c++/10.1.0/x86_64-pc-linux-gnu -I/usr/include/c++/10.1.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/10.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/10.1.0/include-fixed -I/usr/include include/cabin.h -o build/moc_cabin.cpp
+	/usr/bin/moc $(DEFINES) --include /home/hackfeed/bmstu/oop-4th-sem-labs/lab_04/build/moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/hackfeed/bmstu/oop-4th-sem-labs/lab_04/meta -I/home/hackfeed/bmstu/oop-4th-sem-labs/lab_04/meta/include -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/10.1.0 -I/usr/include/c++/10.1.0/x86_64-pc-linux-gnu -I/usr/include/c++/10.1.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/10.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/10.1.0/include-fixed -I/usr/include include/elevator.h -o build/moc_elevator.cpp
 
-build/moc_controlpanel.cpp: include/controlpanel.h \
+build/moc_elevator_cabin.cpp: include/elevator_cabin.h \
 		include/constants.h \
+		include/elevator_controller.h \
+		include/elevator_doors.h \
 		build/moc_predefs.h \
 		/usr/bin/moc
-	/usr/bin/moc $(DEFINES) --include /home/hackfeed/bmstu/oop-4th-sem-labs/lab_04/build/moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/hackfeed/bmstu/oop-4th-sem-labs/lab_04/meta -I/home/hackfeed/bmstu/oop-4th-sem-labs/lab_04/meta/include -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/10.1.0 -I/usr/include/c++/10.1.0/x86_64-pc-linux-gnu -I/usr/include/c++/10.1.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/10.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/10.1.0/include-fixed -I/usr/include include/controlpanel.h -o build/moc_controlpanel.cpp
+	/usr/bin/moc $(DEFINES) --include /home/hackfeed/bmstu/oop-4th-sem-labs/lab_04/build/moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/hackfeed/bmstu/oop-4th-sem-labs/lab_04/meta -I/home/hackfeed/bmstu/oop-4th-sem-labs/lab_04/meta/include -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/10.1.0 -I/usr/include/c++/10.1.0/x86_64-pc-linux-gnu -I/usr/include/c++/10.1.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/10.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/10.1.0/include-fixed -I/usr/include include/elevator_cabin.h -o build/moc_elevator_cabin.cpp
 
-build/moc_doors.cpp: include/doors.h \
+build/moc_elevator_controller.cpp: include/elevator_controller.h \
 		include/constants.h \
 		build/moc_predefs.h \
 		/usr/bin/moc
-	/usr/bin/moc $(DEFINES) --include /home/hackfeed/bmstu/oop-4th-sem-labs/lab_04/build/moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/hackfeed/bmstu/oop-4th-sem-labs/lab_04/meta -I/home/hackfeed/bmstu/oop-4th-sem-labs/lab_04/meta/include -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/10.1.0 -I/usr/include/c++/10.1.0/x86_64-pc-linux-gnu -I/usr/include/c++/10.1.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/10.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/10.1.0/include-fixed -I/usr/include include/doors.h -o build/moc_doors.cpp
+	/usr/bin/moc $(DEFINES) --include /home/hackfeed/bmstu/oop-4th-sem-labs/lab_04/build/moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/hackfeed/bmstu/oop-4th-sem-labs/lab_04/meta -I/home/hackfeed/bmstu/oop-4th-sem-labs/lab_04/meta/include -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/10.1.0 -I/usr/include/c++/10.1.0/x86_64-pc-linux-gnu -I/usr/include/c++/10.1.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/10.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/10.1.0/include-fixed -I/usr/include include/elevator_controller.h -o build/moc_elevator_controller.cpp
 
-build/moc_lift.cpp: include/lift.h \
-		include/cabin.h \
+build/moc_elevator_doors.cpp: include/elevator_doors.h \
 		include/constants.h \
-		include/controlpanel.h \
-		include/doors.h \
 		build/moc_predefs.h \
 		/usr/bin/moc
-	/usr/bin/moc $(DEFINES) --include /home/hackfeed/bmstu/oop-4th-sem-labs/lab_04/build/moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/hackfeed/bmstu/oop-4th-sem-labs/lab_04/meta -I/home/hackfeed/bmstu/oop-4th-sem-labs/lab_04/meta/include -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/10.1.0 -I/usr/include/c++/10.1.0/x86_64-pc-linux-gnu -I/usr/include/c++/10.1.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/10.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/10.1.0/include-fixed -I/usr/include include/lift.h -o build/moc_lift.cpp
+	/usr/bin/moc $(DEFINES) --include /home/hackfeed/bmstu/oop-4th-sem-labs/lab_04/build/moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/hackfeed/bmstu/oop-4th-sem-labs/lab_04/meta -I/home/hackfeed/bmstu/oop-4th-sem-labs/lab_04/meta/include -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/10.1.0 -I/usr/include/c++/10.1.0/x86_64-pc-linux-gnu -I/usr/include/c++/10.1.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/10.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/10.1.0/include-fixed -I/usr/include include/elevator_doors.h -o build/moc_elevator_doors.cpp
 
 build/moc_mainwindow.cpp: include/mainwindow.h \
-		include/lift.h \
-		include/cabin.h \
+		include/elevator.h \
 		include/constants.h \
-		include/controlpanel.h \
-		include/doors.h \
+		include/elevator_cabin.h \
+		include/elevator_controller.h \
+		include/elevator_doors.h \
 		build/moc_predefs.h \
 		/usr/bin/moc
 	/usr/bin/moc $(DEFINES) --include /home/hackfeed/bmstu/oop-4th-sem-labs/lab_04/build/moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/hackfeed/bmstu/oop-4th-sem-labs/lab_04/meta -I/home/hackfeed/bmstu/oop-4th-sem-labs/lab_04/meta/include -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -I/usr/include/c++/10.1.0 -I/usr/include/c++/10.1.0/x86_64-pc-linux-gnu -I/usr/include/c++/10.1.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/10.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/10.1.0/include-fixed -I/usr/include include/mainwindow.h -o build/moc_mainwindow.cpp
@@ -889,55 +892,53 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_ui
 
 ####### Compile
 
-build/cabin.o: src/cabin.cpp include/cabin.h \
+build/elevator.o: src/elevator.cpp include/elevator.h \
 		include/constants.h \
-		include/controlpanel.h \
-		include/doors.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/cabin.o src/cabin.cpp
+		include/elevator_cabin.h \
+		include/elevator_controller.h \
+		include/elevator_doors.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/elevator.o src/elevator.cpp
 
-build/controlpanel.o: src/controlpanel.cpp include/controlpanel.h \
-		include/constants.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/controlpanel.o src/controlpanel.cpp
-
-build/doors.o: src/doors.cpp include/doors.h \
-		include/constants.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/doors.o src/doors.cpp
-
-build/lift.o: src/lift.cpp include/lift.h \
-		include/cabin.h \
+build/elevator_cabin.o: src/elevator_cabin.cpp include/elevator_cabin.h \
 		include/constants.h \
-		include/controlpanel.h \
-		include/doors.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/lift.o src/lift.cpp
+		include/elevator_controller.h \
+		include/elevator_doors.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/elevator_cabin.o src/elevator_cabin.cpp
+
+build/elevator_controller.o: src/elevator_controller.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/elevator_controller.o src/elevator_controller.cpp
+
+build/elevator_doors.o: src/elevator_doors.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/elevator_doors.o src/elevator_doors.cpp
 
 build/main.o: src/main.cpp include/mainwindow.h \
-		include/lift.h \
-		include/cabin.h \
+		include/elevator.h \
 		include/constants.h \
-		include/controlpanel.h \
-		include/doors.h
+		include/elevator_cabin.h \
+		include/elevator_controller.h \
+		include/elevator_doors.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/main.o src/main.cpp
 
 build/mainwindow.o: src/mainwindow.cpp include/mainwindow.h \
-		include/lift.h \
-		include/cabin.h \
+		include/elevator.h \
 		include/constants.h \
-		include/controlpanel.h \
-		include/doors.h \
+		include/elevator_cabin.h \
+		include/elevator_controller.h \
+		include/elevator_doors.h \
 		ui_mainwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/mainwindow.o src/mainwindow.cpp
 
-build/moc_cabin.o: build/moc_cabin.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/moc_cabin.o build/moc_cabin.cpp
+build/moc_elevator.o: build/moc_elevator.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/moc_elevator.o build/moc_elevator.cpp
 
-build/moc_controlpanel.o: build/moc_controlpanel.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/moc_controlpanel.o build/moc_controlpanel.cpp
+build/moc_elevator_cabin.o: build/moc_elevator_cabin.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/moc_elevator_cabin.o build/moc_elevator_cabin.cpp
 
-build/moc_doors.o: build/moc_doors.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/moc_doors.o build/moc_doors.cpp
+build/moc_elevator_controller.o: build/moc_elevator_controller.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/moc_elevator_controller.o build/moc_elevator_controller.cpp
 
-build/moc_lift.o: build/moc_lift.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/moc_lift.o build/moc_lift.cpp
+build/moc_elevator_doors.o: build/moc_elevator_doors.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/moc_elevator_doors.o build/moc_elevator_doors.cpp
 
 build/moc_mainwindow.o: build/moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/moc_mainwindow.o build/moc_mainwindow.cpp

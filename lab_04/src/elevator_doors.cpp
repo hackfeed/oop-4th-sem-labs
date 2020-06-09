@@ -1,6 +1,6 @@
 #include "qdebug.h"
 
-#include "doors.h"
+#include "elevator_doors.h"
 
 ElevatorDoors::ElevatorDoors(QObject *parent) : QObject(parent),
                                                 cur_state_(kClosed)

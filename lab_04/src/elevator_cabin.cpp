@@ -9,13 +9,13 @@ ElevatorCabin::ElevatorCabin(QObject *parent) : QObject(parent),
                                                 target_(-1),
                                                 new_target_(false),
                                                 cur_state_(kWait),
-                                                cur_direction_(kWait)
+                                                cur_direction_(kStay)
 {
     traversing_floor_timer_.setSingleShot(true);
 
     QObject::connect(this, SIGNAL(CabinCalled()), &doors_, SLOT(StartClosing()));
     QObject::connect(this, SIGNAL(CabinReachedTarget(int)), this, SLOT(CabinStop()));
-    QObject::connect(this, SIGNAL(CabinStopped(int)), &doors_, SLOT(StartOpen()));
+    QObject::connect(this, SIGNAL(CabinStopped(int)), &doors_, SLOT(StartOpenning()));
     QObject::connect(&doors_, SIGNAL(ClosedDoors()), this, SLOT(CabinMove()));
     QObject::connect(&traversing_floor_timer_, SIGNAL(timeout()), this, SLOT(CabinMove()));
 }
@@ -31,14 +31,14 @@ void ElevatorCabin::CabinMove()
         }
         else
         {
-            traversing_floor_timer.start(TRAVERSING_FLOOR);
+            traversing_floor_timer_.start(TRAVERSING_FLOOR);
         }
     }
     else if (cur_state_ == kMove)
     {
         cur_state_ = kMove;
 
-        cur_floor += cur_direction_;
+        cur_floor_ += cur_direction_;
 
         if (cur_floor_ == target_)
         {
@@ -47,7 +47,7 @@ void ElevatorCabin::CabinMove()
         else
         {
             emit CabinTraversingFloor(cur_floor_, cur_direction_);
-            traversing_floor_timer_.start(CROSSING_FLOOR);
+            traversing_floor_timer_.start(TRAVERSING_FLOOR);
         }
     }
 }
