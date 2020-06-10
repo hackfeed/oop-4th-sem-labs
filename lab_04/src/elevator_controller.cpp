@@ -4,7 +4,7 @@
 #include "elevator_controller.h"
 
 ElevatorController::ElevatorController(QObject *parent) : QObject(parent),
-                                                          cur_floor_(1),
+                                                          cur_floor_(START_FLOOR),
                                                           cur_target_(START_STATE),
                                                           is_target_(FLOORS_AMOUNT, false),
                                                           cur_state_(kFree),

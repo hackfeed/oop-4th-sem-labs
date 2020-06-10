@@ -5,7 +5,7 @@
 #include "elevator_cabin.h"
 
 ElevatorCabin::ElevatorCabin(QObject *parent) : QObject(parent),
-                                                cur_floor_(1),
+                                                cur_floor_(START_FLOOR),
                                                 target_(START_STATE),
                                                 new_target_(false),
                                                 cur_state_(kStop),

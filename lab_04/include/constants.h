@@ -16,5 +16,6 @@ enum Direction
 #define ELEVATOR_WAITING_TIME 2000
 #define FLOORS_AMOUNT 10
 #define START_STATE -1
+#define START_FLOOR 1
 
 #endif
