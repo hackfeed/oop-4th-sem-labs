@@ -26,8 +26,6 @@ void ElevatorController::SetNewTarget(int floor)
         cur_target_ = floor;
     }
 
-    NextTarget(floor);
-
     if (cur_floor_ > cur_target_)
     {
         cur_direction_ = kDown;
