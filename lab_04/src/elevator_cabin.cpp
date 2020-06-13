@@ -23,33 +23,36 @@ ElevatorCabin::ElevatorCabin(QObject *parent) : QObject(parent),
 
 void ElevatorCabin::CabinMove()
 {
-    if (new_target_ && cur_state_ == kWait)
+    if (new_target_)
     {
-        cur_state_ = kMove;
+        if (cur_state_ == kWait)
+        {
+            cur_state_ = kMove;
 
-        if (cur_floor_ == target_)
-        {
-            emit CabinReachedTarget(cur_floor_);
+            if (cur_floor_ == target_)
+            {
+                emit CabinReachedTarget(cur_floor_);
+            }
+            else
+            {
+                traversing_floor_timer_.start(FLOOR_TRAVERSING_TIME);
+            }
         }
-        else
+        else if (cur_state_ == kMove)
         {
-            traversing_floor_timer_.start(FLOOR_TRAVERSING_TIME);
-        }
-    }
-    else if (cur_state_ == kMove)
-    {
-        cur_state_ = kMove;
+            cur_state_ = kMove;
 
-        cur_floor_ += cur_direction_;
+            cur_floor_ += cur_direction_;
 
-        if (cur_floor_ == target_)
-        {
-            emit CabinReachedTarget(cur_floor_);
-        }
-        else
-        {
-            emit CabinTraversingFloor(cur_floor_);
-            traversing_floor_timer_.start(FLOOR_TRAVERSING_TIME);
+            if (cur_floor_ == target_)
+            {
+                emit CabinReachedTarget(cur_floor_);
+            }
+            else
+            {
+                emit CabinTraversingFloor(cur_floor_);
+                traversing_floor_timer_.start(FLOOR_TRAVERSING_TIME);
+            }
         }
     }
 }

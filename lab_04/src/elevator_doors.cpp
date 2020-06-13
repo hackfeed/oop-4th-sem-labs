@@ -26,10 +26,6 @@ void ElevatorDoors::Openning()
         qDebug() << "Doors are openning";
         doors_open_timer_.start(DOORS_ACTIVITY_TIME);
     }
-    else if (cur_state_ == kOpened)
-    {
-        emit OpenedDoors();
-    }
 }
 
 void ElevatorDoors::Closing()
