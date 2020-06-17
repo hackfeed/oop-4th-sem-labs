@@ -1,12 +1,18 @@
-#include "mainwindow.h"
+#include "mainwindow.hpp"
 
-MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent),
-                                          ui(new Ui::MainWindow),
-                                          _facade(nullptr)
+#include "qt_canvas.hpp"
+#include "qt_factory.hpp"
+#include "exception_default.hpp"
+#include "exception_load.hpp"
+#include "ui_mainwindow.h"
+
+MainWindow::MainWindow(QWidget *parent)
+    : QMainWindow(parent), ui(new Ui::MainWindow), facade_viewer(new Facade), index_model(0), index_camera(0)
 {
     ui->setupUi(this);
-    this->setup_scene();
-    this->_facade = std::shared_ptr<facade>(facade::instance());
+    scene_view = std::make_shared<QGraphicsScene>();
+    director.set_scene(scene_view);
+    ui->graphicsView->setScene(scene_view.get());
 }
 
 MainWindow::~MainWindow()
@@ -14,232 +20,300 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::check_cam_exist()
+void MainWindow::render()
 {
-    if (!this->_facade->cams_count())
+    if (ui->comboBoxCamera->count() == 0)
     {
-        std::string message = "No camera found.";
-        throw camera_error(message);
+        QMessageBox::information(nullptr, "Warning", "Choose camera to render");
+        return;
     }
+    time_t t_time = time(NULL);
+
+    std::shared_ptr<AbstractFactory> factory;
+    auto drawer = director.get_drawer("meta/config.cfg", factory);
+    if (drawer == nullptr)
+    {
+        throw OpenStreamError(__FILE__, typeid(*this).name(), __LINE__, ctime(&t_time));
+    }
+
+    std::shared_ptr<BaseCommand> command(new DrawCommand(drawer));
+    facade_viewer->ExecuteCommand(command);
+
+    ui->graphicsView->setScene(this->scene_view.get());
 }
 
-void MainWindow::check_models_exist()
+void MainWindow::on_pushButton_addCamera_clicked()
 {
-    if (!this->_facade->models_count())
-    {
-        std::string message = "No models found.";
-        throw model_error(message);
-    }
-}
-
-void MainWindow::on_move_button_clicked()
-{
+    std::string cam_name = std::string("camera_") + std::to_string(++index_camera);
     try
     {
-        check_cam_exist();
-        check_models_exist();
+        std::shared_ptr<BaseCommand> command(new AddCameraCommand(cam_name));
+        facade_viewer->ExecuteCommand(command);
+        ui->comboBoxCamera->addItem(cam_name.c_str());
+        if (ui->comboBoxCamera->count() == 1)
+        {
+            std::shared_ptr<BaseCommand> command(new SetCameraCommand(cam_name));
+            facade_viewer->ExecuteCommand(command);
+            if (ui->comboBoxModel->count() > 0)
+                render();
+        }
     }
-    catch (const camera_error &error)
+    catch (DefaultException &ex)
     {
-        QMessageBox::critical(NULL, "Ошибка", "Не загружено ни одной камеры.");
-        return;
+        QMessageBox::warning(this, "Error message", QString(ex.what()));
     }
-    catch (const model_error &error)
-    {
-        QMessageBox::critical(NULL, "Ошибка", "Не загружено ни одной модели");
-        return;
-    }
-
-    move_model move_command(10, 10, 10, 1);
-    move_command.execute(_facade);
-    update_scene();
 }
 
-void MainWindow::on_scale_button_clicked()
+void MainWindow::on_pushButton_addModel_clicked()
 {
+    QString file = QFileDialog::getOpenFileName(this,
+                                                QString::fromUtf8("Открыть файл"),
+                                                QDir::currentPath(),
+                                                "text files (*.txt)");
+    if (file.isEmpty())
+        return;
+
+    std::string model_name = std::string("model_") + std::to_string(++index_model);
+    std::string file_name = file.toLocal8Bit().constData();
     try
     {
-        check_cam_exist();
-        check_models_exist();
+        std::shared_ptr<BaseCommand> command(new AddModelCommand(model_name, file_name));
+        facade_viewer->ExecuteCommand(command);
+        render();
+        ui->comboBoxModel->addItem(model_name.c_str());
     }
-    catch (const camera_error &error)
+    catch (DefaultException &ex)
     {
-        QMessageBox::critical(NULL, "Ошибка", "Не загружено ни одной камеры.");
-        return;
+        QMessageBox::warning(this, "Error message", QString(ex.what()));
     }
-    catch (const model_error &error)
-    {
-        QMessageBox::critical(NULL, "Ошибка", "Не загружено ни одной модели");
-        return;
-    }
-
-    scale_model scale_command(2, 2, 2, 1);
-    scale_command.execute(_facade);
-    update_scene();
 }
 
-void MainWindow::on_turn_button_clicked()
+void MainWindow::on_pushButton_setCamera_clicked()
 {
+    std::string cam_name = ui->comboBoxCamera->currentText().toStdString();
     try
     {
-        check_cam_exist();
-        check_models_exist();
-    }
-    catch (const camera_error &error)
-    {
-        QMessageBox::critical(NULL, "Ошибка", "Не загружено ни одной камеры.");
-        return;
-    }
-    catch (const model_error &error)
-    {
-        QMessageBox::critical(NULL, "Ошибка", "Не загружено ни одной модели");
-        return;
-    }
+        std::shared_ptr<BaseCommand> command(new SetCameraCommand(cam_name));
+        facade_viewer->ExecuteCommand(command);
 
-    turn_model turn_command(3, 3, 3, 1);
-    turn_command.execute(_facade);
-    update_scene();
+        if (ui->comboBoxCamera->count() > 0)
+            render();
+    }
+    catch (DefaultException &ex)
+    {
+        QMessageBox::warning(this, "Error message", QString(ex.what()));
+    }
 }
 
-void MainWindow::on_load_button_clicked()
+void MainWindow::on_pushButton_moveModel_clicked()
 {
-    try
+    if (ui->comboBoxModel->count() == 0)
     {
-        check_cam_exist();
-    }
-    catch (const camera_error &error)
-    {
-        QMessageBox::critical(NULL, "Ошибка", "Прежде чем добавлять модель, добавьте хотя бы одну камеру.");
         return;
     }
-
-    load_model load_command("/home/alexey/reps/oop/lab_03/data/model.csv");
+    std::string obj_name = ui->comboBoxModel->currentText().toStdString();
+    double x = ui->doubleSpinBoxDx->value();
+    double y = ui->doubleSpinBoxDy->value();
+    double z = ui->doubleSpinBoxDz->value();
 
     try
     {
-        load_command.execute(_facade);
+        Point<double> moving(x, y, z);
+        Point<double> rotateing(0, 0, 0);
+        Point<double> scale(1, 1, 1);
+        std::shared_ptr<BaseCommand> command(new TransformModelCommand(obj_name, moving, scale, rotateing));
+        facade_viewer->ExecuteCommand(command);
     }
-    catch (const file_error &error)
+    catch (DefaultException &ex)
     {
-        QMessageBox::critical(NULL, "Ошибка", "Что-то не так пошло при загрузке файла...");
+        QMessageBox::warning(this, "Error message", QString(ex.what()));
+    }
+    render();
+}
+
+void MainWindow::on_pushButton_scaleModel_clicked()
+{
+    if (ui->comboBoxModel->count() == 0)
+    {
         return;
     }
+    std::string obj_name = ui->comboBoxModel->currentText().toStdString();
+    double x = ui->doubleSpinBoxKx->value();
+    double y = ui->doubleSpinBoxKy->value();
+    double z = ui->doubleSpinBoxKz->value();
 
-    update_scene();
-}
-
-void MainWindow::setup_scene()
-{
-    this->_scene = new QGraphicsScene(this);
-    ui->graphicsView->setScene(_scene);
-    ui->graphicsView->setAlignment(Qt::AlignTop | Qt::AlignLeft);
-    this->_scene->setSceneRect(0, 0, win_x, win_y);
-
-    std::shared_ptr<abstract_factory> factory(new qt_factory);
-    std::shared_ptr<base_drawer> drawer(new qt_drawer(this->_scene));
-    this->_drawer = drawer;
-}
-
-void MainWindow::update_scene()
-{
-    draw_scene draw_command(this->_drawer);
-    draw_command.execute(_facade);
-}
-
-void MainWindow::on_add_camera_clicked()
-{
-    add_camera camera_command(win_x / 2, win_y / 2, 0);
-    camera_command.execute(_facade);
-}
-
-void MainWindow::on_right_button_clicked()
-{
     try
     {
-        check_cam_exist();
-        check_models_exist();
+        Point<double> moving(0, 0, 0);
+        Point<double> rotateing(0, 0, 0);
+        Point<double> scale(x, y, z);
+        std::shared_ptr<BaseCommand> command(new TransformModelCommand(obj_name, moving, scale, rotateing));
+        facade_viewer->ExecuteCommand(command);
     }
-    catch (const camera_error &error)
+    catch (DefaultException &ex)
     {
-        QMessageBox::critical(NULL, "Ошибка", "Не загружено ни одной камеры.");
-        return;
+        QMessageBox::warning(this, "Error message", QString(ex.what()));
     }
-    catch (const model_error &error)
-    {
-        QMessageBox::critical(NULL, "Ошибка", "Не загружено ни одной модели");
-        return;
-    }
-
-    move_camera camera_command(1, 10, 0);
-    camera_command.execute(_facade);
-    update_scene();
+    render();
 }
 
-void MainWindow::on_up_button_clicked()
+void MainWindow::on_pushButton_rotateModel_clicked()
 {
+    if (ui->comboBoxModel->count() == 0)
+    {
+        return;
+    }
+    std::string obj_name = ui->comboBoxModel->currentText().toStdString();
+    double x = ui->doubleSpinBoxOx->value();
+    double y = ui->doubleSpinBoxOy->value();
+    double z = ui->doubleSpinBoxOz->value();
+
     try
     {
-        check_cam_exist();
-        check_models_exist();
+        Point<double> moving(0, 0, 0);
+        Point<double> rotateing(x, y, z);
+        Point<double> scale(1, 1, 1);
+        std::shared_ptr<BaseCommand> command(new TransformModelCommand(obj_name, moving, scale, rotateing));
+        facade_viewer->ExecuteCommand(command);
     }
-    catch (const camera_error &error)
+    catch (DefaultException &ex)
     {
-        QMessageBox::critical(NULL, "Ошибка", "Не загружено ни одной камеры.");
-        return;
+        QMessageBox::warning(this, "Error message", QString(ex.what()));
     }
-    catch (const model_error &error)
-    {
-        QMessageBox::critical(NULL, "Ошибка", "Не загружено ни одной модели");
-        return;
-    }
-
-    move_camera camera_command(1, 0, 10);
-    camera_command.execute(_facade);
-    update_scene();
+    render();
 }
 
-void MainWindow::on_down_button_clicked()
+std::string MainWindow::readConfigFile(const char *filename)
 {
-    try
-    {
-        check_cam_exist();
-        check_models_exist();
-    }
-    catch (const camera_error &error)
-    {
-        QMessageBox::critical(NULL, "Ошибка", "Не загружено ни одной камеры.");
-        return;
-    }
-    catch (const model_error &error)
-    {
-        QMessageBox::critical(NULL, "Ошибка", "Не загружено ни одной модели");
-        return;
-    }
+    std::ifstream _file;
+    time_t t_time = time(NULL);
 
-    move_camera camera_command(1, 0, -10);
-    camera_command.execute(_facade);
-    update_scene();
+    _file.open(filename);
+    if (!_file)
+        throw OpenStreamError(__FILE__, typeid(*this).name(), __LINE__, ctime(&t_time));
+    std::string dev_file;
+    std::getline(_file, dev_file);
+    _file.close();
+    return dev_file;
 }
 
-void MainWindow::on_left_button_clicked()
+void MainWindow::on_pushButton_moveCamera_clicked()
 {
+    if (ui->comboBoxModel->count() == 0)
+    {
+        return;
+    }
+    std::string cam_name = ui->comboBoxCamera->currentText().toStdString();
+    double x = ui->doubleSpinBoxDx_c->value();
+    double y = ui->doubleSpinBoxDy_c->value();
+    double z = ui->doubleSpinBoxDz_c->value();
+
     try
     {
-        check_cam_exist();
-        check_models_exist();
+        Point<double> moving(x, y, z);
+        Point<double> rotateing(0, 0, 0);
+        std::shared_ptr<BaseCommand> command(new TransformCameraCommand(cam_name, moving, rotateing));
+        facade_viewer->ExecuteCommand(command);
     }
-    catch (const camera_error &error)
+    catch (DefaultException &ex)
     {
-        QMessageBox::critical(NULL, "Ошибка", "Не загружено ни одной камеры.");
-        return;
+        QMessageBox::warning(this, "Error message", QString(ex.what()));
     }
-    catch (const model_error &error)
-    {
-        QMessageBox::critical(NULL, "Ошибка", "Не загружено ни одной модели");
-        return;
-    }
+    render();
+}
 
-    move_camera camera_command(1, -10, 0);
-    camera_command.execute(_facade);
-    update_scene();
+void MainWindow::on_pushButton_rotateCamera_clicked()
+{
+    if (ui->comboBoxModel->count() == 0)
+    {
+        return;
+    }
+    std::string cam_name = ui->comboBoxCamera->currentText().toStdString();
+    double angle_x = ui->doubleSpinBoxOx_c->value();
+    double angle_y = ui->doubleSpinBoxOy_c->value();
+    double angle_z = ui->doubleSpinBoxOz_c->value();
+
+    try
+    {
+        Point<double> moving(0, 0, 0);
+        Point<double> rotateing(angle_x, angle_y, angle_z);
+        std::shared_ptr<BaseCommand> command(new TransformCameraCommand(cam_name, moving, rotateing));
+        facade_viewer->ExecuteCommand(command);
+    }
+    catch (DefaultException &ex)
+    {
+        QMessageBox::warning(this, "Error message", QString(ex.what()));
+    }
+    render();
+}
+
+void MainWindow::on_pushButton_removeCamera_clicked()
+{
+    if (ui->comboBoxCamera->count() == 0)
+    {
+        return;
+    }
+    try
+    {
+        std::string cam_name = ui->comboBoxCamera->currentText().toStdString();
+        std::shared_ptr<BaseCommand> command(new RemoveCameraCommand(cam_name));
+        facade_viewer->ExecuteCommand(command);
+        ui->comboBoxCamera->removeItem(ui->comboBoxCamera->currentIndex());
+        if (ui->comboBoxCamera->count() == 0)
+        {
+            QMessageBox::information(nullptr, "Warning", "Choose camera to render");
+            scene_view->clear();
+            return;
+        }
+        render();
+    }
+    catch (DefaultException &ex)
+    {
+        QMessageBox::warning(this, "Error message", QString(ex.what()));
+    }
+}
+
+void MainWindow::on_pushButton_removeModel_clicked()
+{
+    if (ui->comboBoxCamera->count() == 0)
+    {
+        return;
+    }
+    try
+    {
+        std::string model_name = ui->comboBoxModel->currentText().toStdString();
+        std::shared_ptr<BaseCommand> command(new RemoveModelCommand(model_name));
+        facade_viewer->ExecuteCommand(command);
+        ui->comboBoxModel->removeItem(ui->comboBoxModel->currentIndex());
+        if (ui->comboBoxCamera->count() == 0)
+        {
+            QMessageBox::information(nullptr, "Warning", "Choose camera to render");
+            scene_view->clear();
+            return;
+        }
+        if (ui->comboBoxModel->count() == 0)
+        {
+            scene_view->clear();
+            return;
+        }
+        render();
+    }
+    catch (DefaultException &ex)
+    {
+        QMessageBox::warning(this, "Error message", QString(ex.what()));
+    }
+}
+
+std::shared_ptr<BaseDrawer> MainWindow::DrawDirector::get_drawer(const char *fp, std::shared_ptr<AbstractFactory> &f)
+{
+    MainWindow obj;
+    if (obj.readConfigFile(fp) == "Qt")
+    {
+        this->_scene_view->clear();
+        f = std::make_shared<QtFactory>();
+        auto drawer = f->createGraphics();
+        drawer->setCanvas(std::make_shared<QtCanvas>(this->_scene_view));
+        return drawer;
+    }
+    return nullptr;
 }

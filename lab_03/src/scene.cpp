@@ -1,36 +1,49 @@
-#include "scene.h"
+#include "scene.hpp"
 
-void scene::add_model(std::shared_ptr<object> model)
+#include <memory.h>
+
+#include "vector_iterator.hpp"
+
+#include "exception_scene.hpp"
+
+Scene::Scene() : object_(new CompositeObject) {}
+
+void Scene::Add(std::shared_ptr<SceneObject> object)
 {
-    this->models->add(model);
+    object_->add(std::move(object));
 }
 
-void scene::remove_model(const size_t index)
+void Scene::Remove(IteratorObject &it)
 {
-    //this->models->remove(index);
+    object_->remove(it);
 }
 
-void scene::add_camera(const std::shared_ptr<camera> &camera)
+std::shared_ptr<CompositeObject> Scene::getObject()
 {
-    this->cams.push_back(camera);
+    return object_;
 }
 
-void scene::remove_camera(const size_t index)
+std::shared_ptr<SceneObject> Scene::getObject(std::string object)
 {
-    this->cams.remove(index);
-}
-
-vector<std::shared_ptr<object>> scene::get_models()
-{
-    return this->models->get_objects();
-}
-
-std::shared_ptr<composite> scene::get_composite()
-{
-    return this->models;
-}
-
-vector<std::shared_ptr<camera>> scene::get_cams()
-{
-    return this->cams;
+    auto it = object_->begin();
+    auto it_e = object_->end();
+    bool flag = true;
+    while (it != it_e && flag)
+    {
+        auto t = it.get();
+        if (it.get()->getName() == object)
+        {
+            flag = false;
+        }
+        if (flag)
+        {
+            ++it;
+        }
+    }
+    if (flag)
+    {
+        time_t t_time = time(NULL);
+        throw ObjectError(__FILE__, typeid(*this).name(), __LINE__, ctime(&t_time));
+    }
+    return it.get();
 }

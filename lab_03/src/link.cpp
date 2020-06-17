@@ -1,27 +1,48 @@
-#include "link.h"
+#include "link.hpp"
 
-link::link(const link &_link)
+Edge::Edge()
 {
-    this->pt1_index = _link.pt1_index;
-    this->pt2_index = _link.pt2_index;
+    this->begin = 0;
+    this->end = 0;
 }
 
-size_t link::get_fst() const
+Edge::Edge(const size_t begin, const size_t end)
 {
-    return this->pt1_index;
+    this->begin = begin;
+    this->end = end;
 }
 
-size_t link::get_snd() const
+Edge::Edge(const Edge &edge)
 {
-    return this->pt2_index;
+    this->begin = edge.getBegin();
+    this->end = edge.getEnd();
 }
 
-void link::set_fst(const size_t &fst)
+Edge::~Edge() {}
+
+Edge &Edge::operator=(const Edge &edge)
 {
-    this->pt1_index = fst;
+    this->begin = edge.getBegin();
+    this->end = edge.getEnd();
+    return *this;
 }
 
-void link::set_snd(const size_t &snd)
+size_t Edge::getBegin() const
 {
-    this->pt2_index = snd;
+    return begin;
+}
+
+size_t Edge::getEnd() const
+{
+    return end;
+}
+
+void Edge::setBegin(size_t begin)
+{
+    this->begin = begin;
+}
+
+void Edge::setEnd(size_t end)
+{
+    this->end = end;
 }

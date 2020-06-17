@@ -1,102 +1,46 @@
-#ifndef ITERATOR_HPP
-#define ITERATOR_HPP
+#pragma once
 
-#include "iterator.h"
-#include <QDebug>
+template <class T>
+class vector_base;
+template <class T>
+class matrix_base;
 
-template <typename T>
-iterator<T>::iterator(const iterator<T> &iterator)
+#include "iterator_base.hpp"
+
+template <class T>
+class _iterator : public iterator_base<T>
 {
-    this->ptr = iterator.ptr;
-    this->current_index = iterator.current_index;
-    this->vector_size = iterator.vector_size;
+public:
+    _iterator(const _iterator &);
+
+    T &operator*();
+    T *operator->();
+
+    friend class vector_base<T>;
+    friend class matrix_base<T>;
+
+private:
+    _iterator(T *);
+};
+
+template <class T>
+_iterator<T>::_iterator(T *pointer) : iterator_base<T>(pointer)
+{
 }
 
-template <typename T>
-iterator<T>::iterator(const vector<T> &vector)
+template <class T>
+_iterator<T>::_iterator(const _iterator &other) : iterator_base<T>(other.pointer)
 {
-    this->current_index = 0;
-    this->vector_size = vector.get_size();
-    this->ptr = vector.value;
 }
 
-template <typename T>
-T &iterator<T>::operator*()
+template <class T>
+T &_iterator<T>::operator*()
 {
-    return *get_current();
+    return *this->pointer;
 }
 
-template <typename T>
-const T &iterator<T>::operator*() const
+template <class T>
+T *_iterator<T>::operator->()
 {
-    return get_current();
+    return this->pointer;
 }
-
-template <typename T>
-T *iterator<T>::operator->()
-{
-    return get_current();
-}
-
-template <typename T>
-const T *iterator<T>::operator->() const
-{
-    return get_current();
-}
-
-template <typename T>
-iterator<T>::operator bool() const
-{
-    return current_index >= vector_size || !vector_size ? false : true;
-}
-
-template <typename T>
-iterator<T> &iterator<T>::operator+=(size_t number)
-{
-    current_index += number;
-    return *this;
-}
-
-template <typename T>
-iterator<T> iterator<T>::operator+(size_t number) const
-{
-    iterator<T> iterator(*this);
-    iterator += number;
-    return iterator;
-}
-
-template <typename T>
-iterator<T> &iterator<T>::operator++()
-{
-    this->current_index++;
-
-    return *this;
-}
-
-template <typename T>
-iterator<T> iterator<T>::operator++(int)
-{
-    ++(*this);
-
-    return *this;
-}
-
-template <typename T>
-bool iterator<T>::operator==(const iterator<T> &iterator) const
-{
-    return this->current_index == iterator.current_index;
-}
-
-template <typename T>
-bool iterator<T>::operator!=(const iterator<T> &iterator) const
-{
-    return this->current_index != iterator.current_index;
-}
-
-template <typename T>
-T *iterator<T>::get_current() const
-{
-    return this->ptr.lock().get() + current_index;
-}
-
-#endif
