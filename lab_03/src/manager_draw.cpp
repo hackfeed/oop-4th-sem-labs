@@ -33,7 +33,7 @@ void DrawManager::setDrawer(std::shared_ptr<BaseDrawer> drawer)
     drawer_ = drawer;
 }
 
-void DrawManager::setCamera(std::shared_ptr<Camera> camera)
+void DrawManager::SetCamera(std::shared_ptr<Camera> camera)
 {
     camera_ = camera;
 }

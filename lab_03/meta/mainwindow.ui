@@ -14,7 +14,7 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="pushButton_addCamera">
+   <widget class="QPushButton" name="pushButton_AddCamera">
     <property name="geometry">
      <rect>
       <x>730</x>
@@ -37,7 +37,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_addModel">
+   <widget class="QPushButton" name="pushButton_AddModel">
     <property name="geometry">
      <rect>
       <x>730</x>
@@ -73,7 +73,7 @@
      <string>Choose model:</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_removeModel">
+   <widget class="QPushButton" name="pushButton_RemoveModel">
     <property name="geometry">
      <rect>
       <x>730</x>
@@ -99,7 +99,7 @@
      <string>Choose camera:</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_removeCamera">
+   <widget class="QPushButton" name="pushButton_RemoveCamera">
     <property name="geometry">
      <rect>
       <x>730</x>
@@ -112,7 +112,7 @@
      <string>Remove Camera</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_setCamera">
+   <widget class="QPushButton" name="pushButton_SetCamera">
     <property name="geometry">
      <rect>
       <x>730</x>

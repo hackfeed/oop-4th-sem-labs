@@ -12,7 +12,7 @@ class DrawManager : public BaseManager, public Visitor
 {
 public:
     void setDrawer(std::shared_ptr<BaseDrawer> drawer);
-    void setCamera(std::shared_ptr<Camera> camera);
+    void SetCamera(std::shared_ptr<Camera> camera);
     void visit(Model &model);
     void visit(Camera &model);
     void visit(CompositeObject &model);

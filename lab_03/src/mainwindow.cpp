@@ -42,7 +42,7 @@ void MainWindow::render()
     ui->graphicsView->setScene(this->scene_view.get());
 }
 
-void MainWindow::on_pushButton_addCamera_clicked()
+void MainWindow::on_pushButton_AddCamera_clicked()
 {
     std::string cam_name = std::string("camera_") + std::to_string(++index_camera);
     try
@@ -64,7 +64,7 @@ void MainWindow::on_pushButton_addCamera_clicked()
     }
 }
 
-void MainWindow::on_pushButton_addModel_clicked()
+void MainWindow::on_pushButton_AddModel_clicked()
 {
     QString file = QFileDialog::getOpenFileName(this,
                                                 QString::fromUtf8("Открыть файл"),
@@ -88,7 +88,7 @@ void MainWindow::on_pushButton_addModel_clicked()
     }
 }
 
-void MainWindow::on_pushButton_setCamera_clicked()
+void MainWindow::on_pushButton_SetCamera_clicked()
 {
     std::string cam_name = ui->comboBoxCamera->currentText().toStdString();
     try
@@ -247,7 +247,7 @@ void MainWindow::on_pushButton_rotateCamera_clicked()
     render();
 }
 
-void MainWindow::on_pushButton_removeCamera_clicked()
+void MainWindow::on_pushButton_RemoveCamera_clicked()
 {
     if (ui->comboBoxCamera->count() == 0)
     {
@@ -273,7 +273,7 @@ void MainWindow::on_pushButton_removeCamera_clicked()
     }
 }
 
-void MainWindow::on_pushButton_removeModel_clicked()
+void MainWindow::on_pushButton_RemoveModel_clicked()
 {
     if (ui->comboBoxCamera->count() == 0)
     {

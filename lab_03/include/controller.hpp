@@ -1,4 +1,5 @@
-#pragma once
+#ifndef CONTROLLER_HPP
+#define CONTROLLER_HPP
 
 #include <QGraphicsScene>
 
@@ -18,22 +19,24 @@ public:
     Controller(const Controller &) = delete;
     ~Controller() = default;
 
-    void addModel(std::string model_name, std::string file_name);
-    void addCamera(std::string cam_name);
-    void setCamera(std::string cam_name);
-    void removeCamera(std::string cam_name);
-    void removeModel(std::string model_name);
+    void AddModel(std::string model_name, std::string file_name);
+    void AddCamera(std::string cam_name);
+    void SetCamera(std::string cam_name);
+    void RemoveCamera(std::string cam_name);
+    void RemoveModel(std::string model_name);
 
-    void transformCamera(std::string cam_name, Point<double> &move, Point<double> &rotate);
-    void transformModel(std::string model_name, Point<double> &move, Point<double> &scale, Point<double> &rotate);
+    void TransformCamera(std::string cam_name, Point<double> &move, Point<double> &rotate);
+    void TransformModel(std::string model_name, Point<double> &move, Point<double> &scale, Point<double> &rotate);
 
-    void draw(std::shared_ptr<BaseDrawer> drawer);
+    void Draw(std::shared_ptr<BaseDrawer> drawer);
 
 private:
     Controller();
-    CameraManager camera_manager;
-    SceneManager scene_manager;
-    TransformManager transform_manager;
-    std::shared_ptr<AbstractLoader> uploader;
-    std::shared_ptr<DrawManager> draw_manager;
+    CameraManager camera_manager_;
+    SceneManager scene_manager_;
+    TransformManager transform_manager_;
+    std::shared_ptr<AbstractLoader> uploader_;
+    std::shared_ptr<DrawManager> draw_manager_;
 };
+
+#endif

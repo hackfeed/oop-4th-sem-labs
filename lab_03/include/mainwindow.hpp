@@ -40,15 +40,15 @@ public:
 
 private slots:
 
-    void on_pushButton_addModel_clicked();
+    void on_pushButton_AddModel_clicked();
 
-    void on_pushButton_addCamera_clicked();
+    void on_pushButton_AddCamera_clicked();
 
-    void on_pushButton_setCamera_clicked();
+    void on_pushButton_SetCamera_clicked();
 
-    void on_pushButton_removeCamera_clicked();
+    void on_pushButton_RemoveCamera_clicked();
 
-    void on_pushButton_removeModel_clicked();
+    void on_pushButton_RemoveModel_clicked();
 
     void on_pushButton_moveModel_clicked();
 
