@@ -9,5 +9,5 @@ Facade::~Facade()
 
 void Facade::ExecuteCommand(std::shared_ptr<BaseCommand> command)
 {
-    command->Execute(_controller);
+    command->Run(_controller);
 }

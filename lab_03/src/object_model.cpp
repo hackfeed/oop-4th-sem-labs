@@ -1,19 +1,19 @@
 #include "object_model.hpp"
 
-Model::Model(std::string name) : _mesh(std::make_shared<Mesh>())
+Model::Model(std::string name) : compound_(std::make_shared<Compound>())
 {
     this->_name = name;
 }
 
-Model::Model(const Model &other) : VisibleObject(), _mesh(other._mesh) {}
+Model::Model(const Model &other) : VisibleObject(), compound_(other.compound_) {}
 
-Model::Model(Model &&other) noexcept : _mesh(other._mesh) {}
+Model::Model(Model &&other) noexcept : compound_(other.compound_) {}
 
 Model &Model::operator=(const Model &other)
 {
     if (this != &other)
     {
-        _mesh = other._mesh;
+        compound_ = other.compound_;
     }
     return *this;
 }
@@ -22,20 +22,20 @@ Model &Model::operator=(Model &&other) noexcept
 {
     if (this != &other)
     {
-        _mesh = other._mesh;
+        compound_ = other.compound_;
     }
 
     return *this;
 }
 
-std::shared_ptr<Mesh> Model::getMesh()
+std::shared_ptr<Compound> Model::getMesh()
 {
-    return _mesh;
+    return compound_;
 }
 
 void Model::transform(const std::shared_ptr<matrix<double>> mtr)
 {
-    _mesh->transform(mtr);
+    compound_->transform(mtr);
 }
 
 void Model::accept(std::shared_ptr<Visitor> visitor)
@@ -45,10 +45,10 @@ void Model::accept(std::shared_ptr<Visitor> visitor)
 
 void Model::add(const Vector<Point<double>> &points)
 {
-    _mesh->addPoints(points);
+    compound_->addPoints(points);
 }
 
 void Model::add(const Vector<Edge> &edges)
 {
-    _mesh->addEdges(edges);
+    compound_->addEdges(edges);
 }

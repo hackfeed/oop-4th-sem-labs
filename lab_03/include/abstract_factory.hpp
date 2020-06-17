@@ -1,4 +1,5 @@
-#pragma once
+#ifndef ABSTRACT_FACTORY_HPP
+#define ABSTRACT_FACTORY_HPP
 
 #include <memory>
 
@@ -7,5 +8,7 @@
 class AbstractFactory
 {
 public:
-    virtual std::shared_ptr<BaseDrawer> createGraphics() const = 0;
+    virtual std::shared_ptr<BaseDrawer> CreateUi() const = 0;
 };
+
+#endif

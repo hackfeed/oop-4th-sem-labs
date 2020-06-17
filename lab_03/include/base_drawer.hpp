@@ -1,4 +1,5 @@
-#pragma once
+#ifndef BASE_DRAWER_HPP
+#define BASE_DRAWER_HPP
 
 #include "base_canvas.hpp"
 #include "point.hpp"
@@ -14,3 +15,5 @@ public:
 
     std::shared_ptr<BaseCanvas> canvas;
 };
+
+#endif

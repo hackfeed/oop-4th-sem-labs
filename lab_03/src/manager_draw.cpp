@@ -50,8 +50,8 @@ void DrawManager::visit(Model &model)
         throw CameraError(__FILE__, typeid(*this).name(), __LINE__, ctime(&t_time));
     }
 
-    auto mesh = model.getMesh();
-    auto lines = mesh->getLines();
+    auto compound = model.getMesh();
+    auto lines = compound->getLines();
 
     for (auto &line : lines)
     {

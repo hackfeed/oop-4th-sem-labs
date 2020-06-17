@@ -22,10 +22,10 @@ public:
     void transform(const std::shared_ptr<matrix<double>> mtr) override;
     void accept(std::shared_ptr<Visitor> visitor) override;
 
-    std::shared_ptr<Mesh> getMesh();
+    std::shared_ptr<Compound> getMesh();
     void add(const Vector<Point<double>> &points);
     void add(const Vector<Edge> &edges);
 
 private:
-    std::shared_ptr<Mesh> _mesh;
+    std::shared_ptr<Compound> compound_;
 };

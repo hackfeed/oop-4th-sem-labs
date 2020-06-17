@@ -1,4 +1,5 @@
-#pragma once
+#ifndef COMMAND_BASE_HPP
+#define COMMAND_BASE_HPP
 
 #include "controller.hpp"
 
@@ -8,5 +9,7 @@ public:
     BaseCommand() = default;
     ~BaseCommand() = default;
 
-    virtual void Execute(std::shared_ptr<Controller> controller) = 0;
+    virtual void Run(std::shared_ptr<Controller> controller) = 0;
 };
+
+#endif

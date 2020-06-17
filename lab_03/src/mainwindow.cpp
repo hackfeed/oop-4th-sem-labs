@@ -311,7 +311,7 @@ std::shared_ptr<BaseDrawer> MainWindow::DrawDirector::get_drawer(const char *fp,
     {
         this->_scene_view->clear();
         f = std::make_shared<QtFactory>();
-        auto drawer = f->createGraphics();
+        auto drawer = f->CreateUi();
         drawer->setCanvas(std::make_shared<QtCanvas>(this->_scene_view));
         return drawer;
     }

@@ -10,7 +10,7 @@ class AddCameraCommand : public BaseCommand
 {
 public:
     explicit AddCameraCommand(std::string name);
-    void Execute(std::shared_ptr<Controller> controller) override;
+    void Run(std::shared_ptr<Controller> controller) override;
 
 private:
     std::string _name;
@@ -21,7 +21,7 @@ class AddModelCommand : public BaseCommand
 public:
     explicit AddModelCommand(std::string model_name, std::string file_name);
 
-    void Execute(std::shared_ptr<Controller> controller) override;
+    void Run(std::shared_ptr<Controller> controller) override;
 
 private:
     std::string model_name;
@@ -32,7 +32,7 @@ class RemoveCameraCommand : public BaseCommand
 {
 public:
     RemoveCameraCommand(std::string object_name);
-    void Execute(std::shared_ptr<Controller> controller) override;
+    void Run(std::shared_ptr<Controller> controller) override;
 
 private:
     std::string _object_name;
@@ -42,7 +42,7 @@ class RemoveModelCommand : public BaseCommand
 {
 public:
     RemoveModelCommand(std::string object_name);
-    void Execute(std::shared_ptr<Controller> controller) override;
+    void Run(std::shared_ptr<Controller> controller) override;
 
 private:
     std::string _object_name;
@@ -52,7 +52,7 @@ class TransformCameraCommand : public BaseCommand
 {
 public:
     TransformCameraCommand(std::string _object_name, Point<double> &move, Point<double> &rotate);
-    void Execute(std::shared_ptr<Controller> controller) override;
+    void Run(std::shared_ptr<Controller> controller) override;
 
 private:
     std::string _object_name;
@@ -64,7 +64,7 @@ class TransformModelCommand : public BaseCommand
 {
 public:
     TransformModelCommand(std::string object_name, Point<double> &move, Point<double> &scale, Point<double> &rotate);
-    void Execute(std::shared_ptr<Controller> controller) override;
+    void Run(std::shared_ptr<Controller> controller) override;
 
 private:
     std::string _object_name;
@@ -77,7 +77,7 @@ class DrawCommand : public BaseCommand
 {
 public:
     explicit DrawCommand(std::shared_ptr<BaseDrawer> drawer);
-    void Execute(std::shared_ptr<Controller> controller) override;
+    void Run(std::shared_ptr<Controller> controller) override;
 
 private:
     std::shared_ptr<BaseDrawer> _drawer;
@@ -88,7 +88,7 @@ class SetCameraCommand : public BaseCommand
 {
 public:
     explicit SetCameraCommand(std::string name);
-    void Execute(std::shared_ptr<Controller> Controller) override;
+    void Run(std::shared_ptr<Controller> Controller) override;
 
 private:
     std::string _name;

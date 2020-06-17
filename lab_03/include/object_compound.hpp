@@ -6,12 +6,12 @@
 #include "link.hpp"
 #include "point.hpp"
 
-class Mesh
+class Compound
 { // свести к базовому классу
 public:
-    Mesh() = default;
-    Mesh(const Vector<Point<double>> &points, const Vector<Edge> &edges);
-    ~Mesh() = default;
+    Compound() = default;
+    Compound(const Vector<Point<double>> &points, const Vector<Edge> &edges);
+    ~Compound() = default;
     void addPoints(const Vector<Point<double>> &points);
     void addEdges(const Vector<Edge> &edges);
     Vector<Edge> &getEdges();
