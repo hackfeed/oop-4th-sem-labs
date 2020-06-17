@@ -15,7 +15,7 @@ class SceneObject
 {
 public:
     SceneObject() = default;
-    SceneObject(std::string name) : _name(name){};
+    SceneObject(std::string name) : name_(name){};
     ~SceneObject() = default;
 
     virtual bool Visible() const = 0;
@@ -24,11 +24,11 @@ public:
     virtual bool remove(IteratorObject &it) { return false; }
     virtual void transform(std::shared_ptr<matrix<double>> matrix) = 0;
     virtual void accept(std::shared_ptr<Visitor> visitor) = 0;
-    virtual std::string getName() { return _name; }
+    virtual std::string getName() { return name_; }
 
     virtual IteratorObject begin() { return IteratorObject(); }
     virtual IteratorObject end() { return IteratorObject(); }
 
 protected:
-    std::string _name;
+    std::string name_;
 };

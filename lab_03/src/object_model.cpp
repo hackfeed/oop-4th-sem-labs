@@ -2,7 +2,7 @@
 
 Model::Model(std::string name) : compound_(std::make_shared<Compound>())
 {
-    this->_name = name;
+    this->name_ = name;
 }
 
 Model::Model(const Model &other) : VisibleObject(), compound_(other.compound_) {}

@@ -2,7 +2,7 @@
 
 Camera::Camera(std::string name)
 {
-    this->_name = name;
+    this->name_ = name;
     position = Point<double>(0, 0, 300);
     this->x_angle = 0;
     this->y_angle = 0;
