@@ -40,8 +40,8 @@ void Controller::SetCamera(std::string cam_name)
 void Controller::RemoveCamera(std::string cam_name)
 {
     auto scene = scene_manager_.GetScene();
-    IteratorObject it = scene->getObject()->begin();
-    IteratorObject it_e = scene->getObject()->end();
+    IteratorObject it = scene->GetObject()->begin();
+    IteratorObject it_e = scene->GetObject()->end();
     bool flag = true;
     while (it != it_e && flag)
     {
@@ -61,8 +61,8 @@ void Controller::RemoveCamera(std::string cam_name)
 void Controller::RemoveModel(std::string model_name)
 {
     auto scene = scene_manager_.GetScene();
-    IteratorObject it = scene->getObject()->begin();
-    IteratorObject it_e = scene->getObject()->end();
+    IteratorObject it = scene->GetObject()->begin();
+    IteratorObject it_e = scene->GetObject()->end();
     bool flag = true;
     while (it != it_e && flag)
     {
@@ -81,7 +81,7 @@ void Controller::RemoveModel(std::string model_name)
 
 void Controller::TransformCamera(std::string cam_name, Point<double> &move, Point<double> &rotate)
 {
-    auto camera = std::dynamic_pointer_cast<Camera>(scene_manager_.GetScene()->getObject(cam_name));
+    auto camera = std::dynamic_pointer_cast<Camera>(scene_manager_.GetScene()->GetObject(cam_name));
     transform_manager_.MoveObject(camera, move.getX(), move.getY(), move.getZ());
     camera_manager_.Roll(camera, rotate.getX());
     camera_manager_.Pitch(camera, rotate.getY());
@@ -90,7 +90,7 @@ void Controller::TransformCamera(std::string cam_name, Point<double> &move, Poin
 
 void Controller::TransformModel(std::string model_name, Point<double> &move, Point<double> &scale, Point<double> &rotate)
 {
-    auto obj = scene_manager_.GetScene()->getObject(model_name);
+    auto obj = scene_manager_.GetScene()->GetObject(model_name);
     transform_manager_.MoveObject(obj, move.getX(), move.getY(), move.getZ());
     transform_manager_.ScaleObject(obj, scale.getX(), scale.getY(), scale.getZ());
     transform_manager_.RotateX(obj, rotate.getX());
@@ -102,5 +102,5 @@ void Controller::Draw(std::shared_ptr<BaseDrawer> drawer)
 {
     draw_manager_->SetDrawer(drawer);
     draw_manager_->SetCamera(scene_manager_.GetCurrentCamera());
-    scene_manager_.GetScene()->getObject()->Accept(draw_manager_);
+    scene_manager_.GetScene()->GetObject()->Accept(draw_manager_);
 }

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef VECTOR_HPP
+#define VECTOR_HPP
 
 #include <initializer_list>
 #include <istream>
@@ -249,3 +250,5 @@ const typename Vector<T>::const_iterator Vector<T>::end() const
 {
     return cend();
 }
+
+#endif

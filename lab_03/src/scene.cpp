@@ -18,12 +18,12 @@ void Scene::Remove(IteratorObject &it)
     object_->Remove(it);
 }
 
-std::shared_ptr<CompositeObject> Scene::getObject()
+std::shared_ptr<CompositeObject> Scene::GetObject()
 {
     return object_;
 }
 
-std::shared_ptr<SceneObject> Scene::getObject(std::string object)
+std::shared_ptr<SceneObject> Scene::GetObject(std::string object)
 {
     auto it = object_->begin();
     auto it_e = object_->end();

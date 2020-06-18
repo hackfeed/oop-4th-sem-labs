@@ -19,7 +19,7 @@ public:
     Vector<Point<double>> &GetPoints();
     Vector<Link> &GetLinks();
     void Transform(const std::shared_ptr<Matrix<double>> mtr);
-    Vector<pair<Point<double>, Point<double>>> GetLines();
+    Vector<Pair<Point<double>, Point<double>>> GetLines();
 
 private:
     Vector<Point<double>> points_;

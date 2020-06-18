@@ -1,4 +1,5 @@
-#pragma once
+#ifndef QT_DRAWER_HPP
+#define QT_DRAWER_HPP
 
 #include <QGraphicsScene>
 #include <memory>
@@ -14,3 +15,5 @@ public:
     void drawLine(const Point<double> &p1, const Point<double> &p2) override;
     void setCanvas(std::shared_ptr<BaseCanvas> canvas_) override;
 };
+
+#endif

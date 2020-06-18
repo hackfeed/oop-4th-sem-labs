@@ -1,4 +1,5 @@
-#pragma once
+#ifndef VISITOR_HPP
+#define VISITOR_HPP
 
 class Model;
 class Camera;
@@ -14,3 +15,5 @@ public:
     virtual void Visit(Model &model) = 0;
     virtual void Visit(CompositeObject &composite) = 0;
 };
+
+#endif

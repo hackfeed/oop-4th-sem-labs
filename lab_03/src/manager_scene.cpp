@@ -12,7 +12,7 @@ std::shared_ptr<Scene> SceneManager::GetScene()
 
 void SceneManager::SetCurrentCamera(std::string name)
 {
-    current_camera_ = std::dynamic_pointer_cast<Camera>(scene->getObject(name));
+    current_camera_ = std::dynamic_pointer_cast<Camera>(scene->GetObject(name));
 }
 
 std::shared_ptr<Camera> SceneManager::GetCurrentCamera()

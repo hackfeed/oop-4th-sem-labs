@@ -1,4 +1,5 @@
-#pragma once
+#ifndef VECTOR_BASE_HPP
+#define VECTOR_BASE_HPP
 
 template <typename T>
 class BaseVector
@@ -12,3 +13,5 @@ public:
 protected:
     size_t size_ = 0;
 };
+
+#endif

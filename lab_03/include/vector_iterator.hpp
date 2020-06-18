@@ -1,4 +1,5 @@
-#pragma once
+#ifndef VECTOR_ITERATOR_HPP
+#define VECTOR_ITERATOR_HPP
 
 #include <cstdlib>
 #include <iostream>
@@ -99,3 +100,5 @@ public:
         return (*vector)[i];
     }
 };
+
+#endif

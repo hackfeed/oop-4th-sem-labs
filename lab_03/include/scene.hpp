@@ -1,4 +1,5 @@
-#pragma once
+#ifndef SCENE_HPP
+#define SCENE_HPP
 
 #include <memory>
 
@@ -11,9 +12,11 @@ public:
 
     void Add(std::shared_ptr<SceneObject> object);
     void Remove(IteratorObject &it);
-    std::shared_ptr<SceneObject> getObject(std::string object);
-    std::shared_ptr<CompositeObject> getObject();
+    std::shared_ptr<SceneObject> GetObject(std::string object);
+    std::shared_ptr<CompositeObject> GetObject();
 
 private:
     std::shared_ptr<CompositeObject> object_;
 };
+
+#endif

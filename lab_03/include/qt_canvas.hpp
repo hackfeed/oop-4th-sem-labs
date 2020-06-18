@@ -1,4 +1,5 @@
-#pragma once
+#ifndef QT_CANVAS_HPP
+#define QT_CANVAS_HPP
 
 #include <QGraphicsScene>
 #include <memory>
@@ -14,3 +15,5 @@ public:
 private:
     std::shared_ptr<QGraphicsScene> graphics_scene_;
 };
+
+#endif

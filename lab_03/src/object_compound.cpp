@@ -34,12 +34,12 @@ void Compound::Transform(const std::shared_ptr<Matrix<double>> mtr)
     }
 }
 
-Vector<pair<Point<double>, Point<double>>> Compound::GetLines()
+Vector<Pair<Point<double>, Point<double>>> Compound::GetLines()
 {
-    Vector<pair<Point<double>, Point<double>>> lines;
+    Vector<Pair<Point<double>, Point<double>>> lines;
     for (int i = 0; i < edges_.size(); i++)
     {
-        pair<Point<double>, Point<double>> tmp(points_[edges_[i].getBegin()], points_[edges_[i].getEnd()]);
+        Pair<Point<double>, Point<double>> tmp(points_[edges_[i].getBegin()], points_[edges_[i].getEnd()]);
         lines.push_back(tmp);
     }
 

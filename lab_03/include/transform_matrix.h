@@ -1,4 +1,5 @@
-#pragma once
+#ifndef TRANSFORM_MATRIX_H
+#define TRANSFORM_MATRIX_H
 
 #include <cmath>
 
@@ -33,3 +34,5 @@ class RotateOzMatrix : public Matrix<double>
 public:
     RotateOzMatrix(double angle);
 };
+
+#endif
