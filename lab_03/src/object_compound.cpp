@@ -34,7 +34,7 @@ void Compound::Transform(const std::shared_ptr<Matrix<double>> mtr)
     }
 }
 
-Vector<Pair<Point<double>, Point<double>>> Compound::GetLines()
+Vector<Pair<Point<double>, Point<double>>> Compound::GetEdges()
 {
     Vector<Pair<Point<double>, Point<double>>> lines;
 

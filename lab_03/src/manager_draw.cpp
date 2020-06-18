@@ -58,7 +58,7 @@ void DrawManager::Visit(Model &model)
     }
 
     auto compound = model.GetCompound();
-    auto lines = compound->GetLines();
+    auto lines = compound->GetEdges();
 
     for (auto &line : lines)
     {
