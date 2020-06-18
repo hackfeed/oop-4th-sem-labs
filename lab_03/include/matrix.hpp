@@ -3,11 +3,11 @@
 #include "matrix_base.hpp"
 
 template <class T>
-class matrix : public matrix_base<T>
+class matrix : public MatrixBase<T>
 {
 public:
-    typedef typename matrix_base<T>::iterator iterator;
-    typedef typename matrix_base<T>::const_iterator const_iterator;
+    typedef typename MatrixBase<T>::iterator iterator;
+    typedef typename MatrixBase<T>::const_iterator const_iterator;
 
     explicit matrix(size_t, size_t);
     explicit matrix(size_t, size_t, const T &);
@@ -46,50 +46,50 @@ public:
 
 template <class T>
 matrix<T>::matrix(size_t row_count, size_t col_count)
-    : matrix_base<T>(row_count, col_count)
+    : MatrixBase<T>(row_count, col_count)
 {
 }
 
 template <class T>
 matrix<T>::matrix(size_t row_count, size_t col_count, const T &value)
-    : matrix_base<T>(row_count, col_count, value)
+    : MatrixBase<T>(row_count, col_count, value)
 {
 }
 
 template <class T>
 matrix<T>::matrix(size_t row_count, size_t col_count, iterator first, iterator last)
-    : matrix_base<T>(row_count, col_count, first, last)
+    : MatrixBase<T>(row_count, col_count, first, last)
 {
 }
 
 template <class T>
 matrix<T>::matrix(size_t row_count, size_t col_count, const_iterator first, const_iterator last)
-    : matrix_base<T>(row_count, col_count, first, last)
+    : MatrixBase<T>(row_count, col_count, first, last)
 {
 }
 
 template <class T>
 matrix<T>::matrix(size_t row_count, size_t col_count, std::initializer_list<T> lst)
-    : matrix_base<T>(row_count, col_count, lst)
+    : MatrixBase<T>(row_count, col_count, lst)
 {
 }
 
 template <class T>
 matrix<T>::matrix(const matrix &other)
-    : matrix_base<T>(other)
+    : MatrixBase<T>(other)
 {
 }
 
 template <class T>
 matrix<T>::matrix(matrix &&other)
-    : matrix_base<T>(std::move(other))
+    : MatrixBase<T>(std::move(other))
 {
 }
 
 template <class T>
 matrix<T> &matrix<T>::operator=(const matrix<T> &rhs)
 {
-    matrix_base<T>::operator=(rhs);
+    MatrixBase<T>::operator=(rhs);
 
     return *this;
 }
@@ -97,7 +97,7 @@ matrix<T> &matrix<T>::operator=(const matrix<T> &rhs)
 template <class T>
 matrix<T> &matrix<T>::operator=(matrix<T> &&rhs)
 {
-    matrix_base<T>::operator=(std::move(rhs));
+    MatrixBase<T>::operator=(std::move(rhs));
 
     return *this;
 }
@@ -105,7 +105,7 @@ matrix<T> &matrix<T>::operator=(matrix<T> &&rhs)
 template <class T>
 matrix<T> &matrix<T>::operator=(std::initializer_list<T> lst)
 {
-    matrix_base<T>::operator=(lst);
+    MatrixBase<T>::operator=(lst);
 
     return *this;
 }

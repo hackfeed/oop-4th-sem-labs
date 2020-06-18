@@ -1,51 +1,52 @@
-#pragma once
+#ifndef ITERATOR_BASE_HPP
+#define ITERATOR_BASE_HPP
 
 #include <cstddef>
 
 template <class T>
-class iterator_base
+class IteratorBase
 {
 public:
-    iterator_base(const iterator_base &);
-    virtual ~iterator_base();
-    iterator_base &operator=(const iterator_base &);
+    IteratorBase(const IteratorBase &);
+    virtual ~IteratorBase();
+    IteratorBase &operator=(const IteratorBase &);
 
-    iterator_base &operator++();
-    iterator_base operator++(int);
-    iterator_base &operator--();
-    iterator_base operator--(int);
+    IteratorBase &operator++();
+    IteratorBase operator++(int);
+    IteratorBase &operator--();
+    IteratorBase operator--(int);
 
-    ptrdiff_t operator-(const iterator_base &);
+    ptrdiff_t operator-(const IteratorBase &);
 
-    bool operator==(const iterator_base &);
-    bool operator!=(const iterator_base &);
+    bool operator==(const IteratorBase &);
+    bool operator!=(const IteratorBase &);
 
 protected:
-    iterator_base(T *);
+    IteratorBase(T *);
 
     T *pointer;
 };
 
 template <class T>
-iterator_base<T>::iterator_base(T *pointer)
+IteratorBase<T>::IteratorBase(T *pointer)
 {
     this->pointer = pointer;
 }
 
 template <class T>
-iterator_base<T>::iterator_base(const iterator_base &other)
+IteratorBase<T>::IteratorBase(const IteratorBase &other)
 {
     this->pointer = other.pointer;
 }
 
 template <class T>
-iterator_base<T>::~iterator_base()
+IteratorBase<T>::~IteratorBase()
 {
     this->pointer = nullptr;
 }
 
 template <class T>
-iterator_base<T> &iterator_base<T>::operator=(const iterator_base &rhs)
+IteratorBase<T> &IteratorBase<T>::operator=(const IteratorBase &rhs)
 {
     if (this != &rhs)
     {
@@ -56,49 +57,51 @@ iterator_base<T> &iterator_base<T>::operator=(const iterator_base &rhs)
 }
 
 template <class T>
-iterator_base<T> &iterator_base<T>::operator++()
+IteratorBase<T> &IteratorBase<T>::operator++()
 {
     ++this->pointer;
     return *this;
 }
 
 template <class T>
-iterator_base<T> iterator_base<T>::operator++(int)
+IteratorBase<T> IteratorBase<T>::operator++(int)
 {
-    iterator_base temp(*this);
+    IteratorBase temp(*this);
     this->operator++();
     return temp;
 }
 
 template <class T>
-iterator_base<T> &iterator_base<T>::operator--()
+IteratorBase<T> &IteratorBase<T>::operator--()
 {
     --this->pointer;
     return *this;
 }
 
 template <class T>
-iterator_base<T> iterator_base<T>::operator--(int)
+IteratorBase<T> IteratorBase<T>::operator--(int)
 {
-    iterator_base temp(*this);
+    IteratorBase temp(*this);
     this->operator--();
     return temp;
 }
 
 template <class T>
-ptrdiff_t iterator_base<T>::operator-(const iterator_base<T> &rhs)
+ptrdiff_t IteratorBase<T>::operator-(const IteratorBase<T> &rhs)
 {
     return this->pointer - rhs.pointer;
 }
 
 template <class T>
-bool iterator_base<T>::operator==(const iterator_base &rhs)
+bool IteratorBase<T>::operator==(const IteratorBase &rhs)
 {
     return this->pointer == rhs.pointer;
 }
 
 template <class T>
-bool iterator_base<T>::operator!=(const iterator_base &rhs)
+bool IteratorBase<T>::operator!=(const IteratorBase &rhs)
 {
     return this->pointer != rhs.pointer;
 }
+
+#endif

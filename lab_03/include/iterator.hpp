@@ -1,46 +1,49 @@
-#pragma once
+#ifndef ITERATOR_HPP
+#define ITERATOR_HPP
 
 template <class T>
-class vector_base;
+class VectorBase;
 template <class T>
-class matrix_base;
+class MatrixBase;
 
 #include "iterator_base.hpp"
 
 template <class T>
-class _iterator : public iterator_base<T>
+class Iterator : public IteratorBase<T>
 {
 public:
-    _iterator(const _iterator &);
+    Iterator(const Iterator &);
 
     T &operator*();
     T *operator->();
 
-    friend class vector_base<T>;
-    friend class matrix_base<T>;
+    friend class VectorBase<T>;
+    friend class MatrixBase<T>;
 
 private:
-    _iterator(T *);
+    Iterator(T *);
 };
 
 template <class T>
-_iterator<T>::_iterator(T *pointer) : iterator_base<T>(pointer)
+Iterator<T>::Iterator(T *pointer) : IteratorBase<T>(pointer)
 {
 }
 
 template <class T>
-_iterator<T>::_iterator(const _iterator &other) : iterator_base<T>(other.pointer)
+Iterator<T>::Iterator(const Iterator &other) : IteratorBase<T>(other.pointer)
 {
 }
 
 template <class T>
-T &_iterator<T>::operator*()
+T &Iterator<T>::operator*()
 {
     return *this->pointer;
 }
 
 template <class T>
-T *_iterator<T>::operator->()
+T *Iterator<T>::operator->()
 {
     return this->pointer;
 }
+
+#endif
