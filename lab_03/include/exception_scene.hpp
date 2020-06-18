@@ -1,4 +1,5 @@
-#pragma once
+#ifndef EXCEPTION_SCENE_HPP
+#define EXCEPTION_SCENE_HPP
 
 #include "exception_scene.hpp"
 
@@ -23,3 +24,5 @@ public:
         const char *time,
         const std::string &info = "Object wasn't found.") : BaseError(filename, classname, line, time, info) {}
 };
+
+#endif

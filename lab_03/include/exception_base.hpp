@@ -1,4 +1,5 @@
-#pragma once
+#ifndef EXCEPTION_BASE_HPP
+#define EXCEPTION_BASE_HPP
 
 #include <exception>
 #include <string>
@@ -13,17 +14,19 @@ public:
         const char *time,
         const std::string &info)
     {
-        msg = "In: " + filename +
-              "\n inside: " + classname +
-              "\nat line: " + std::to_string(line) +
-              "\nat: " + time +
-              "\noccured: " + info;
+        msg_ = "In: " + filename +
+               "\n inside: " + classname +
+               "\nat line: " + std::to_string(line) +
+               "\nat: " + time +
+               "\noccured: " + info;
     }
     const char *what() const noexcept override
     {
-        return msg.c_str();
+        return msg_.c_str();
     }
 
 private:
-    std::string msg;
+    std::string msg_;
 };
+
+#endif

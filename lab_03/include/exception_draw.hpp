@@ -1,4 +1,5 @@
-#pragma once
+#ifndef EXCEPTION_DRAW_HPP
+#define EXCEPTION_DRAW_HPP
 
 #include "exception_base.hpp"
 
@@ -23,3 +24,5 @@ public:
         const char *time,
         const std::string &info = "Camera wasn't set") : BaseError(filename, classname, line, time, info) {}
 };
+
+#endif

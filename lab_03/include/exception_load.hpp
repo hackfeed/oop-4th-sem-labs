@@ -1,4 +1,5 @@
-#pragma once
+#ifndef EXCEPTION_LOAD_HPP
+#define EXCEPTION_LOAD_HPP
 
 #include "exception_base.hpp"
 
@@ -34,3 +35,5 @@ public:
         const char *time,
         const std::string &info = "Wrong format of file") : BaseError(filename, classname, line, time, info) {}
 };
+
+#endif

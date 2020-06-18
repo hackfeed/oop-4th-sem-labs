@@ -1,4 +1,5 @@
-#pragma once
+#ifndef EXCEPTION_DEFAULT_HPP
+#define EXCEPTION_DEFAULT_HPP
 
 #include <exception>
 #include <string>
@@ -15,10 +16,11 @@ protected:
     std::string message_;
 };
 
-DefaultException::DefaultException(const char *message)
-    : message_(message) {}
+DefaultException::DefaultException(const char *message) : message_(message) {}
 
 const char *DefaultException::what() const noexcept
 {
     return "DefaultException";
 }
+
+#endif
