@@ -10,10 +10,10 @@ class Compound
 { // свести к базовому классу
 public:
     Compound() = default;
-    Compound(const Vector<Point<double>> &points, const Vector<Link> &edges);
+    Compound(const Vector<Point<double>> &points, const Vector<Link> &links);
     ~Compound() = default;
     void addPoints(const Vector<Point<double>> &points);
-    void addEdges(const Vector<Link> &edges);
+    void addEdges(const Vector<Link> &links);
     Vector<Link> &getEdges();
     Vector<Point<double>> &getPoints();
     void transform(const std::shared_ptr<Matrix<double>> mtr);

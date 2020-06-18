@@ -1,4 +1,5 @@
-#pragma once
+#ifndef MODEL_BUILDER_HPP
+#define MODEL_BUILDER_HPP
 
 #include <memory>
 
@@ -9,13 +10,16 @@
 class ModelBuilder : public BaseModelBuilder
 {
 public:
-    void reset(std::string name) override;
     ModelBuilder() = default;
     ~ModelBuilder() = default;
-    void buildPoints(const Vector<Point<double>> &points) override;
-    void buildEdges(const Vector<Link> &edges) override;
-    std::shared_ptr<Model> getModel() override;
+
+    void BuildPoints(const Vector<Point<double>> &points) override;
+    void BuildLinks(const Vector<Link> &links) override;
+    void reset(std::string name) override;
+    std::shared_ptr<Model> GetModel() override;
 
 private:
     std::shared_ptr<Model> model;
 };
+
+#endif

@@ -1,6 +1,6 @@
 #include "model_builder.hpp"
 
-void ModelBuilder::buildPoints(const Vector<Point<double>> &points)
+void ModelBuilder::BuildPoints(const Vector<Point<double>> &points)
 {
     model->add(points);
 }
@@ -11,12 +11,12 @@ void ModelBuilder::reset(std::string name)
     model = std::shared_ptr<Model>(std::make_shared<Model>(name));
 }
 
-void ModelBuilder::buildEdges(const Vector<Link> &edges)
+void ModelBuilder::BuildLinks(const Vector<Link> &links)
 {
-    model->add(edges);
+    model->add(links);
 }
 
-std::shared_ptr<Model> ModelBuilder::getModel()
+std::shared_ptr<Model> ModelBuilder::GetModel()
 {
     return model;
 }

@@ -48,7 +48,7 @@ void Model::add(const Vector<Point<double>> &points)
     compound_->addPoints(points);
 }
 
-void Model::add(const Vector<Link> &edges)
+void Model::add(const Vector<Link> &links)
 {
-    compound_->addEdges(edges);
+    compound_->addEdges(links);
 }

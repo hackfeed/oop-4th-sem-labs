@@ -16,11 +16,11 @@ std::shared_ptr<Model> ModelLoader::LoadModel(std::string model_name, std::strin
     builder_->reset(model_name);
 
     Vector<Point<double>> points = this->loader_->ReadPoints();
-    Vector<Link> edges = this->loader_->ReadLinks();
+    Vector<Link> links = this->loader_->ReadLinks();
     loader_->close();
 
     ModelDirector director;
-    director.setBuilder(builder_);
+    director.SetBuilder(builder_);
 
-    return director.build(points, edges);
+    return director.Build(points, links);
 }

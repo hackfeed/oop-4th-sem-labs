@@ -2,14 +2,14 @@
 
 #include <memory>
 
-void ModelDirector::setBuilder(std::shared_ptr<BaseModelBuilder> builder)
+void ModelDirector::SetBuilder(std::shared_ptr<BaseModelBuilder> builder)
 {
     builder_ = std::move(builder);
 }
 
-std::shared_ptr<Model> ModelDirector::build(const Vector<Point<double>> &points, const Vector<Link> &edges)
+std::shared_ptr<Model> ModelDirector::Build(const Vector<Point<double>> &points, const Vector<Link> &links)
 {
-    builder_->buildPoints(points);
-    builder_->buildEdges(edges);
-    return builder_->getModel();
+    builder_->BuildPoints(points);
+    builder_->BuildLinks(links);
+    return builder_->GetModel();
 }

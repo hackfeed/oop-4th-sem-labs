@@ -77,13 +77,13 @@ Vector<Link> FileLoader::ReadLinks()
         throw FileFormatError(__FILE__, typeid(*this).name(), __LINE__, ctime(&t_time));
     }
 
-    Vector<Link> edges(n_edges, Link());
+    Vector<Link> links(n_edges, Link());
     for (size_t i = 0; i < n_edges; ++i)
     {
-        if (!(file_ >> edges[i]))
+        if (!(file_ >> links[i]))
         {
             throw FileFormatError(__FILE__, typeid(*this).name(), __LINE__, ctime(&t_time));
         }
     }
-    return edges;
+    return links;
 }

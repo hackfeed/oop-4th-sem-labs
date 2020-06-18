@@ -1,4 +1,5 @@
-#pragma once
+#ifndef MODEL_DIRECTOR_HPP
+#define MODEL_DIRECTOR_HPP
 
 #include <memory>
 
@@ -9,9 +10,11 @@
 class ModelDirector
 {
 public:
-    std::shared_ptr<Model> build(const Vector<Point<double>> &points, const Vector<Link> &edges);
-    void setBuilder(std::shared_ptr<BaseModelBuilder> builder);
+    std::shared_ptr<Model> Build(const Vector<Point<double>> &points, const Vector<Link> &links);
+    void SetBuilder(std::shared_ptr<BaseModelBuilder> builder);
 
 private:
     std::shared_ptr<BaseModelBuilder> builder_;
 };
+
+#endif
