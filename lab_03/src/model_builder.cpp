@@ -11,7 +11,7 @@ void ModelBuilder::reset(std::string name)
     model = std::shared_ptr<Model>(std::make_shared<Model>(name));
 }
 
-void ModelBuilder::buildEdges(const Vector<Edge> &edges)
+void ModelBuilder::buildEdges(const Vector<Link> &edges)
 {
     model->add(edges);
 }

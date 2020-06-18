@@ -5,18 +5,18 @@ void Compound::addPoints(const Vector<Point<double>> &points)
     _points = points;
 }
 
-void Compound::addEdges(const Vector<Edge> &edges)
+void Compound::addEdges(const Vector<Link> &edges)
 {
     _edges = edges;
 }
 
-Compound::Compound(const Vector<Point<double>> &points, const Vector<Edge> &edges)
+Compound::Compound(const Vector<Point<double>> &points, const Vector<Link> &edges)
 {
     _points = points;
     _edges = edges;
 }
 
-Vector<Edge> &Compound::getEdges()
+Vector<Link> &Compound::getEdges()
 {
     return _edges;
 }

@@ -13,7 +13,7 @@ public:
     ModelBuilder() = default;
     ~ModelBuilder() = default;
     void buildPoints(const Vector<Point<double>> &points) override;
-    void buildEdges(const Vector<Edge> &edges) override;
+    void buildEdges(const Vector<Link> &edges) override;
     std::shared_ptr<Model> getModel() override;
 
 private:

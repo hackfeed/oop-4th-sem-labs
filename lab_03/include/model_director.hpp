@@ -9,7 +9,7 @@
 class ModelDirector
 {
 public:
-    std::shared_ptr<Model> build(const Vector<Point<double>> &points, const Vector<Edge> &edges);
+    std::shared_ptr<Model> build(const Vector<Point<double>> &points, const Vector<Link> &edges);
     void setBuilder(std::shared_ptr<BaseModelBuilder> builder);
 
 private:

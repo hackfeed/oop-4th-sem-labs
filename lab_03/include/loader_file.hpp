@@ -15,7 +15,7 @@ public:
     bool isOpen() const override;
     void close() override;
     Vector<Point<double>> readPoints() override;
-    Vector<Edge> readEdges() override;
+    Vector<Link> readEdges() override;
 
 private:
     std::ifstream _file;

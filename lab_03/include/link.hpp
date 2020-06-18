@@ -1,17 +1,18 @@
-#pragma once
+#ifndef LINK_HPP
+#define LINK_HPP
 
 #include <istream>
 
-class Edge
+class Link
 {
 public:
-    Edge();
-    Edge(const size_t begin, const size_t end);
-    explicit Edge(const Edge &edge);
+    Link();
+    Link(const size_t begin, const size_t end);
+    explicit Link(const Link &link);
 
-    ~Edge();
+    ~Link();
 
-    Edge &operator=(const Edge &edge);
+    Link &operator=(const Link &link);
 
     size_t getBegin() const;
     size_t getEnd() const;
@@ -24,11 +25,14 @@ private:
     size_t end;
 };
 
-inline std::istream &operator>>(std::istream &is, Edge &edge)
+inline std::istream &operator>>(std::istream &is, Link &link)
 {
     size_t p1, p2;
     is >> p1 >> p2;
-    edge.setBegin(p1);
-    edge.setEnd(p2);
+    link.setBegin(p1);
+    link.setEnd(p2);
+
     return is;
 }
+
+#endif

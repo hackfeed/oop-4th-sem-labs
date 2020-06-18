@@ -24,7 +24,7 @@ public:
 
     std::shared_ptr<Compound> getMesh();
     void add(const Vector<Point<double>> &points);
-    void add(const Vector<Edge> &edges);
+    void add(const Vector<Link> &edges);
 
 private:
     std::shared_ptr<Compound> compound_;

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef LOADER_ABSTRACT_HPP
+#define LOADER_ABSTRACT_HPP
 
 #include <memory>
 
@@ -14,5 +15,7 @@ public:
     virtual std::shared_ptr<Model> loadModel(std::string model_name, std::string source_name) = 0;
 
 protected:
-    std::shared_ptr<SourceLoader> _loader;
+    std::shared_ptr<SourceLoader> loader_;
 };
+
+#endif

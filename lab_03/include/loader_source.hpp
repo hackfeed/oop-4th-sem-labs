@@ -14,5 +14,5 @@ public:
     virtual bool isOpen() const = 0;
     virtual void close() = 0;
     virtual Vector<Point<double>> readPoints() = 0;
-    virtual Vector<Edge> readEdges() = 0;
+    virtual Vector<Link> readEdges() = 0;
 };

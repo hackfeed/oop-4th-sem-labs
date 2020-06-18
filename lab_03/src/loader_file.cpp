@@ -62,7 +62,7 @@ Vector<Point<double>> FileLoader::readPoints()
     return points;
 }
 
-Vector<Edge> FileLoader::readEdges()
+Vector<Link> FileLoader::readEdges()
 {
     time_t t_time = time(NULL);
     if (!isOpen())
@@ -77,7 +77,7 @@ Vector<Edge> FileLoader::readEdges()
         throw FileFormatError(__FILE__, typeid(*this).name(), __LINE__, ctime(&t_time));
     }
 
-    Vector<Edge> edges(n_edges, Edge());
+    Vector<Link> edges(n_edges, Link());
     for (size_t i = 0; i < n_edges; ++i)
     {
         if (!(_file >> edges[i]))
