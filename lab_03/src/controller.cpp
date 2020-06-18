@@ -22,7 +22,7 @@ Controller::Controller() : draw_manager_(std::make_shared<DrawManager>())
 
 void Controller::AddModel(std::string name, std::string file_name)
 {
-    std::shared_ptr<Model> model = uploader_->loadModel(name, file_name);
+    std::shared_ptr<Model> model = uploader_->LoadModel(name, file_name);
     scene_manager_.getScene()->Add(std::shared_ptr<Model>(model));
 }
 

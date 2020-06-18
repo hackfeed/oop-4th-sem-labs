@@ -1,4 +1,5 @@
-#pragma once
+#ifndef LOADER_FILE_HPP
+#define LOADER_FILE_HPP
 
 #include <fstream>
 
@@ -11,12 +12,15 @@ class FileLoader : public SourceLoader
 public:
     FileLoader() = default;
     ~FileLoader();
+
     void open(std::string source_name) override;
-    bool isOpen() const override;
+    bool IsOpen() const override;
     void close() override;
-    Vector<Point<double>> readPoints() override;
-    Vector<Link> readEdges() override;
+    Vector<Point<double>> ReadPoints() override;
+    Vector<Link> ReadLinks() override;
 
 private:
-    std::ifstream _file;
+    std::ifstream file_;
 };
+
+#endif

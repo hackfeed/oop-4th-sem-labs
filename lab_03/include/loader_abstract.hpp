@@ -12,7 +12,7 @@ class AbstractLoader
 {
 public:
     virtual ~AbstractLoader() = default;
-    virtual std::shared_ptr<Model> loadModel(std::string model_name, std::string source_name) = 0;
+    virtual std::shared_ptr<Model> LoadModel(std::string model_name, std::string source_name) = 0;
 
 protected:
     std::shared_ptr<SourceLoader> loader_;

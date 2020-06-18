@@ -185,15 +185,15 @@ void MainWindow::on_pushButton_rotateModel_clicked()
 
 std::string MainWindow::readConfigFile(const char *filename)
 {
-    std::ifstream _file;
+    std::ifstream file_;
     time_t t_time = time(NULL);
 
-    _file.open(filename);
-    if (!_file)
+    file_.open(filename);
+    if (!file_)
         throw OpenStreamError(__FILE__, typeid(*this).name(), __LINE__, ctime(&t_time));
     std::string dev_file;
-    std::getline(_file, dev_file);
-    _file.close();
+    std::getline(file_, dev_file);
+    file_.close();
     return dev_file;
 }
 
