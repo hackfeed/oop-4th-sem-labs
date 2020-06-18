@@ -10,7 +10,7 @@ public:
     Visitor() = default;
     virtual ~Visitor() = default;
 
-    virtual void visit(Camera &camera) = 0;
-    virtual void visit(Model &model) = 0;
-    virtual void visit(CompositeObject &composite) = 0;
+    virtual void Visit(Camera &camera) = 0;
+    virtual void Visit(Model &model) = 0;
+    virtual void Visit(CompositeObject &composite) = 0;
 };

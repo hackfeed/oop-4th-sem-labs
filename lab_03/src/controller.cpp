@@ -23,23 +23,23 @@ Controller::Controller() : draw_manager_(std::make_shared<DrawManager>())
 void Controller::AddModel(std::string name, std::string file_name)
 {
     std::shared_ptr<Model> model = uploader_->LoadModel(name, file_name);
-    scene_manager_.getScene()->Add(std::shared_ptr<Model>(model));
+    scene_manager_.GetScene()->Add(std::shared_ptr<Model>(model));
 }
 
 void Controller::AddCamera(std::string name)
 {
     auto camera = new Camera(name);
-    scene_manager_.getScene()->Add(std::shared_ptr<Camera>(camera));
+    scene_manager_.GetScene()->Add(std::shared_ptr<Camera>(camera));
 }
 
 void Controller::SetCamera(std::string cam_name)
 {
-    scene_manager_.setCurrentCamera(cam_name);
+    scene_manager_.SetCurrentCamera(cam_name);
 }
 
 void Controller::RemoveCamera(std::string cam_name)
 {
-    auto scene = scene_manager_.getScene();
+    auto scene = scene_manager_.GetScene();
     IteratorObject it = scene->getObject()->begin();
     IteratorObject it_e = scene->getObject()->end();
     bool flag = true;
@@ -60,7 +60,7 @@ void Controller::RemoveCamera(std::string cam_name)
 
 void Controller::RemoveModel(std::string model_name)
 {
-    auto scene = scene_manager_.getScene();
+    auto scene = scene_manager_.GetScene();
     IteratorObject it = scene->getObject()->begin();
     IteratorObject it_e = scene->getObject()->end();
     bool flag = true;
@@ -81,26 +81,26 @@ void Controller::RemoveModel(std::string model_name)
 
 void Controller::TransformCamera(std::string cam_name, Point<double> &move, Point<double> &rotate)
 {
-    auto camera = std::dynamic_pointer_cast<Camera>(scene_manager_.getScene()->getObject(cam_name));
-    transform_manager_.moveObject(camera, move.getX(), move.getY(), move.getZ());
-    camera_manager_.roll(camera, rotate.getX());
-    camera_manager_.pitch(camera, rotate.getY());
-    camera_manager_.yaw(camera, rotate.getZ());
+    auto camera = std::dynamic_pointer_cast<Camera>(scene_manager_.GetScene()->getObject(cam_name));
+    transform_manager_.MoveObject(camera, move.getX(), move.getY(), move.getZ());
+    camera_manager_.Roll(camera, rotate.getX());
+    camera_manager_.Pitch(camera, rotate.getY());
+    camera_manager_.Bend(camera, rotate.getZ());
 }
 
 void Controller::TransformModel(std::string model_name, Point<double> &move, Point<double> &scale, Point<double> &rotate)
 {
-    auto obj = scene_manager_.getScene()->getObject(model_name);
-    transform_manager_.moveObject(obj, move.getX(), move.getY(), move.getZ());
-    transform_manager_.scaleObject(obj, scale.getX(), scale.getY(), scale.getZ());
-    transform_manager_.rotateObjectOX(obj, rotate.getX());
-    transform_manager_.rotateObjectOY(obj, rotate.getY());
-    transform_manager_.rotateObjectOZ(obj, rotate.getZ());
+    auto obj = scene_manager_.GetScene()->getObject(model_name);
+    transform_manager_.MoveObject(obj, move.getX(), move.getY(), move.getZ());
+    transform_manager_.ScaleObject(obj, scale.getX(), scale.getY(), scale.getZ());
+    transform_manager_.RotateX(obj, rotate.getX());
+    transform_manager_.RotateY(obj, rotate.getY());
+    transform_manager_.RotateZ(obj, rotate.getZ());
 }
 
 void Controller::Draw(std::shared_ptr<BaseDrawer> drawer)
 {
-    draw_manager_->setDrawer(drawer);
-    draw_manager_->SetCamera(scene_manager_.getCurrentCamera());
-    scene_manager_.getScene()->getObject()->accept(draw_manager_);
+    draw_manager_->SetDrawer(drawer);
+    draw_manager_->SetCamera(scene_manager_.GetCurrentCamera());
+    scene_manager_.GetScene()->getObject()->accept(draw_manager_);
 }

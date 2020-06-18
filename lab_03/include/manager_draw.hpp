@@ -1,4 +1,5 @@
-#pragma once
+#ifndef MANAGER_DRAW_HPP
+#define MANAGER_DRAW_HPP
 
 #include <QGraphicsScene>
 
@@ -11,14 +12,16 @@
 class DrawManager : public BaseManager, public Visitor
 {
 public:
-    void setDrawer(std::shared_ptr<BaseDrawer> drawer);
+    void SetDrawer(std::shared_ptr<BaseDrawer> drawer);
     void SetCamera(std::shared_ptr<Camera> camera);
-    void visit(Model &model);
-    void visit(Camera &model);
-    void visit(CompositeObject &model);
+    void Visit(Model &model);
+    void Visit(Camera &model);
+    void Visit(CompositeObject &model);
 
 private:
     std::shared_ptr<BaseDrawer> drawer_;
     std::shared_ptr<Camera> camera_;
-    void proectPoint(Point<double> &point);
+    void ProjectPoint(Point<double> &point);
 };
+
+#endif

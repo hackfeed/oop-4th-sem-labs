@@ -5,7 +5,7 @@
 #include "exception_draw.hpp"
 #include "transform_matrix.h"
 
-void DrawManager::proectPoint(Point<double> &point)
+void DrawManager::ProjectPoint(Point<double> &point)
 {
     Point<double> cam_pos(camera_->getPosition());
     std::shared_ptr<matrix<double>> transform_matrix(std::make_shared<MoveMatrix>(-cam_pos.getX(), -cam_pos.getY(), 0));
@@ -28,7 +28,7 @@ void DrawManager::proectPoint(Point<double> &point)
     point.setY(point.getY() * distCoef);
 }
 
-void DrawManager::setDrawer(std::shared_ptr<BaseDrawer> drawer)
+void DrawManager::SetDrawer(std::shared_ptr<BaseDrawer> drawer)
 {
     drawer_ = drawer;
 }
@@ -38,7 +38,7 @@ void DrawManager::SetCamera(std::shared_ptr<Camera> camera)
     camera_ = camera;
 }
 
-void DrawManager::visit(Model &model)
+void DrawManager::Visit(Model &model)
 {
     time_t t_time = time(NULL);
     if (!drawer_)
@@ -55,12 +55,12 @@ void DrawManager::visit(Model &model)
 
     for (auto &line : lines)
     {
-        proectPoint(line.get_first());
-        proectPoint(line.get_second());
+        ProjectPoint(line.get_first());
+        ProjectPoint(line.get_second());
         drawer_->drawLine(line.get_first(), line.get_second());
     }
 }
 
-void DrawManager::visit(Camera &camera) {}
+void DrawManager::Visit(Camera &camera) {}
 
-void DrawManager::visit(CompositeObject &composite) {}
+void DrawManager::Visit(CompositeObject &composite) {}

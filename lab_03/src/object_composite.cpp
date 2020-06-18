@@ -28,7 +28,7 @@ void CompositeObject::transform(const std::shared_ptr<matrix<double>> matrix)
 
 void CompositeObject::accept(std::shared_ptr<Visitor> visitor)
 {
-    visitor->visit(*this);
+    visitor->Visit(*this);
 
     for (auto &obj : _scene_objects)
     {

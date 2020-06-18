@@ -56,5 +56,5 @@ void Camera::transform(const std::shared_ptr<matrix<double>> mtr)
 
 void Camera::accept(std::shared_ptr<Visitor> visitor)
 {
-    visitor->visit(*this);
+    visitor->Visit(*this);
 }

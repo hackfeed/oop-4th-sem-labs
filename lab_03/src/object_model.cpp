@@ -40,7 +40,7 @@ void Model::transform(const std::shared_ptr<matrix<double>> mtr)
 
 void Model::accept(std::shared_ptr<Visitor> visitor)
 {
-    visitor->visit(*this);
+    visitor->Visit(*this);
 }
 
 void Model::add(const Vector<Point<double>> &points)
