@@ -1,5 +1,4 @@
 #include "qt_drawer.hpp"
-
 #include "qt_canvas.hpp"
 
 void QtDrawer::drawLine(const Point<double> &p1, const Point<double> &p2)

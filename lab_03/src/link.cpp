@@ -24,6 +24,7 @@ Link &Link::operator=(const Link &link)
 {
     this->begin = link.getBegin();
     this->end = link.getEnd();
+
     return *this;
 }
 

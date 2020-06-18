@@ -23,7 +23,7 @@ public:
 
 private:
     Vector<Point<double>> points_;
-    Vector<Link> edges_;
+    Vector<Link> links_;
 };
 
 #endif

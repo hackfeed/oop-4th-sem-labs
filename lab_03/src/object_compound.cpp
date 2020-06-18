@@ -7,18 +7,18 @@ void Compound::AddPoints(const Vector<Point<double>> &points)
 
 void Compound::AddLinks(const Vector<Link> &links)
 {
-    edges_ = links;
+    links_ = links;
 }
 
 Compound::Compound(const Vector<Point<double>> &points, const Vector<Link> &links)
 {
     points_ = points;
-    edges_ = links;
+    links_ = links;
 }
 
 Vector<Link> &Compound::GetLinks()
 {
-    return edges_;
+    return links_;
 }
 
 Vector<Point<double>> &Compound::GetPoints()
@@ -37,9 +37,10 @@ void Compound::Transform(const std::shared_ptr<Matrix<double>> mtr)
 Vector<Pair<Point<double>, Point<double>>> Compound::GetLines()
 {
     Vector<Pair<Point<double>, Point<double>>> lines;
-    for (int i = 0; i < edges_.size(); i++)
+
+    for (int i = 0; i < links_.size(); i++)
     {
-        Pair<Point<double>, Point<double>> tmp(points_[edges_[i].getBegin()], points_[edges_[i].getEnd()]);
+        Pair<Point<double>, Point<double>> tmp(points_[links_[i].getBegin()], points_[links_[i].getEnd()]);
         lines.push_back(tmp);
     }
 

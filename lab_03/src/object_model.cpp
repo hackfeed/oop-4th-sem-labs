@@ -15,6 +15,7 @@ Model &Model::operator=(const Model &other)
     {
         compound_ = other.compound_;
     }
+
     return *this;
 }
 

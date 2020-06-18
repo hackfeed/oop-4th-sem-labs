@@ -1,5 +1,4 @@
 #include "object_composite.hpp"
-
 #include "iterator.hpp"
 
 bool CompositeObject::IsComposite() const
@@ -10,6 +9,7 @@ bool CompositeObject::IsComposite() const
 bool CompositeObject::Add(std::shared_ptr<SceneObject> obj)
 {
     scene_objects_.push_back(obj);
+
     return true;
 }
 
@@ -39,6 +39,7 @@ void CompositeObject::Accept(std::shared_ptr<Visitor> visitor)
 bool CompositeObject::Remove(IteratorObject &it)
 {
     scene_objects_.erase(it);
+
     return true;
 }
 

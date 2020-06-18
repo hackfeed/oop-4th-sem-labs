@@ -11,5 +11,6 @@ std::shared_ptr<Model> ModelDirector::Build(const Vector<Point<double>> &points,
 {
     builder_->BuildPoints(points);
     builder_->BuildLinks(links);
+
     return builder_->GetModel();
 }

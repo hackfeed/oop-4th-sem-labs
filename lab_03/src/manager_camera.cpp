@@ -1,6 +1,6 @@
+#include "math.h"
 #include "manager_camera.hpp"
 
-#include "math.h"
 void CameraManager::Bend(std::shared_ptr<Camera> camera, double angle)
 {
     double cur_angle = camera->GetZAng();

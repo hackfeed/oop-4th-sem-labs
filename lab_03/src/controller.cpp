@@ -1,14 +1,13 @@
 #include "controller.hpp"
-
 #include "model_builder.hpp"
 #include "loader_file.hpp"
 #include "loader_model.hpp"
-
 #include "exception_scene.hpp"
 
 std::shared_ptr<Controller> Controller::GetInstance()
 {
     static std::shared_ptr<Controller> instance_(new Controller());
+
     return instance_;
 }
 
@@ -43,19 +42,30 @@ void Controller::RemoveCamera(std::string cam_name)
     IteratorObject it = scene->GetObject()->begin();
     IteratorObject it_e = scene->GetObject()->end();
     bool flag = true;
+
     while (it != it_e && flag)
     {
         auto tmp = *it;
         if (tmp->GetName() == cam_name)
+        {
             flag = false;
+        }
         if (flag)
+        {
             ++it;
+        }
     }
+
     time_t t_time = time(NULL);
+
     if (it != it_e)
+    {
         scene->Remove(it);
+    }
     else
+    {
         throw CameraError(__FILE__, typeid(*this).name(), __LINE__, ctime(&t_time));
+    }
 }
 
 void Controller::RemoveModel(std::string model_name)
@@ -64,19 +74,30 @@ void Controller::RemoveModel(std::string model_name)
     IteratorObject it = scene->GetObject()->begin();
     IteratorObject it_e = scene->GetObject()->end();
     bool flag = true;
+
     while (it != it_e && flag)
     {
         auto tmp = *it;
         if (tmp->GetName() == model_name)
+        {
             flag = false;
+        }
         if (flag)
+        {
             ++it;
+        }
     }
+
     time_t t_time = time(NULL);
+
     if (it != it_e)
+    {
         scene->Remove(it);
+    }
     else
+    {
         throw ObjectError(__FILE__, typeid(*this).name(), __LINE__, ctime(&t_time));
+    }
 }
 
 void Controller::TransformCamera(std::string cam_name, Point<double> &move, Point<double> &rotate)

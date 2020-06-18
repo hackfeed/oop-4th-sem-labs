@@ -1,5 +1,4 @@
 #include "manager_transform.hpp"
-
 #include "matrix.hpp"
 
 void TransformManager::MoveObject(std::shared_ptr<SceneObject> obj, int dx, int dy, int dz)
