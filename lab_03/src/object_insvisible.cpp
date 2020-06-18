@@ -1,6 +1,6 @@
 #include "object_invisible.hpp"
 
-bool InvisibleObject::Visible() const
+bool InvisibleObject::IsVisible() const
 {
     return false;
 }

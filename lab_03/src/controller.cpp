@@ -46,7 +46,7 @@ void Controller::RemoveCamera(std::string cam_name)
     while (it != it_e && flag)
     {
         auto tmp = *it;
-        if (tmp->getName() == cam_name)
+        if (tmp->GetName() == cam_name)
             flag = false;
         if (flag)
             ++it;
@@ -67,7 +67,7 @@ void Controller::RemoveModel(std::string model_name)
     while (it != it_e && flag)
     {
         auto tmp = *it;
-        if (tmp->getName() == model_name)
+        if (tmp->GetName() == model_name)
             flag = false;
         if (flag)
             ++it;
@@ -102,5 +102,5 @@ void Controller::Draw(std::shared_ptr<BaseDrawer> drawer)
 {
     draw_manager_->SetDrawer(drawer);
     draw_manager_->SetCamera(scene_manager_.GetCurrentCamera());
-    scene_manager_.GetScene()->getObject()->accept(draw_manager_);
+    scene_manager_.GetScene()->getObject()->Accept(draw_manager_);
 }

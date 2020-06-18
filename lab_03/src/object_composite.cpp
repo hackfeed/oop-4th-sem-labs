@@ -2,52 +2,52 @@
 
 #include "iterator.hpp"
 
-bool CompositeObject::isComposite() const
+bool CompositeObject::IsComposite() const
 {
     return true;
 }
 
-bool CompositeObject::add(std::shared_ptr<SceneObject> obj)
+bool CompositeObject::Add(std::shared_ptr<SceneObject> obj)
 {
-    _scene_objects.push_back(obj);
+    scene_objects_.push_back(obj);
     return true;
 }
 
-bool CompositeObject::Visible() const
+bool CompositeObject::IsVisible() const
 {
     return true;
 }
 
-void CompositeObject::transform(const std::shared_ptr<Matrix<double>> Matrix)
+void CompositeObject::Transform(const std::shared_ptr<Matrix<double>> Matrix)
 {
-    for (auto &obj : _scene_objects)
+    for (auto &obj : scene_objects_)
     {
-        obj->transform(Matrix);
+        obj->Transform(Matrix);
     }
 }
 
-void CompositeObject::accept(std::shared_ptr<Visitor> visitor)
+void CompositeObject::Accept(std::shared_ptr<Visitor> visitor)
 {
     visitor->Visit(*this);
 
-    for (auto &obj : _scene_objects)
+    for (auto &obj : scene_objects_)
     {
-        obj->accept(visitor);
+        obj->Accept(visitor);
     }
 }
 
-bool CompositeObject::remove(IteratorObject &it)
+bool CompositeObject::Remove(IteratorObject &it)
 {
-    _scene_objects.erase(it);
+    scene_objects_.erase(it);
     return true;
 }
 
 IteratorObject CompositeObject::begin()
 {
-    return _scene_objects.begin();
+    return scene_objects_.begin();
 }
 
 IteratorObject CompositeObject::end()
 {
-    return _scene_objects.end();
+    return scene_objects_.end();
 }

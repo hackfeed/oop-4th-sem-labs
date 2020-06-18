@@ -23,7 +23,7 @@ public:
     void setY(T y);
     void setZ(T z);
 
-    void transform(const std::shared_ptr<Matrix<T>> mtr);
+    void Transform(const std::shared_ptr<Matrix<T>> mtr);
 
     Point &operator+=(const Point &);
     Point &operator+=(const T &);
@@ -179,7 +179,7 @@ void Point<T>::setZ(T z)
 }
 
 template <typename T>
-void Point<T>::transform(const std::shared_ptr<Matrix<T>> mtr)
+void Point<T>::Transform(const std::shared_ptr<Matrix<T>> mtr)
 {
     Vector<T> result(4, 0);
     Vector<T> data = {x_, y_, z_, 1.0};

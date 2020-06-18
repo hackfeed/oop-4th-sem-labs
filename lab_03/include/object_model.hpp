@@ -1,4 +1,5 @@
-#pragma once
+#ifndef OBJECT_MODEL_HPP
+#define OBJECT_MODEL_HPP
 
 #include "matrix.hpp"
 #include "vector.hpp"
@@ -19,13 +20,15 @@ public:
 
     Model &operator=(const Model &);
     Model &operator=(Model &&) noexcept;
-    void transform(const std::shared_ptr<Matrix<double>> mtr) override;
-    void accept(std::shared_ptr<Visitor> visitor) override;
+    void Transform(const std::shared_ptr<Matrix<double>> mtr) override;
+    void Accept(std::shared_ptr<Visitor> visitor) override;
 
-    std::shared_ptr<Compound> getMesh();
-    void add(const Vector<Point<double>> &points);
-    void add(const Vector<Link> &links);
+    std::shared_ptr<Compound> GetCompound();
+    void Add(const Vector<Point<double>> &points);
+    void Add(const Vector<Link> &links);
 
 private:
     std::shared_ptr<Compound> compound_;
 };
+
+#endif

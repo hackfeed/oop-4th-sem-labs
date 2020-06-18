@@ -1,4 +1,5 @@
-#pragma once
+#ifndef OBJECT_COMPOSITE_HPP
+#define OBJECT_COMPOSITE_HPP
 
 #include <memory>
 
@@ -10,15 +11,17 @@ class CompositeObject : public SceneObject
 public:
     CompositeObject() = default;
 
-    bool Visible() const override;
-    bool add(std::shared_ptr<SceneObject> obj) override;
-    bool remove(IteratorObject &it) override;
-    bool isComposite() const override;
+    bool Add(std::shared_ptr<SceneObject> obj) override;
+    bool Remove(IteratorObject &it) override;
+    bool IsVisible() const override;
+    bool IsComposite() const override;
     virtual IteratorObject begin() override;
     virtual IteratorObject end() override;
-    void transform(const std::shared_ptr<Matrix<double>> Matrix);
-    void accept(std::shared_ptr<Visitor> visitor);
+    void Transform(const std::shared_ptr<Matrix<double>> Matrix);
+    void Accept(std::shared_ptr<Visitor> visitor);
 
 private:
-    VectorObject _scene_objects;
+    VectorObject scene_objects_;
 };
+
+#endif

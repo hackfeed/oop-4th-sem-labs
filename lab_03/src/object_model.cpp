@@ -28,27 +28,27 @@ Model &Model::operator=(Model &&other) noexcept
     return *this;
 }
 
-std::shared_ptr<Compound> Model::getMesh()
+std::shared_ptr<Compound> Model::GetCompound()
 {
     return compound_;
 }
 
-void Model::transform(const std::shared_ptr<Matrix<double>> mtr)
+void Model::Transform(const std::shared_ptr<Matrix<double>> mtr)
 {
-    compound_->transform(mtr);
+    compound_->Transform(mtr);
 }
 
-void Model::accept(std::shared_ptr<Visitor> visitor)
+void Model::Accept(std::shared_ptr<Visitor> visitor)
 {
     visitor->Visit(*this);
 }
 
-void Model::add(const Vector<Point<double>> &points)
+void Model::Add(const Vector<Point<double>> &points)
 {
-    compound_->addPoints(points);
+    compound_->AddPoints(points);
 }
 
-void Model::add(const Vector<Link> &links)
+void Model::Add(const Vector<Link> &links)
 {
-    compound_->addEdges(links);
+    compound_->AddLinks(links);
 }

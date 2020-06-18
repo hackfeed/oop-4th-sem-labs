@@ -1,4 +1,5 @@
-#pragma once
+#ifndef OBJECT_CAMERA_HPP
+#define OBJECT_CAMERA_HPP
 
 #include "matrix.hpp"
 #include "visitor.hpp"
@@ -10,20 +11,20 @@ class Camera : public InvisibleObject
 public:
     Camera(std::string name);
 
-    const Point<double> &getPosition() const;
-    void setPosition(const Point<double> &position);
+    const Point<double> &GetPosition() const;
+    void SetPosition(const Point<double> &position);
 
-    double getXAngle() const;
-    void setXAngle(double x_angle);
+    double GetXAng() const;
+    void SetXAng(double x_angle);
 
-    double getYAngle() const;
-    void setYAngle(double y_angle);
+    double GetYAng() const;
+    void SetYAng(double y_angle);
 
-    double getZAngle() const;
-    void setZAngle(double z_angle);
+    double GetZAng() const;
+    void SetZAng(double z_angle);
 
-    void transform(const std::shared_ptr<Matrix<double>> mtr);
-    void accept(std::shared_ptr<Visitor> visitor) override;
+    void Transform(const std::shared_ptr<Matrix<double>> mtr);
+    void Accept(std::shared_ptr<Visitor> visitor) override;
 
 private:
     Point<double> position;
@@ -31,3 +32,5 @@ private:
     double y_angle;
     double z_angle;
 };
+
+#endif

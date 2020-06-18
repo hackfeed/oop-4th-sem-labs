@@ -1,6 +1,6 @@
 #include "object_visible.hpp"
 
-bool VisibleObject::Visible() const
+bool VisibleObject::IsVisible() const
 {
     return true;
 }

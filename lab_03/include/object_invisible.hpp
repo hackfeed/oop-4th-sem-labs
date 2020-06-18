@@ -1,4 +1,5 @@
-#pragma once
+#ifndef OBJECT_INVISIBLE_HPP
+#define OBJECT_INVISIBLE_HPP
 
 #include "object_scene.hpp"
 
@@ -8,5 +9,7 @@ public:
     explicit InvisibleObject() = default;
     ~InvisibleObject() = default;
 
-    bool Visible() const final;
+    bool IsVisible() const final;
 };
+
+#endif

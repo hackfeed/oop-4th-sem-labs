@@ -1,4 +1,5 @@
-#pragma once
+#ifndef OBJECT_SCENE_HPP
+#define OBJECT_SCENE_HPP
 
 #include <cstdio>
 
@@ -6,6 +7,7 @@
 #include "vector_iterator.hpp"
 #include "vector.hpp"
 #include "visitor.hpp"
+
 class SceneObject;
 
 using VectorObject = Vector<std::shared_ptr<SceneObject>>;
@@ -18,13 +20,13 @@ public:
     SceneObject(std::string name) : name_(name){};
     ~SceneObject() = default;
 
-    virtual bool Visible() const = 0;
-    virtual bool isComposite() const { return false; }
-    virtual bool add(std::shared_ptr<SceneObject> obj) { return false; }
-    virtual bool remove(IteratorObject &it) { return false; }
-    virtual void transform(std::shared_ptr<Matrix<double>> Matrix) = 0;
-    virtual void accept(std::shared_ptr<Visitor> visitor) = 0;
-    virtual std::string getName() { return name_; }
+    virtual bool IsVisible() const = 0;
+    virtual bool IsComposite() const { return false; }
+    virtual bool Add(std::shared_ptr<SceneObject> obj) { return false; }
+    virtual bool Remove(IteratorObject &it) { return false; }
+    virtual void Transform(std::shared_ptr<Matrix<double>> Matrix) = 0;
+    virtual void Accept(std::shared_ptr<Visitor> visitor) = 0;
+    virtual std::string GetName() { return name_; }
 
     virtual IteratorObject begin() { return IteratorObject(); }
     virtual IteratorObject end() { return IteratorObject(); }
@@ -32,3 +34,5 @@ public:
 protected:
     std::string name_;
 };
+
+#endif

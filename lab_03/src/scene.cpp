@@ -10,12 +10,12 @@ Scene::Scene() : object_(new CompositeObject) {}
 
 void Scene::Add(std::shared_ptr<SceneObject> object)
 {
-    object_->add(std::move(object));
+    object_->Add(std::move(object));
 }
 
 void Scene::Remove(IteratorObject &it)
 {
-    object_->remove(it);
+    object_->Remove(it);
 }
 
 std::shared_ptr<CompositeObject> Scene::getObject()
@@ -31,7 +31,7 @@ std::shared_ptr<SceneObject> Scene::getObject(std::string object)
     while (it != it_e && flag)
     {
         auto t = it.get();
-        if (it.get()->getName() == object)
+        if (it.get()->GetName() == object)
         {
             flag = false;
         }

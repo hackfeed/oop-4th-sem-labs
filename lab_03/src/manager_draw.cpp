@@ -7,15 +7,15 @@
 
 void DrawManager::ProjectPoint(Point<double> &point)
 {
-    Point<double> cam_pos(camera_->getPosition());
+    Point<double> cam_pos(camera_->GetPosition());
     std::shared_ptr<Matrix<double>> transform_matrix(std::make_shared<MoveMatrix>(-cam_pos.getX(), -cam_pos.getY(), 0));
-    point.transform(transform_matrix);
-    transform_matrix.reset(new RotateOxMatrix(-camera_->getXAngle()));
-    point.transform(transform_matrix);
-    transform_matrix.reset(new RotateOyMatrix(-camera_->getYAngle()));
-    point.transform(transform_matrix);
-    transform_matrix.reset(new RotateOzMatrix(-camera_->getZAngle()));
-    point.transform(transform_matrix);
+    point.Transform(transform_matrix);
+    transform_matrix.reset(new RotateOxMatrix(-camera_->GetXAng()));
+    point.Transform(transform_matrix);
+    transform_matrix.reset(new RotateOyMatrix(-camera_->GetYAng()));
+    point.Transform(transform_matrix);
+    transform_matrix.reset(new RotateOzMatrix(-camera_->GetZAng()));
+    point.Transform(transform_matrix);
 
     double eps = 1e-10;
     double znam = point.getZ() + cam_pos.getZ();
@@ -50,8 +50,8 @@ void DrawManager::Visit(Model &model)
         throw CameraError(__FILE__, typeid(*this).name(), __LINE__, ctime(&t_time));
     }
 
-    auto compound = model.getMesh();
-    auto lines = compound->getLines();
+    auto compound = model.GetCompound();
+    auto lines = compound->GetLines();
 
     for (auto &line : lines)
     {

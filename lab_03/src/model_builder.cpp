@@ -2,7 +2,7 @@
 
 void ModelBuilder::BuildPoints(const Vector<Point<double>> &points)
 {
-    model->add(points);
+    model->Add(points);
 }
 
 void ModelBuilder::reset(std::string name)
@@ -13,7 +13,7 @@ void ModelBuilder::reset(std::string name)
 
 void ModelBuilder::BuildLinks(const Vector<Link> &links)
 {
-    model->add(links);
+    model->Add(links);
 }
 
 std::shared_ptr<Model> ModelBuilder::GetModel()

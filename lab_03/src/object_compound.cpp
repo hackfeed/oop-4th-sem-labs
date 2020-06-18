@@ -1,45 +1,45 @@
 #include "object_compound.hpp"
 
-void Compound::addPoints(const Vector<Point<double>> &points)
+void Compound::AddPoints(const Vector<Point<double>> &points)
 {
-    _points = points;
+    points_ = points;
 }
 
-void Compound::addEdges(const Vector<Link> &links)
+void Compound::AddLinks(const Vector<Link> &links)
 {
-    _edges = links;
+    edges_ = links;
 }
 
 Compound::Compound(const Vector<Point<double>> &points, const Vector<Link> &links)
 {
-    _points = points;
-    _edges = links;
+    points_ = points;
+    edges_ = links;
 }
 
-Vector<Link> &Compound::getEdges()
+Vector<Link> &Compound::GetLinks()
 {
-    return _edges;
+    return edges_;
 }
 
-Vector<Point<double>> &Compound::getPoints()
+Vector<Point<double>> &Compound::GetPoints()
 {
-    return _points;
+    return points_;
 }
 
-void Compound::transform(const std::shared_ptr<Matrix<double>> mtr)
+void Compound::Transform(const std::shared_ptr<Matrix<double>> mtr)
 {
-    for (int i = 0; i < _points.size(); i++)
+    for (int i = 0; i < points_.size(); i++)
     {
-        _points[i].transform(mtr);
+        points_[i].Transform(mtr);
     }
 }
 
-Vector<pair<Point<double>, Point<double>>> Compound::getLines()
+Vector<pair<Point<double>, Point<double>>> Compound::GetLines()
 {
     Vector<pair<Point<double>, Point<double>>> lines;
-    for (int i = 0; i < _edges.size(); i++)
+    for (int i = 0; i < edges_.size(); i++)
     {
-        pair<Point<double>, Point<double>> tmp(_points[_edges[i].getBegin()], _points[_edges[i].getEnd()]);
+        pair<Point<double>, Point<double>> tmp(points_[edges_[i].getBegin()], points_[edges_[i].getEnd()]);
         lines.push_back(tmp);
     }
 
