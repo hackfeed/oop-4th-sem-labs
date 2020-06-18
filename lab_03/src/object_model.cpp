@@ -33,7 +33,7 @@ std::shared_ptr<Compound> Model::getMesh()
     return compound_;
 }
 
-void Model::transform(const std::shared_ptr<matrix<double>> mtr)
+void Model::transform(const std::shared_ptr<Matrix<double>> mtr)
 {
     compound_->transform(mtr);
 }

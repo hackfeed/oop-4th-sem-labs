@@ -1,6 +1,6 @@
 #include "transform_matrix.h"
 
-MoveMatrix::MoveMatrix(double x, double y, double z) : matrix<double>(4, 4, 0)
+MoveMatrix::MoveMatrix(double x, double y, double z) : Matrix<double>(4, 4, 0)
 {
     (*this)[0][0] = 1;
     (*this)[1][1] = 1;
@@ -11,7 +11,7 @@ MoveMatrix::MoveMatrix(double x, double y, double z) : matrix<double>(4, 4, 0)
     (*this)[2][3] = z;
 }
 
-ScaleMatrix::ScaleMatrix(double x, double y, double z) : matrix<double>(4, 4, 0)
+ScaleMatrix::ScaleMatrix(double x, double y, double z) : Matrix<double>(4, 4, 0)
 {
     (*this)[0][0] = x;
     (*this)[1][1] = y;
@@ -19,7 +19,7 @@ ScaleMatrix::ScaleMatrix(double x, double y, double z) : matrix<double>(4, 4, 0)
     (*this)[3][3] = 1;
 }
 
-RotateOxMatrix::RotateOxMatrix(double angle) : matrix<double>(4, 4, 0)
+RotateOxMatrix::RotateOxMatrix(double angle) : Matrix<double>(4, 4, 0)
 {
     (*this)[0][0] = 1;
     (*this)[1][1] = cos(angle);
@@ -29,7 +29,7 @@ RotateOxMatrix::RotateOxMatrix(double angle) : matrix<double>(4, 4, 0)
     (*this)[3][3] = 1;
 }
 
-RotateOyMatrix::RotateOyMatrix(double angle) : matrix<double>(4, 4, 0)
+RotateOyMatrix::RotateOyMatrix(double angle) : Matrix<double>(4, 4, 0)
 {
     (*this)[0][0] = cos(angle);
     (*this)[1][1] = 1;
@@ -39,7 +39,7 @@ RotateOyMatrix::RotateOyMatrix(double angle) : matrix<double>(4, 4, 0)
     (*this)[3][3] = 1;
 }
 
-RotateOzMatrix::RotateOzMatrix(double angle) : matrix<double>(4, 4, 0)
+RotateOzMatrix::RotateOzMatrix(double angle) : Matrix<double>(4, 4, 0)
 {
     (*this)[0][0] = cos(angle);
     (*this)[0][1] = -sin(angle);

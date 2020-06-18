@@ -1,4 +1,5 @@
-#pragma once
+#ifndef MATRIX_BASE_HPP
+#define MATRIX_BASE_HPP
 
 #include <cstddef>
 #include <ctime>
@@ -11,10 +12,10 @@
 template <class T>
 class MatrixBase
 {
-    class proxy
+    class Proxy
     {
     public:
-        proxy(size_t, T *);
+        Proxy(size_t, T *);
 
         T &at(size_t);
         const T &at(size_t) const;
@@ -42,10 +43,10 @@ public:
     MatrixBase &operator=(MatrixBase &&);
     MatrixBase &operator=(std::initializer_list<T>);
 
-    proxy at(size_t);
-    const proxy at(size_t) const;
-    proxy operator[](size_t);
-    const proxy operator[](size_t) const;
+    Proxy at(size_t);
+    const Proxy at(size_t) const;
+    Proxy operator[](size_t);
+    const Proxy operator[](size_t) const;
 
     iterator begin();
     const_iterator cbegin() const;
@@ -90,26 +91,12 @@ protected:
 };
 
 template <class T>
-MatrixBase<T>::proxy::proxy(size_t col_count, T *data) : col_count(col_count), data(data)
+MatrixBase<T>::Proxy::Proxy(size_t col_count, T *data) : col_count(col_count), data(data)
 {
 }
 
 template <class T>
-T &MatrixBase<T>::proxy::at(size_t index)
-{
-    if (index < this->col_count)
-    {
-        return *(this->data + index);
-    }
-    else
-    {
-        time_t t_time(NULL);
-        throw RangeError(__FILE__, typeid(*this).name(), __LINE__, ctime(&t_time));
-    }
-}
-
-template <class T>
-const T &MatrixBase<T>::proxy::at(size_t index) const
+T &MatrixBase<T>::Proxy::at(size_t index)
 {
     if (index < this->col_count)
     {
@@ -123,7 +110,21 @@ const T &MatrixBase<T>::proxy::at(size_t index) const
 }
 
 template <class T>
-T &MatrixBase<T>::proxy::operator[](size_t index)
+const T &MatrixBase<T>::Proxy::at(size_t index) const
+{
+    if (index < this->col_count)
+    {
+        return *(this->data + index);
+    }
+    else
+    {
+        time_t t_time(NULL);
+        throw RangeError(__FILE__, typeid(*this).name(), __LINE__, ctime(&t_time));
+    }
+}
+
+template <class T>
+T &MatrixBase<T>::Proxy::operator[](size_t index)
 {
     if (index < this->col_count)
     {
@@ -137,7 +138,7 @@ T &MatrixBase<T>::proxy::operator[](size_t index)
 }
 
 template <class T>
-const T &MatrixBase<T>::proxy::operator[](size_t index) const
+const T &MatrixBase<T>::Proxy::operator[](size_t index) const
 {
     if (index < this->col_count)
     {
@@ -321,11 +322,11 @@ MatrixBase<T> &MatrixBase<T>::operator=(std::initializer_list<T> lst)
 }
 
 template <class T>
-typename MatrixBase<T>::proxy MatrixBase<T>::at(size_t index)
+typename MatrixBase<T>::Proxy MatrixBase<T>::at(size_t index)
 {
     if (index < this->row_count)
     {
-        return proxy(this->col_count, this->_data + this->col_count * index);
+        return Proxy(this->col_count, this->_data + this->col_count * index);
     }
     else
     {
@@ -335,11 +336,11 @@ typename MatrixBase<T>::proxy MatrixBase<T>::at(size_t index)
 }
 
 template <class T>
-const typename MatrixBase<T>::proxy MatrixBase<T>::at(size_t index) const
+const typename MatrixBase<T>::Proxy MatrixBase<T>::at(size_t index) const
 {
     if (index < this->row_count)
     {
-        return proxy(this->col_count, this->_data + this->col_count * index);
+        return Proxy(this->col_count, this->_data + this->col_count * index);
     }
     else
     {
@@ -349,11 +350,11 @@ const typename MatrixBase<T>::proxy MatrixBase<T>::at(size_t index) const
 }
 
 template <class T>
-typename MatrixBase<T>::proxy MatrixBase<T>::operator[](size_t index)
+typename MatrixBase<T>::Proxy MatrixBase<T>::operator[](size_t index)
 {
     if (index < this->row_count)
     {
-        return proxy(this->col_count, this->_data + this->col_count * index);
+        return Proxy(this->col_count, this->_data + this->col_count * index);
     }
     else
     {
@@ -363,11 +364,11 @@ typename MatrixBase<T>::proxy MatrixBase<T>::operator[](size_t index)
 }
 
 template <class T>
-const typename MatrixBase<T>::proxy MatrixBase<T>::operator[](size_t index) const
+const typename MatrixBase<T>::Proxy MatrixBase<T>::operator[](size_t index) const
 {
     if (index < this->row_count)
     {
-        return proxy(this->col_count, this->_data + this->col_count * index);
+        return Proxy(this->col_count, this->_data + this->col_count * index);
     }
     else
     {
@@ -543,3 +544,5 @@ std::ostream &operator<<(std::ostream &stream, const MatrixBase<T> &mtx)
 
     return stream;
 }
+
+#endif

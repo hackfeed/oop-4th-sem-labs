@@ -18,11 +18,11 @@ bool CompositeObject::Visible() const
     return true;
 }
 
-void CompositeObject::transform(const std::shared_ptr<matrix<double>> matrix)
+void CompositeObject::transform(const std::shared_ptr<Matrix<double>> Matrix)
 {
     for (auto &obj : _scene_objects)
     {
-        obj->transform(matrix);
+        obj->transform(Matrix);
     }
 }
 

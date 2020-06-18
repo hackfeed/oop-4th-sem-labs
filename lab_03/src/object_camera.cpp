@@ -49,7 +49,7 @@ double Camera::getZAngle() const
     return z_angle;
 }
 
-void Camera::transform(const std::shared_ptr<matrix<double>> mtr)
+void Camera::transform(const std::shared_ptr<Matrix<double>> mtr)
 {
     position.transform(mtr);
 }

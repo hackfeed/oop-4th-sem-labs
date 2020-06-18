@@ -8,7 +8,7 @@
 void DrawManager::ProjectPoint(Point<double> &point)
 {
     Point<double> cam_pos(camera_->getPosition());
-    std::shared_ptr<matrix<double>> transform_matrix(std::make_shared<MoveMatrix>(-cam_pos.getX(), -cam_pos.getY(), 0));
+    std::shared_ptr<Matrix<double>> transform_matrix(std::make_shared<MoveMatrix>(-cam_pos.getX(), -cam_pos.getY(), 0));
     point.transform(transform_matrix);
     transform_matrix.reset(new RotateOxMatrix(-camera_->getXAngle()));
     point.transform(transform_matrix);

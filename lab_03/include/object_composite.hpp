@@ -16,7 +16,7 @@ public:
     bool isComposite() const override;
     virtual IteratorObject begin() override;
     virtual IteratorObject end() override;
-    void transform(const std::shared_ptr<matrix<double>> matrix);
+    void transform(const std::shared_ptr<Matrix<double>> Matrix);
     void accept(std::shared_ptr<Visitor> visitor);
 
 private:

@@ -4,31 +4,31 @@
 
 #include "matrix.hpp"
 
-class MoveMatrix : public matrix<double>
+class MoveMatrix : public Matrix<double>
 {
 public:
     MoveMatrix(double x, double y, double z);
 };
 
-class ScaleMatrix : public matrix<double>
+class ScaleMatrix : public Matrix<double>
 {
 public:
     ScaleMatrix(double x, double y, double z);
 };
 
-class RotateOxMatrix : public matrix<double>
+class RotateOxMatrix : public Matrix<double>
 {
 public:
     RotateOxMatrix(double angle);
 };
 
-class RotateOyMatrix : public matrix<double>
+class RotateOyMatrix : public Matrix<double>
 {
 public:
     RotateOyMatrix(double angle);
 };
 
-class RotateOzMatrix : public matrix<double>
+class RotateOzMatrix : public Matrix<double>
 {
 public:
     RotateOzMatrix(double angle);

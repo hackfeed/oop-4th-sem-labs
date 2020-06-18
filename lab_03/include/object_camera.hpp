@@ -22,7 +22,7 @@ public:
     double getZAngle() const;
     void setZAngle(double z_angle);
 
-    void transform(const std::shared_ptr<matrix<double>> mtr);
+    void transform(const std::shared_ptr<Matrix<double>> mtr);
     void accept(std::shared_ptr<Visitor> visitor) override;
 
 private:

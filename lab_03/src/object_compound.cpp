@@ -26,7 +26,7 @@ Vector<Point<double>> &Compound::getPoints()
     return _points;
 }
 
-void Compound::transform(const std::shared_ptr<matrix<double>> mtr)
+void Compound::transform(const std::shared_ptr<Matrix<double>> mtr)
 {
     for (int i = 0; i < _points.size(); i++)
     {

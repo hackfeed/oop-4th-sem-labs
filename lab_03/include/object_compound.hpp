@@ -16,7 +16,7 @@ public:
     void addEdges(const Vector<Link> &edges);
     Vector<Link> &getEdges();
     Vector<Point<double>> &getPoints();
-    void transform(const std::shared_ptr<matrix<double>> mtr);
+    void transform(const std::shared_ptr<Matrix<double>> mtr);
     Vector<pair<Point<double>, Point<double>>> getLines();
 
 private:

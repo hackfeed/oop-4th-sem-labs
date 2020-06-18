@@ -19,7 +19,7 @@ public:
 
     Model &operator=(const Model &);
     Model &operator=(Model &&) noexcept;
-    void transform(const std::shared_ptr<matrix<double>> mtr) override;
+    void transform(const std::shared_ptr<Matrix<double>> mtr) override;
     void accept(std::shared_ptr<Visitor> visitor) override;
 
     std::shared_ptr<Compound> getMesh();

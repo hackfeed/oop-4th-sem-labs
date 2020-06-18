@@ -22,7 +22,7 @@ public:
     virtual bool isComposite() const { return false; }
     virtual bool add(std::shared_ptr<SceneObject> obj) { return false; }
     virtual bool remove(IteratorObject &it) { return false; }
-    virtual void transform(std::shared_ptr<matrix<double>> matrix) = 0;
+    virtual void transform(std::shared_ptr<Matrix<double>> Matrix) = 0;
     virtual void accept(std::shared_ptr<Visitor> visitor) = 0;
     virtual std::string getName() { return name_; }
 
