@@ -14,36 +14,36 @@ Link::Link(const size_t begin, const size_t end)
 
 Link::Link(const Link &link)
 {
-    this->begin = link.getBegin();
-    this->end = link.getEnd();
+    this->begin = link.GetBegin();
+    this->end = link.GetEnd();
 }
 
 Link::~Link() {}
 
 Link &Link::operator=(const Link &link)
 {
-    this->begin = link.getBegin();
-    this->end = link.getEnd();
+    this->begin = link.GetBegin();
+    this->end = link.GetEnd();
 
     return *this;
 }
 
-size_t Link::getBegin() const
+size_t Link::GetBegin() const
 {
     return begin;
 }
 
-size_t Link::getEnd() const
+size_t Link::GetEnd() const
 {
     return end;
 }
 
-void Link::setBegin(size_t begin)
+void Link::SetBegin(size_t begin)
 {
     this->begin = begin;
 }
 
-void Link::setEnd(size_t end)
+void Link::SetEnd(size_t end)
 {
     this->end = end;
 }

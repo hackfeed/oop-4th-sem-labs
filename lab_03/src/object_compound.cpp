@@ -40,7 +40,7 @@ Vector<Pair<Point<double>, Point<double>>> Compound::GetLines()
 
     for (int i = 0; i < links_.size(); i++)
     {
-        Pair<Point<double>, Point<double>> tmp(points_[links_[i].getBegin()], points_[links_[i].getEnd()]);
+        Pair<Point<double>, Point<double>> tmp(points_[links_[i].GetBegin()], points_[links_[i].GetEnd()]);
         lines.push_back(tmp);
     }
 

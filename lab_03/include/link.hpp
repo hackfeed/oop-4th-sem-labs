@@ -14,11 +14,11 @@ public:
 
     Link &operator=(const Link &link);
 
-    size_t getBegin() const;
-    size_t getEnd() const;
+    size_t GetBegin() const;
+    size_t GetEnd() const;
 
-    void setBegin(size_t begin);
-    void setEnd(size_t end);
+    void SetBegin(size_t begin);
+    void SetEnd(size_t end);
 
 private:
     size_t begin;
@@ -29,8 +29,8 @@ inline std::istream &operator>>(std::istream &is, Link &link)
 {
     size_t p1, p2;
     is >> p1 >> p2;
-    link.setBegin(p1);
-    link.setEnd(p2);
+    link.SetBegin(p1);
+    link.SetEnd(p2);
 
     return is;
 }
