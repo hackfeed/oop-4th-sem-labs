@@ -1,4 +1,5 @@
-#pragma once
+#ifndef FACADE_HPP
+#define FACADE_HPP
 
 #include "command_base.hpp"
 #include "commands.hpp"
@@ -11,8 +12,10 @@ public:
     Facade();
     ~Facade();
 
-    void ExecuteCommand(std::shared_ptr<BaseCommand> command);
+    void RunCommand(std::shared_ptr<BaseCommand> command);
 
 private:
-    std::shared_ptr<Controller> _controller;
+    std::shared_ptr<Controller> controller_;
 };
+
+#endif

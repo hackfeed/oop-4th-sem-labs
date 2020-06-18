@@ -37,7 +37,7 @@ void MainWindow::render()
     }
 
     std::shared_ptr<BaseCommand> command(new DrawCommand(drawer));
-    facade_viewer->ExecuteCommand(command);
+    facade_viewer->RunCommand(command);
 
     ui->graphicsView->setScene(this->scene_view.get());
 }
@@ -48,12 +48,12 @@ void MainWindow::on_pushButton_AddCamera_clicked()
     try
     {
         std::shared_ptr<BaseCommand> command(new AddCameraCommand(cam_name));
-        facade_viewer->ExecuteCommand(command);
+        facade_viewer->RunCommand(command);
         ui->comboBoxCamera->addItem(cam_name.c_str());
         if (ui->comboBoxCamera->count() == 1)
         {
             std::shared_ptr<BaseCommand> command(new SetCameraCommand(cam_name));
-            facade_viewer->ExecuteCommand(command);
+            facade_viewer->RunCommand(command);
             if (ui->comboBoxModel->count() > 0)
                 render();
         }
@@ -78,7 +78,7 @@ void MainWindow::on_pushButton_AddModel_clicked()
     try
     {
         std::shared_ptr<BaseCommand> command(new AddModelCommand(model_name, file_name));
-        facade_viewer->ExecuteCommand(command);
+        facade_viewer->RunCommand(command);
         render();
         ui->comboBoxModel->addItem(model_name.c_str());
     }
@@ -94,7 +94,7 @@ void MainWindow::on_pushButton_SetCamera_clicked()
     try
     {
         std::shared_ptr<BaseCommand> command(new SetCameraCommand(cam_name));
-        facade_viewer->ExecuteCommand(command);
+        facade_viewer->RunCommand(command);
 
         if (ui->comboBoxCamera->count() > 0)
             render();
@@ -122,7 +122,7 @@ void MainWindow::on_pushButton_moveModel_clicked()
         Point<double> rotateing(0, 0, 0);
         Point<double> scale(1, 1, 1);
         std::shared_ptr<BaseCommand> command(new TransformModelCommand(obj_name, moving, scale, rotateing));
-        facade_viewer->ExecuteCommand(command);
+        facade_viewer->RunCommand(command);
     }
     catch (DefaultException &ex)
     {
@@ -148,7 +148,7 @@ void MainWindow::on_pushButton_scaleModel_clicked()
         Point<double> rotateing(0, 0, 0);
         Point<double> scale(x, y, z);
         std::shared_ptr<BaseCommand> command(new TransformModelCommand(obj_name, moving, scale, rotateing));
-        facade_viewer->ExecuteCommand(command);
+        facade_viewer->RunCommand(command);
     }
     catch (DefaultException &ex)
     {
@@ -174,7 +174,7 @@ void MainWindow::on_pushButton_rotateModel_clicked()
         Point<double> rotateing(x, y, z);
         Point<double> scale(1, 1, 1);
         std::shared_ptr<BaseCommand> command(new TransformModelCommand(obj_name, moving, scale, rotateing));
-        facade_viewer->ExecuteCommand(command);
+        facade_viewer->RunCommand(command);
     }
     catch (DefaultException &ex)
     {
@@ -213,7 +213,7 @@ void MainWindow::on_pushButton_moveCamera_clicked()
         Point<double> moving(x, y, z);
         Point<double> rotateing(0, 0, 0);
         std::shared_ptr<BaseCommand> command(new TransformCameraCommand(cam_name, moving, rotateing));
-        facade_viewer->ExecuteCommand(command);
+        facade_viewer->RunCommand(command);
     }
     catch (DefaultException &ex)
     {
@@ -238,7 +238,7 @@ void MainWindow::on_pushButton_rotateCamera_clicked()
         Point<double> moving(0, 0, 0);
         Point<double> rotateing(angle_x, angle_y, angle_z);
         std::shared_ptr<BaseCommand> command(new TransformCameraCommand(cam_name, moving, rotateing));
-        facade_viewer->ExecuteCommand(command);
+        facade_viewer->RunCommand(command);
     }
     catch (DefaultException &ex)
     {
@@ -257,7 +257,7 @@ void MainWindow::on_pushButton_RemoveCamera_clicked()
     {
         std::string cam_name = ui->comboBoxCamera->currentText().toStdString();
         std::shared_ptr<BaseCommand> command(new RemoveCameraCommand(cam_name));
-        facade_viewer->ExecuteCommand(command);
+        facade_viewer->RunCommand(command);
         ui->comboBoxCamera->removeItem(ui->comboBoxCamera->currentIndex());
         if (ui->comboBoxCamera->count() == 0)
         {
@@ -283,7 +283,7 @@ void MainWindow::on_pushButton_RemoveModel_clicked()
     {
         std::string model_name = ui->comboBoxModel->currentText().toStdString();
         std::shared_ptr<BaseCommand> command(new RemoveModelCommand(model_name));
-        facade_viewer->ExecuteCommand(command);
+        facade_viewer->RunCommand(command);
         ui->comboBoxModel->removeItem(ui->comboBoxModel->currentIndex());
         if (ui->comboBoxCamera->count() == 0)
         {

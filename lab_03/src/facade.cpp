@@ -1,13 +1,13 @@
 #include "facade.hpp"
 
-Facade::Facade() : _controller(Controller::GetInstance()) {}
+Facade::Facade() : controller_(Controller::GetInstance()) {}
 
 Facade::~Facade()
 {
-    _controller.reset();
+    controller_.reset();
 }
 
-void Facade::ExecuteCommand(std::shared_ptr<BaseCommand> command)
+void Facade::RunCommand(std::shared_ptr<BaseCommand> command)
 {
-    command->Run(_controller);
+    command->Run(controller_);
 }
