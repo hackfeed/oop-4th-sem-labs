@@ -75,17 +75,17 @@ Vector<Link> FileLoader::ReadLinks()
         throw ReadStreamError(__FILE__, typeid(*this).name(), __LINE__, ctime(&t_time));
     }
 
-    size_t n_edges = 0;
-    file_ >> n_edges;
+    size_t n_links = 0;
+    file_ >> n_links;
 
-    if (n_edges < 1)
+    if (n_links < 1)
     {
         throw FileFormatError(__FILE__, typeid(*this).name(), __LINE__, ctime(&t_time));
     }
 
-    Vector<Link> links(n_edges, Link());
+    Vector<Link> links(n_links, Link());
 
-    for (size_t i = 0; i < n_edges; ++i)
+    for (size_t i = 0; i < n_links; ++i)
     {
         if (!(file_ >> links[i]))
         {
