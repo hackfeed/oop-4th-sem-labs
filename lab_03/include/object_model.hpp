@@ -25,6 +25,7 @@ public:
 
     std::shared_ptr<Compound> GetCompound();
     void Add(const Vector<Point<double>> &points);
+    // без сужения и расширения базового класса
     void Add(const Vector<Link> &links);
 
 private:

@@ -6,6 +6,7 @@
 #include "object_invisible.hpp"
 #include "point.hpp"
 
+// Свести к базовомоу классу
 class Camera : public InvisibleObject
 {
 public:
