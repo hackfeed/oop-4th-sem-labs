@@ -12,7 +12,7 @@ public:
     CompositeObject() = default;
 
     bool Add(std::shared_ptr<SceneObject> obj) override;
-    bool Remove(IteratorObject &it) override;
+    bool Remove(IteratorObject &iter) override;
     bool IsVisible() const override;
     bool IsComposite() const override;
     virtual IteratorObject begin() override;

@@ -36,9 +36,9 @@ void CompositeObject::Accept(std::shared_ptr<Visitor> visitor)
     }
 }
 
-bool CompositeObject::Remove(IteratorObject &it)
+bool CompositeObject::Remove(IteratorObject &iter)
 {
-    scene_objects_.erase(it);
+    scene_objects_.erase(iter);
 
     return true;
 }

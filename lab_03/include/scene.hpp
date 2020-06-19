@@ -11,7 +11,7 @@ public:
     Scene();
 
     void Add(std::shared_ptr<SceneObject> object);
-    void Remove(IteratorObject &it);
+    void Remove(IteratorObject &iter);
     std::shared_ptr<SceneObject> GetObject(std::string object);
     std::shared_ptr<CompositeObject> GetObject();
 

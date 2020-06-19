@@ -36,7 +36,7 @@ public:
 
     void clean() override;
     void push_back(const T &value);
-    void erase(iterator &it);
+    void erase(iterator &iter);
     size_t size() const override;
     T &operator[](int index);
     const T &operator[](int index) const;
@@ -130,12 +130,12 @@ void Vector<T>::resize()
 }
 
 template <typename T>
-void Vector<T>::erase(iterator &it)
+void Vector<T>::erase(iterator &iter)
 {
     time_t t_time = time(NULL);
-    if (it > end())
+    if (iter > end())
         throw RangeError(__FILE__, typeid(*this).name(), __LINE__, ctime(&t_time));
-    for (auto i = it; i != end() - 1; ++i)
+    for (auto i = iter; i != end() - 1; ++i)
         *i = *(i + 1);
     this->size_--;
 }

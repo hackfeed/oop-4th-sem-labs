@@ -11,9 +11,9 @@ void Scene::Add(std::shared_ptr<SceneObject> object)
     object_->Add(std::move(object));
 }
 
-void Scene::Remove(IteratorObject &it)
+void Scene::Remove(IteratorObject &iter)
 {
-    object_->Remove(it);
+    object_->Remove(iter);
 }
 
 std::shared_ptr<CompositeObject> Scene::GetObject()
@@ -23,20 +23,20 @@ std::shared_ptr<CompositeObject> Scene::GetObject()
 
 std::shared_ptr<SceneObject> Scene::GetObject(std::string object)
 {
-    auto it = object_->begin();
-    auto it_e = object_->end();
+    auto iter = object_->begin();
+    auto iter_end = object_->end();
     bool flag = true;
 
-    while (it != it_e && flag)
+    while (iter != iter_end && flag)
     {
-        auto t = it.get();
-        if (it.get()->GetName() == object)
+        auto t = iter.get();
+        if (iter.get()->GetName() == object)
         {
             flag = false;
         }
         if (flag)
         {
-            ++it;
+            ++iter;
         }
     }
 
@@ -46,5 +46,5 @@ std::shared_ptr<SceneObject> Scene::GetObject(std::string object)
         throw ObjectError(__FILE__, typeid(*this).name(), __LINE__, ctime(&t_time));
     }
 
-    return it.get();
+    return iter.get();
 }

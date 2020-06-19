@@ -42,28 +42,28 @@ void Controller::SetCamera(std::string cam_name)
 void Controller::RemoveCamera(std::string cam_name)
 {
     auto scene = scene_manager_.GetScene();
-    IteratorObject it = scene->GetObject()->begin();
-    IteratorObject it_e = scene->GetObject()->end();
+    IteratorObject iter = scene->GetObject()->begin();
+    IteratorObject iter_end = scene->GetObject()->end();
     bool flag = true;
 
-    while (it != it_e && flag)
+    while (iter != iter_end && flag)
     {
-        auto tmp = *it;
+        auto tmp = *iter;
         if (tmp->GetName() == cam_name)
         {
             flag = false;
         }
         if (flag)
         {
-            ++it;
+            ++iter;
         }
     }
 
     time_t t_time = time(NULL);
 
-    if (it != it_e)
+    if (iter != iter_end)
     {
-        scene->Remove(it);
+        scene->Remove(iter);
     }
     else
     {
@@ -74,28 +74,28 @@ void Controller::RemoveCamera(std::string cam_name)
 void Controller::RemoveModel(std::string model_name)
 {
     auto scene = scene_manager_.GetScene();
-    IteratorObject it = scene->GetObject()->begin();
-    IteratorObject it_e = scene->GetObject()->end();
+    IteratorObject iter = scene->GetObject()->begin();
+    IteratorObject iter_end = scene->GetObject()->end();
     bool flag = true;
 
-    while (it != it_e && flag)
+    while (iter != iter_end && flag)
     {
-        auto tmp = *it;
+        auto tmp = *iter;
         if (tmp->GetName() == model_name)
         {
             flag = false;
         }
         if (flag)
         {
-            ++it;
+            ++iter;
         }
     }
 
     time_t t_time = time(NULL);
 
-    if (it != it_e)
+    if (iter != iter_end)
     {
-        scene->Remove(it);
+        scene->Remove(iter);
     }
     else
     {
