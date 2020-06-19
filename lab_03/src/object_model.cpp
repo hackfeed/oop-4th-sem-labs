@@ -1,13 +1,13 @@
 #include "object_model.hpp"
 
+Model::Model(const Model &other) : VisibleObject(), compound_(other.compound_) {}
+
+Model::Model(Model &&other) noexcept : compound_(other.compound_) {}
+
 Model::Model(std::string name) : compound_(std::make_shared<Compound>())
 {
     this->name_ = name;
 }
-
-Model::Model(const Model &other) : VisibleObject(), compound_(other.compound_) {}
-
-Model::Model(Model &&other) noexcept : compound_(other.compound_) {}
 
 Model &Model::operator=(const Model &other)
 {
