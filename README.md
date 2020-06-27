@@ -11,4 +11,4 @@
 * [@TheSawIsTheLaw](https://github.com/thesawisthelaw)
 * [@SpectralOne](https://github.com/spectralone)
 * [@teopalmer](https://github.com/teopalmer)
-* [@LyubaxaPri](https://github.com/lyubaxapro)
+* [@LyubaxaPro](https://github.com/lyubaxapro)
